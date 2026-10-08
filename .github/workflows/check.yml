@@ -1,0 +1,21 @@
+name: Check the atlas
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate site/data/atlas.json
+        run: python3 bin/orrery check
+      - name: Test the split into the public atlas and the private overlay
+        run: python3 tools/test_layers.py

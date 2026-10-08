@@ -1,6 +1,8 @@
-# Wildspace Orrery
+# The Great Wheel
 
-A 3D map of Realmspace, the crystal sphere of the Forgotten Realms, and of the other crystal spheres of Spelljammer. Open it at <https://becomingstronger.github.io/wildspace-orrery/>.
+A 3D map of the D&D multiverse. It starts with the Prime Material Plane: Realmspace, the crystal sphere of the Forgotten Realms, and the other crystal spheres of Spelljammer. Open it at <https://baestheorem.github.io/the-great-wheel/>.
+
+The [roadmap](ROADMAP.md) adds the rest of the Great Wheel: the Ethereal and Astral planes, the Inner Planes, the Outer Planes and the planes beyond them.
 
 It shows Realmspace in full, with the bodies from *Realmspace* (TSR, 1991): the sun, the eight planets, their moons, the Tears of Selûne, Comet K'Thoutek, the Skull of the Void and more. They move on their orbits for the date that you choose on the Calendar of Harptos.
 
@@ -16,21 +18,27 @@ A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston
 - Share copies a link to the current view, date and edition.
 - Add `?embed` to the address to put the map in a page of your own. The map then waits for a click before it takes the mouse wheel, and the page can scroll past it.
 
-## Run it and edit it
+## Edit the map
 
-The site is static: `site/` is the full website, with no build step. To edit the map, run the editor server (Python 3.9 or newer, no packages needed):
+There are two ways to edit. The published website has no edit mode.
+
+### On GitHub
+
+Edit `site/data/atlas.json` in the GitHub web editor (the pencil icon), or send a pull request. A check runs on each push and each pull request. When a change to `main` passes the check, GitHub Pages publishes it in approximately a minute. A change that fails the check does not go live.
+
+### With the local editor
+
+The site is static: `site/` is the full website, with no build step. To edit the map on your computer, run the editor server (Python 3.9 or newer, no packages needed):
 
 ```sh
 bin/orrery serve --open
 ```
 
-Click Edit in the top bar. On the phlogiston map, the edit bar adds spheres and currents. In each view, Body adds a planet, moon, asteroid field, ring, comet, nebula, structure, ship, dead-magic zone, portal, floating island or dead god. Select an item and click Edit in its panel to change it or delete it. Save writes the atlas, and Publish commits and pushes it, after which GitHub Pages rebuilds the site.
-
-Without the server, add `?edit` to the address. Your edits then stay in the browser until you download the atlas.
+The server first pulls the latest changes from GitHub, so edits made on GitHub show in the editor. Click Edit in the top bar. On the phlogiston map, the edit bar adds spheres and currents. In each view, Body adds a planet, moon, asteroid field, ring, comet, nebula, structure, ship, dead-magic zone, portal, floating island or dead god. Select an item and click Edit in its panel to change it or delete it. Save writes the atlas, and Publish commits and pushes it.
 
 ### DM notes and secrets
 
-Each item has DM notes, DM links and a Secret switch. When the folder `private/` exists, the editor keeps the full atlas in `private/atlas.json` and writes a public copy to `site/data/atlas.json`. The public copy has no DM notes, no DM links and no secret items. Git ignores `private/`, so you can make it a private repository of its own for your campaign. Without `private/`, `site/data/atlas.json` is the only atlas.
+Each item has DM notes, DM links and a Secret switch. They do not go into the public atlas. When the folder `private/` exists, the editor keeps them in `private/overlay.json`, which holds only private data: the notes, keyed by item, and the secret items. The editor joins the overlay with the public atlas when it loads, and splits the two again on each save. Thus an edit on GitHub and an edit in the editor never overwrite each other's data. Git ignores `private/`, so you can make it a private repository of its own for your campaign.
 
 ## The data
 
@@ -44,12 +52,14 @@ Sphere positions on the phlogiston map follow the known currents and groups. The
 
 | Command | What it does |
 | --- | --- |
-| `bin/orrery serve [--port 5027] [--open]` | Runs the map with edit mode on this computer only |
+| `bin/orrery serve [--port 5027] [--open]` | Pulls from GitHub, then runs the map with edit mode on this computer only |
 | `bin/orrery check` | Checks the atlas for missing parents, unknown kinds, bad ids and bad currents |
 | `bin/orrery fmt` | Writes the atlas files in a stable format |
-| `bin/orrery deploy [--no-push] [-m MSG]` | Writes the public atlas, then commits and pushes this repo and `private/` |
+| `bin/orrery deploy [--no-push] [-m MSG]` | Commits and pushes this repo and `private/`, the same as the Publish button |
 | `bin/orrery new-sphere ID --name NAME [--pos X,Y,Z]` | Adds an empty sphere |
 | `tools/smoke.py [--shots DIR] [--tour]` | Opens each view in headless Chromium and fails on a page error (needs Playwright) |
+| `tools/test_layers.py` | Tests the split into the public atlas and the private overlay |
+| `tools/make-app.sh` | Builds a macOS app that starts the local editor with a double-click |
 | `tools/assets/fetch_models.py`, `tools/assets/build_models.py` | Downloads the source models, then makes the web models with headless Blender |
 
 ## Add a sphere from a sourcebook

@@ -1,12 +1,11 @@
-// Edit mode: forms to add and change spheres, currents and bodies, then save the atlas.
-// With the local editor server (bin/orrery serve) a save writes site/data/atlas.json and Publish
-// puts the page on the website. Without it (?edit on any copy) edits stay in this browser until
-// you download the file.
+// Edit mode: forms to add and change spheres, currents and bodies, then save the atlas. It works
+// only with the local editor server (bin/orrery serve): a save writes the public atlas and the
+// private overlay, and Publish commits and pushes them. The published website has no edit mode;
+// to edit there, change site/data/atlas.json on GitHub.
 import { KINDS, ELEMENTS, SHAPES, SIZE_CLASSES, SIZE_HELP, EDITIONS, BETWEEN_KINDS, uniqueId } from "./atlas.js";
 import { esc, toast, confirmDialog } from "./ui.js";
 import * as H from "./harptos.js";
 
-const DRAFT = "wildspace-orrery-draft";
 const MODELS = [
   ["", "None (drawn from the kind and shape)"],
   ["assets/models/skull.glb", "Skull"],
@@ -189,11 +188,9 @@ export class Editor {
       const r = await fetch("api/status", { cache: "no-store" });
       if (r.ok) { const j = await r.json(); this.server = !!j.edit; this.siteUrl = j.site_url; }
     } catch { /* a static copy: no editor server */ }
-    this.allowed = this.server || new URLSearchParams(location.search).has("edit");
+    this.allowed = this.server;
     return this.allowed;
   }
-
-  draft() { try { return localStorage.getItem(DRAFT); } catch { return null; } }
 
   renderBar() {
     const bar = document.getElementById("editbar");
@@ -206,9 +203,9 @@ export class Editor {
       <button class="circle transparent" data-ed="settings" title="Settings"><i>settings</i></button>
       <button class="circle transparent" data-ed="undo" title="Undo" ${this.history.length ? "" : "disabled"}><i>undo</i></button>
       <button class="circle transparent" data-ed="download" title="Download atlas.json"><i>download</i></button>
-      <span class="status">${this.dirty ? "Unsaved changes" : this.server ? "All changes saved" : "Draft in this browser"}</span>
+      <span class="status">${this.dirty ? "Unsaved changes" : "All changes saved"}</span>
       <button data-ed="save" ${this.dirty ? "" : "disabled"}><i>save</i><span>Save</span></button>
-      ${this.server ? `<button class="border" data-ed="publish"><i>publish</i><span>Publish</span></button>` : ""}`;
+      <button class="border" data-ed="publish"><i>publish</i><span>Publish</span></button>`;
     bar.onclick = (e) => {
       const b = e.target.closest("[data-ed]");
       if (!b || b.disabled) return;
@@ -240,7 +237,6 @@ export class Editor {
 
   markDirty() {
     this.dirty = true;
-    if (!this.server) try { localStorage.setItem(DRAFT, this.app.state.atlas.text()); } catch { /* storage full or blocked */ }
     this.renderBar();
   }
 
@@ -350,7 +346,7 @@ export class Editor {
       onApply: (o) => {
         const year = Number(o._year) || 1492;
         const doy = String(o._month).startsWith("f:") ? H.doyOf(year, String(o._month).slice(2)) : H.doyOf(year, Number(o._month), Math.min(30, Math.max(1, Number(o._day) || 1)));
-        atlas.data.title = o.title || "Wildspace Orrery";
+        atlas.data.title = o.title || "The Great Wheel";
         atlas.data.campaign = { ...(atlas.data.campaign || {}), date: { year, doy }, home: o.home || undefined };
         this.app.state.day = this.app.campaignDay();
         return null;
@@ -432,25 +428,18 @@ export class Editor {
     const atlas = this.app.state.atlas;
     const errs = atlas.validate();
     if (errs.length) { toast(`Not saved: ${esc(errs[0].where)}: ${esc(errs[0].msg)}`, 6000); return; }
-    if (!this.server) {
-      try { localStorage.setItem(DRAFT, atlas.text()); } catch { /* ignore */ }
-      this.dirty = false;
-      this.renderBar();
-      toast("Saved in this browser. Use Download to keep a copy.");
-      return;
-    }
     const r = await fetch("api/atlas", { method: "PUT", headers: { "Content-Type": "application/json" }, body: atlas.text() });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) { toast(`Not saved: ${esc(j.error || r.status)}`, 7000); return; }
     this.dirty = false;
     this.renderBar();
-    toast("Saved to site/data/atlas.json");
+    toast("Saved: the public atlas and the private overlay");
   }
 
   async publish() {
     if (this.dirty) await this.save();
     if (this.dirty) return;
-    if (!(await confirmDialog("Publish to the website?", "This copies the orrery to becomingstronger.github.io and pushes it. DM notes and secret items stay out of the published copy.", "Publish"))) return;
+    if (!(await confirmDialog("Publish?", "This commits and pushes the public atlas to GitHub, and the private overlay to its own repo. GitHub Pages then rebuilds the website. DM notes and secret items stay out of the public atlas.", "Publish"))) return;
     toast("Publishing…", 20000);
     const r = await fetch("api/publish", { method: "POST" });
     const j = await r.json().catch(() => ({}));

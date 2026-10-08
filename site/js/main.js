@@ -1,4 +1,4 @@
-// Wildspace Orrery: boot, state, camera, routing and the frame loop. The views draw the scene,
+// The Great Wheel: boot, state, camera, routing and the frame loop. The views draw the scene,
 // ui.js draws the HTML, editor.js changes the atlas.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -50,11 +50,7 @@ class App {
       scale: "schematic", layers: { orbits: true, labels: true, minor: true, boundary: true, stars: true }, edit: false, panel: null,
     };
     this.state.day = this.campaignDay();
-    if (this.editor.allowed) {
-      document.body.classList.add("can-edit");
-      const draft = !this.editor.server && this.editor.draft();
-      if (draft) { try { this.replaceAtlas(JSON.parse(draft)); toast("Loaded the draft saved in this browser."); } catch { /* bad draft: ignore */ } }
-    }
+    if (this.editor.allowed) document.body.classList.add("can-edit");
     this.bind();
     addEventListener("resize", () => this.resize());
     addEventListener("hashchange", () => { if (!this.writingHash) this.route(); });
@@ -291,8 +287,8 @@ class App {
       crumbs.push(`<span class="cur">${esc(name)}</span>`);
     } else crumbs[0] = `<span class="cur">${esc(betweenName)}</span>`;
     $("#crumbs").innerHTML = crumbs.map((c) => `<i>chevron_right</i>${c}`).join("");
-    $("#brand").textContent = a.data.title || "Wildspace Orrery";
-    document.title = `${a.data.title || "Wildspace Orrery"}`;
+    $("#brand").textContent = a.data.title || "The Great Wheel";
+    document.title = `${a.data.title || "The Great Wheel"}`;
 
     for (const s of document.querySelectorAll("[data-edition]")) s.classList.toggle("on", s.dataset.edition === ed);
     for (const t of document.querySelectorAll("#tiles a")) {
@@ -491,7 +487,7 @@ class App {
     document.body.classList.toggle("editing", on);
     this.viewDirty = true;
     await this.rebuild();
-    if (on) { this.editor.renderBar(); toast(this.editor.server ? "Edit mode. Save writes data/atlas.json." : "Edit mode (browser draft). Download to keep your changes."); }
+    if (on) { this.editor.renderBar(); toast("Edit mode. Save writes the public atlas and the private overlay."); }
   }
 
   editSelected() {

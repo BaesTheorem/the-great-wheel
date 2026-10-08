@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Wildspace Orrery: the local editor server, a data check, and the publish step.
+"""The Great Wheel: the local editor server, a data check, and the publish step.
 
-  orrery serve [--port 5027] [--open]   run the orrery with edit mode at http://127.0.0.1:5027/
+  orrery serve [--port 5027] [--open]   run the map with edit mode at http://127.0.0.1:5027/
   orrery check                          validate the atlas
-  orrery deploy [--no-push] [-m MSG]    commit and push the public site (GitHub Pages builds it)
-                                        and the private layer
+  orrery deploy [--no-push] [-m MSG]    commit and push the public repo (GitHub Pages builds the
+                                        site from it) and the private layer
   orrery new-sphere ID --name NAME [--pos X,Y,Z]
                                         add an empty, uncharted sphere to the atlas
   orrery fmt                            rewrite the atlas files in a stable format
 
-Two atlas files. private/atlas.json is the full atlas, with DM notes, DM links and secret items;
-it is not in the public repo (private/ can be its own private git repo). site/data/atlas.json is
-the public copy that the website loads: every "dm" note and "dm_links" list is removed, and so is
-every sphere, body, current or group marked "secret" (with whatever orbits a removed body).
-Without private/atlas.json, the public file is the full atlas. Settings are in orrery.json.
+The public atlas, site/data/atlas.json, is the one source of truth for everything public, so it can
+be edited on GitHub or with this editor. DM notes, DM links and secret items live in a separate
+overlay, private/overlay.json, which is not in the public repo (private/ can be its own private git
+repo). The editor joins the two when it loads and splits them again on every save, so an edit on
+GitHub and an edit here never overwrite each other's data. Settings are in orrery.json.
 """
 from __future__ import annotations
 
@@ -30,7 +30,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 ATLAS = SITE / "data" / "atlas.json"
 PRIVATE_DIR = ROOT / "private"
-PRIVATE = PRIVATE_DIR / "atlas.json"
+OVERLAY = PRIVATE_DIR / "overlay.json"
+NOTE_FIELDS = ("dm", "dm_links")
 CONFIG = ROOT / "orrery.json"
 
 KINDS = {"star", "planet", "moon", "asteroid", "asteroid-field", "ring", "comet", "nebula", "structure", "ship",
@@ -43,17 +44,127 @@ def config() -> dict:
 
 
 def load_full() -> dict:
-    """The full atlas: the private file when it exists, else the public one."""
-    return json.loads((PRIVATE if PRIVATE.exists() else ATLAS).read_text())
+    """The full atlas: the public atlas with the private overlay joined in."""
+    public = json.loads(ATLAS.read_text())
+    overlay = json.loads(OVERLAY.read_text()) if OVERLAY.exists() else None
+    return join(public, overlay) if overlay else public
 
 
 def save_full(d: dict) -> None:
-    """Write the full atlas to the private file (when private/ exists) and the public copy."""
+    """Split the full atlas into the public atlas and, when private/ exists, the overlay."""
+    public, overlay = split(d)
     if PRIVATE_DIR.exists():
-        write_atomic(PRIVATE, dump(d))
-        write_atomic(ATLAS, dump(public_copy(d)))
+        write_atomic(OVERLAY, dump(overlay))
+        write_atomic(ATLAS, dump(public))
     else:
         write_atomic(ATLAS, dump(d))
+
+
+# ---------- the private overlay ----------
+# Notes are keyed by item: "sphere:ID", "body:SPHERE/ID", "between:ID", "flow:ID", "region:ID".
+# Secret items are stored whole, with the list they belong to: "spheres", "flows", "regions",
+# "between/bodies" or "sphere:ID/bodies".
+def split(full: dict) -> tuple[dict, dict]:
+    """Return (public atlas, overlay) for a full atlas."""
+    d = json.loads(json.dumps(full))
+    notes: dict[str, dict] = {}
+    secret: list[dict] = []
+
+    def take_notes(key: str, o: dict) -> None:
+        got = {f: o.pop(f) for f in NOTE_FIELDS if f in o}
+        if got:
+            notes[key] = got
+
+    def cut_bodies(bodies: list, where: str, key_of) -> list:
+        gone = {b["id"] for b in bodies if b.get("secret")}
+        grew = True
+        while grew:  # whatever orbits a secret body is secret too
+            grew = False
+            for b in bodies:
+                if b.get("parent") in gone and b["id"] not in gone:
+                    gone.add(b["id"])
+                    grew = True
+        keep = []
+        for b in bodies:
+            if b["id"] in gone:
+                secret.append({"list": where, "item": b})
+            else:
+                take_notes(key_of(b), b)
+                keep.append(b)
+        return keep
+
+    secret_regions = {g["id"] for g in d.get("regions", []) if g.get("secret")}
+    secret_spheres = {s["id"] for s in d.get("spheres", []) if s.get("secret")}
+    spheres = []
+    for s in d.get("spheres", []):
+        if s["id"] in secret_spheres:
+            secret.append({"list": "spheres", "item": s})
+            continue
+        s["bodies"] = cut_bodies(s.get("bodies", []), f"sphere:{s['id']}/bodies", lambda b, sid=s["id"]: f"body:{sid}/{b['id']}")
+        take_notes(f"sphere:{s['id']}", s)
+        if s.get("region") in secret_regions:
+            notes.setdefault(f"sphere:{s['id']}", {})["region"] = s.pop("region")
+        spheres.append(s)
+    d["spheres"] = spheres
+    if d.get("between"):
+        d["between"]["bodies"] = cut_bodies(d["between"].get("bodies", []), "between/bodies", lambda b: f"between:{b['id']}")
+    flows = []
+    for f in d.get("flows", []):
+        if f.get("secret") or f.get("from") in secret_spheres or f.get("to") in secret_spheres:
+            secret.append({"list": "flows", "item": f})
+        else:
+            take_notes(f"flow:{f['id']}", f)
+            flows.append(f)
+    d["flows"] = flows
+    regions = []
+    for g in d.get("regions", []):
+        if g.get("secret"):
+            secret.append({"list": "regions", "item": g})
+        else:
+            take_notes(f"region:{g['id']}", g)
+            regions.append(g)
+    d["regions"] = regions
+    return d, {"format": 1, "notes": notes, "secret": secret}
+
+
+def join(public: dict, overlay: dict) -> dict:
+    """Return the full atlas: the public atlas with the overlay's notes and secret items added."""
+    d = json.loads(json.dumps(public))
+    spheres = {s["id"]: s for s in d.get("spheres", [])}
+    for item in [x for x in overlay.get("secret", []) if x.get("list") == "spheres"]:
+        d.setdefault("spheres", []).append(item["item"])
+        spheres[item["item"]["id"]] = item["item"]
+    for x in overlay.get("secret", []):
+        where, item = x.get("list", ""), x.get("item")
+        if where == "spheres":
+            continue
+        if where in ("flows", "regions"):
+            d.setdefault(where, []).append(item)
+        elif where == "between/bodies":
+            d.setdefault("between", {}).setdefault("bodies", []).append(item)
+        elif where.startswith("sphere:") and where.endswith("/bodies"):
+            s = spheres.get(where[len("sphere:"):-len("/bodies")])
+            if s is not None:  # the sphere was deleted on GitHub: its secret bodies go with it
+                s.setdefault("bodies", []).append(item)
+    index: dict[str, dict] = {}
+    for s in d.get("spheres", []):
+        index[f"sphere:{s['id']}"] = s
+        for b in s.get("bodies", []):
+            index[f"body:{s['id']}/{b['id']}"] = b
+    for b in (d.get("between") or {}).get("bodies", []):
+        index[f"between:{b['id']}"] = b
+    for f in d.get("flows", []):
+        index[f"flow:{f['id']}"] = f
+    for g in d.get("regions", []):
+        index[f"region:{g['id']}"] = g
+    for key, fields in overlay.get("notes", {}).items():
+        if key in index:  # an item deleted on GitHub loses its notes
+            index[key].update(fields)
+    return d
+
+
+def public_copy(d: dict) -> dict:
+    return split(d)[0]
 
 
 def write_atomic(path: Path, text: str) -> None:
@@ -147,48 +258,6 @@ def num(v) -> float:
     return v if isinstance(v, (int, float)) and not isinstance(v, bool) else 0
 
 
-# ---------- the public copy ----------
-def public_copy(d: dict) -> dict:
-    d = json.loads(json.dumps(d))
-
-    def strip(o):
-        if isinstance(o, dict):
-            o.pop("dm", None)
-            o.pop("dm_links", None)
-            for v in o.values():
-                strip(v)
-        elif isinstance(o, list):
-            o[:] = [v for v in o if not (isinstance(v, dict) and v.get("private"))]
-            for v in o:
-                strip(v)
-
-    def keep_bodies(bodies: list) -> list:
-        gone = {b["id"] for b in bodies if b.get("secret")}
-        grew = True
-        while grew:
-            grew = False
-            for b in bodies:
-                if b.get("parent") in gone and b["id"] not in gone:
-                    gone.add(b["id"])
-                    grew = True
-        return [b for b in bodies if b["id"] not in gone]
-
-    d["spheres"] = [s for s in d.get("spheres", []) if not s.get("secret")]
-    for s in d["spheres"]:
-        s["bodies"] = keep_bodies(s.get("bodies", []))
-    if d.get("between"):
-        d["between"]["bodies"] = keep_bodies(d["between"].get("bodies", []))
-    ids = {s["id"] for s in d["spheres"]}
-    d["flows"] = [f for f in d.get("flows", []) if not f.get("secret") and f.get("from") in ids and f.get("to") in ids]
-    d["regions"] = [g for g in d.get("regions", []) if not g.get("secret")]
-    gids = {g["id"] for g in d["regions"]}
-    for s in d["spheres"]:
-        if s.get("region") and s["region"] not in gids:
-            s.pop("region")
-    strip(d)
-    return d
-
-
 def dump(d: dict) -> str:
     return json.dumps(d, ensure_ascii=False, indent=2) + "\n"
 
@@ -214,7 +283,8 @@ def commit_and_push(repo: Path, paths: list[str], message: str, push: bool, log:
     r = git(repo, "pull", "--rebase", "--autostash")
     if r.returncode != 0:
         git(repo, "rebase", "--abort")
-        raise RuntimeError(f"{repo.name}: pull --rebase failed: {r.stderr.strip()[:300]}")
+        raise RuntimeError(f"{repo.name}: GitHub has newer edits that conflict with yours. Your commit is saved locally; "
+                           f"merge it by hand (git pull --rebase) and publish again. Details: {r.stderr.strip()[:300]}")
     r = git(repo, "push")
     if r.returncode != 0:
         raise RuntimeError(f"{repo.name}: push failed: {r.stderr.strip()[:300]}")
@@ -261,7 +331,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         p = urlparse(self.path).path
         if p == "/api/status":
-            return self.send_json(200, {"edit": True, "site_url": config()["site_url"], "private": PRIVATE.exists()})
+            return self.send_json(200, {"edit": True, "site_url": config()["site_url"], "private": OVERLAY.exists()})
         if p == "/api/atlas":
             return self.send_json(200, load_full())
         return super().do_GET()
@@ -292,10 +362,25 @@ class Handler(SimpleHTTPRequestHandler):
         return self.send_json(200, {"ok": True, "url": url, "log": log})
 
 
+def sync_from_github() -> None:
+    """Fast-forward both repos to GitHub, so edits made on GitHub show in the editor. A repo with
+    changes that are not published yet stays as it is."""
+    for repo in (ROOT, PRIVATE_DIR):
+        if not (repo / ".git").exists() or not git(repo, "remote").stdout.strip():
+            continue
+        if git(repo, "status", "--porcelain").stdout.strip():
+            print(f"{repo.name}: local changes not published yet, so no pull from GitHub")
+            continue
+        r = git(repo, "pull", "--ff-only")
+        line = (r.stdout.strip() or r.stderr.strip()).splitlines()
+        print(f"{repo.name}: {line[-1] if line else 'up to date'}")
+
+
 def serve(port: int, open_browser: bool) -> None:
+    sync_from_github()
     httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     url = f"http://127.0.0.1:{port}/?edit#/"
-    print(f"Wildspace Orrery editor: {url}  (Ctrl-C to stop)")
+    print(f"The Great Wheel editor: {url}  (Ctrl-C to stop)")
     if open_browser:
         webbrowser.open(url)
     try:
