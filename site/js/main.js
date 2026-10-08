@@ -30,7 +30,7 @@ class App {
     this.camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.01, 6000);
     this.controls = new OrbitControls(this.camera, $("#c"));
     Object.assign(this.controls, { enableDamping: !this.reducedMotion, dampingFactor: 0.08, rotateSpeed: 0.55, zoomSpeed: 0.9, minDistance: 0.08 });
-    this.controls.addEventListener("start", () => { if (this.fly) this.fly = null; this.idleSpin = false; });
+    this.controls.addEventListener("start", () => { if (this.fly) this.fly = null; });
     if (EMBED) {
       document.body.classList.add("embed");
       this.controls.enabled = false;
@@ -143,6 +143,7 @@ class App {
     await this.view.build(id);
     this.viewDirty = false;
     this.labels.clear();
+    this.applyLayers();
     this.frame(true);
     $("#loading").classList.remove("on");
     this.renderChrome();
@@ -189,7 +190,6 @@ class App {
       this.controls.maxDistance = Math.max(d * 2.5, this.view.mapRadius() * 3.2);
       // a three-quarter view from above, so the spheres' depth shows from the first frame
       this.flyTo(c, c.clone().add(new THREE.Vector3(0.38, 0.34, 0.86).normalize().multiplyScalar(d)), instant);
-      this.idleSpin = !this.reducedMotion;
     }
   }
 
@@ -218,11 +218,13 @@ class App {
     const field = node?.fieldOf && node.parent;
     let target = w;
     if (field) target = this.view.fieldAnchor(id) || w;
-    const dist = (b?.kind === "star" ? r * 16 : b?.kind === "nebula" ? 6 : field ? node.parent.r * 2.6 : Math.max(r * 6.5, 0.12)) * portrait;
+    const dist = (b?.kind === "star" ? r * 16 : b?.kind === "black-hole" ? node.extent * 2.1 : b?.kind === "nebula" ? 6 : field ? node.parent.r * 2.6 : Math.max(r * 6.5, 0.12)) * portrait;
     const cur = this.camera.position.clone().sub(this.controls.target).normalize();
     const sun = target.clone().negate().normalize();
-    let dir = target.lengthSq() > 1e-6 && b?.kind !== "star" ? sun.clone().multiplyScalar(0.8).add(cur.multiplyScalar(0.35)).normalize() : cur;
+    let dir = target.lengthSq() > 1e-6 && b?.kind !== "star" && b?.kind !== "black-hole" ? sun.clone().multiplyScalar(0.8).add(cur.multiplyScalar(0.35)).normalize() : cur;
     if (b?.shape === "disc") dir = new THREE.Vector3().crossVectors(sun, new THREE.Vector3(0, 1, 0)).normalize().multiplyScalar(0.85).add(sun.multiplyScalar(0.45)).normalize();
+    // a black hole reads best from just above its disk, where the far side of the disk bends over the top
+    if (b?.kind === "black-hole") dir = new THREE.Vector3(cur.x, 0, cur.z).normalize().multiplyScalar(0.985).add(new THREE.Vector3(0, 0.17, 0)).normalize();
     dir.y = Math.max(dir.y, 0.22);
     dir.normalize();
     this.view.facePin?.(id, dir);
@@ -234,7 +236,6 @@ class App {
   select(sel, opts = {}) {
     const st = this.state;
     st.selected = sel;
-    if (sel) this.idleSpin = false;
     if (sel && st.view === "sphere" && sel.type === "body") { sel.sphere = st.sphereId; if (opts.fly !== false) this.focusBody(sel.id, opts.instant); }
     if (sel && st.view === "between" && opts.fly !== false) {
       const it = this.view.items.find((i) => i.type === sel.type && i.id === sel.id);
@@ -383,6 +384,7 @@ class App {
       if (r === "info") st.panel === "info" ? this.closePanel() : this.openPanel("info");
       else if (r === "layers") st.panel === "layers" ? this.closePanel() : this.openPanel("layers");
       else if (r === "in" || r === "out") this.zoom(r === "in" ? 0.7 : 1.45);
+      else if (r === "orbits") this.setLayer("orbits", !st.layers.orbits);
       else if (r === "scale") { st.scale = st.scale === "schematic" ? "true" : "schematic"; toast(st.scale === "true" ? "True distances" : "Schematic scale"); this.viewDirty = true; this.rebuild(); }
       else if (r === "full") document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
     };
@@ -427,6 +429,7 @@ class App {
       if (e.key === " ") { e.preventDefault(); st.playing = !st.playing; renderTime(this); }
       else if (e.key === "Escape") { if (st.panel) this.closePanel(); else if (st.selected) { st.selected = null; this.writeHash(); this.renderChrome(); } }
       else if (e.key === "/") { e.preventDefault(); $("#search input").focus(); }
+      else if ((e.key === "o" || e.key === "O") && st.view === "sphere") this.setLayer("orbits", !st.layers.orbits);
     });
   }
 
@@ -527,8 +530,16 @@ class App {
   goSphere(id) { location.hash = `#/${encodeURIComponent(id)}`; }
   goBody(sid, bid) { location.hash = `#/${encodeURIComponent(sid)}/${encodeURIComponent(bid)}`; }
 
+  setLayer(key, on) {
+    this.state.layers[key] = on;
+    this.applyLayers();
+    if (this.state.panel === "layers") this.renderPanel();
+    toast(key === "orbits" ? (on ? "Orbits on" : "Orbits off") : on ? "On" : "Off", 1400);
+  }
+
   applyLayers() {
     const L = this.state.layers;
+    document.body.classList.toggle("orbits-off", !L.orbits);
     document.body.classList.toggle("no-labels", !L.labels);
     if (this.state.view === "sphere") {
       for (const n of this.view.order) if (n.orbit) n.orbit.holder.visible = L.orbits;
@@ -576,9 +587,6 @@ class App {
         const w = this.view.bodyWorld(this.track);
         if (w) { const d = w.clone().sub(this.controls.target); this.camera.position.add(d); this.controls.target.add(d); }
       }
-      // the phlogiston map turns slowly until the first drag or click, to show its depth
-      this.controls.autoRotate = !!(this.idleSpin && st.view === "between" && !this.fly && !st.selected && (!document.body.classList.contains("embed") || this.active));
-      this.controls.autoRotateSpeed = 0.35;
       this.controls.update(dt);
       this.view?.render(this.renderer, this.camera);
       this.labels.update(st.layers.labels ? this.visibleLabels() : [], this.camera);

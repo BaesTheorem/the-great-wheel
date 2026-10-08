@@ -2753,7 +2753,7 @@
     {
       "id": "dead-shell",
       "name": "The Dead Shell",
-      "charted": false,
+      "charted": true,
       "map": {
         "pos": [
           12.2,
@@ -2766,8 +2766,21 @@
         "2e": "shell",
         "5e": "haze"
       },
-      "summary": "A cold, dark sphere whose primary is a black hole a few miles across, ringed by reddish gas. The Juna, an ancient precursor race, possibly lived here.",
-      "facts": [],
+      "summary": "A cold, dark sphere whose primary is a black hole, ringed by reddish gas. The only other light comes from a few stars on the inside of the shell. The Juna, an ancient precursor race, possibly lived here.",
+      "facts": [
+        [
+          "Primary",
+          "A black hole a few miles across"
+        ],
+        [
+          "Worlds",
+          "2 voidworlds and an asteroid base"
+        ],
+        [
+          "Light",
+          "A few stars and the red glow of the gas ring"
+        ]
+      ],
       "sources": [
         {
           "title": "SJA2 Skull & Crossbows",
@@ -2779,7 +2792,250 @@
         "2e",
         "5e"
       ],
-      "bodies": []
+      "bodies": [
+        {
+          "id": "black-hole",
+          "name": "The black hole",
+          "kind": "black-hole",
+          "parent": null,
+          "look": {
+            "color": "#ff6a3a",
+            "disk": {
+              "inner": 3,
+              "outer": 10,
+              "reach": 13,
+              "tilt_deg": 6,
+              "hot": "#fff1d6",
+              "cool": "#8a1606",
+              "glow": 3.2,
+              "light": "#ff6a3a",
+              "light_power": 2.2
+            }
+          },
+          "summary": "A black hole only a few miles across, with the mass of a sun several times larger than Realmspace's. A ring of gas glows a sullen red around it. The map draws it far larger than the book does, at the scale of a supermassive black hole, so that its shadow and the bending of light show.",
+          "facts": [
+            [
+              "Diameter",
+              "Several miles"
+            ],
+            [
+              "Mass",
+              "A sun several times larger than Realmspace's"
+            ],
+            [
+              "Ring",
+              "Gas that glows a sullen red"
+            ],
+            [
+              "On the map",
+              "Drawn far larger than its true size"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJA2 Skull & Crossbows",
+              "pages": "46"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/The_Dead_Shell#Black_hole_(primary)",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "planet-1",
+          "name": "Planet 1",
+          "kind": "planet",
+          "parent": "black-hole",
+          "element": "earth",
+          "shape": "sphere",
+          "size_class": "G",
+          "orbit": {
+            "radius_mi": 650000000.0,
+            "period_days": 3377,
+            "phase_deg": 40,
+            "incl_deg": 2.5,
+            "approx": true
+          },
+          "look": {
+            "color": "#a9b6c9"
+          },
+          "summary": "A voidworld with no air, water or life. It is so old that its mountains have collapsed under their own weight, and its surface is flat, featureless and very cold. Rings of ice circle it.",
+          "facts": [
+            [
+              "Type",
+              "Spherical earth body (voidworld)"
+            ],
+            [
+              "Size",
+              "G"
+            ],
+            [
+              "Rings",
+              "Ice"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJA2 Skull & Crossbows",
+              "pages": "46"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/The_Dead_Shell#Planet_1",
+          "dm": "The book gives no orbit sizes or periods. The map uses Kepler's law around a mass of four suns.",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "planet-1-rings",
+          "name": "Rings of Planet 1",
+          "kind": "ring",
+          "parent": "planet-1",
+          "ring": {
+            "inner": 1.5,
+            "outer": 2.5,
+            "tilt_deg": 14
+          },
+          "look": {
+            "color": "#dfeaff",
+            "texture": "assets/textures/2k_saturn_ring_alpha.png"
+          },
+          "summary": "Rings of ice around Planet 1.",
+          "sources": [
+            {
+              "title": "SJA2 Skull & Crossbows",
+              "pages": "46"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/The_Dead_Shell#Planet_1",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "planet-2",
+          "name": "Planet 2",
+          "kind": "planet",
+          "parent": "black-hole",
+          "element": "earth",
+          "shape": "sphere",
+          "size_class": "G",
+          "orbit": {
+            "radius_mi": 1150000000.0,
+            "period_days": 7946,
+            "phase_deg": 215,
+            "incl_deg": -3.0,
+            "approx": true
+          },
+          "look": {
+            "color": "#a9b6c9"
+          },
+          "summary": "A voidworld with no air, water or life. It is so old that its mountains have collapsed under their own weight, and its surface is flat, featureless and very cold. Rings of ice circle it.",
+          "facts": [
+            [
+              "Type",
+              "Spherical earth body (voidworld)"
+            ],
+            [
+              "Size",
+              "G"
+            ],
+            [
+              "Rings",
+              "Ice"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJA2 Skull & Crossbows",
+              "pages": "46"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/The_Dead_Shell#Planet_2",
+          "dm": "The book gives no orbit sizes or periods. The map uses Kepler's law around a mass of four suns.",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "planet-2-rings",
+          "name": "Rings of Planet 2",
+          "kind": "ring",
+          "parent": "planet-2",
+          "ring": {
+            "inner": 1.5,
+            "outer": 2.5,
+            "tilt_deg": 22
+          },
+          "look": {
+            "color": "#dfeaff",
+            "texture": "assets/textures/2k_saturn_ring_alpha.png"
+          },
+          "summary": "Rings of ice around Planet 2.",
+          "sources": [
+            {
+              "title": "SJA2 Skull & Crossbows",
+              "pages": "46"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/The_Dead_Shell#Planet_2",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "outpost",
+          "name": "The Outpost",
+          "kind": "asteroid",
+          "parent": "black-hole",
+          "shape": "irregular",
+          "size_class": "A",
+          "orbit": {
+            "radius_mi": 430000000.0,
+            "period_days": 1817,
+            "phase_deg": 300,
+            "incl_deg": 6,
+            "approx": true
+          },
+          "look": {
+            "color": "#8f8a84"
+          },
+          "summary": "An asteroid base, possibly built by the Juna.",
+          "facts": [
+            [
+              "Type",
+              "Asteroid base"
+            ],
+            [
+              "Size",
+              "A"
+            ],
+            [
+              "Builders",
+              "Possibly the Juna"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJA2 Skull & Crossbows",
+              "pages": "46-50"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Outpost,_The_(The_Dead_Shell)",
+          "dm": "The book gives no orbit sizes or periods. The map uses Kepler's law around a mass of four suns.",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        }
+      ],
+      "stars": 160
     },
     {
       "id": "chronos",

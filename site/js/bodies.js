@@ -5,6 +5,7 @@
 import * as THREE from "three";
 import { bodyTexture, radialTex, sprite, points, rng, gauss, hashStr, TAU, canvasTex, loadImage, srgb } from "./gfx.js";
 import { modelClone, meshParts, ROCKS, ROCKS_LO, studioEnv } from "./models.js";
+import { BlackHole } from "./blackhole.js";
 
 const glow = (stops) => radialTex(stops, 256);
 const ringTexCache = new Map();
@@ -53,7 +54,24 @@ export async function buildBody(b, r, renderer) {
     group.add(sprite(glow([[0, "rgba(255,252,246,1)"], [0.1, c(1, 0.9)], [0.3, c(1, 0.32)], [0.6, c(0.9, 0.08)], [1, c(0.8, 0)]]), r * 11));
     group.add(sprite(glow([[0, c(1, 0.22)], [0.35, c(1, 0.06)], [1, "rgba(0,0,0,0)"]]), r * 36));
     group.add(new THREE.PointLight(0xfff3e4, 3.4, 0, 0));
-    node.spin = TAU / 25;
+    if (b.day_hours > 0) node.spin = TAU / (b.day_hours / 24);  // Realmspace's sun: a 37-hour day
+    node.noTumble = true;
+    return node;
+  }
+
+  if (b.kind === "black-hole") {
+    const disk = b.look?.disk || {};
+    const phone = innerWidth < 760;
+    const bh = new BlackHole({ rs: r, reach: disk.reach ?? 13, disk, tilt: ((disk.tilt_deg ?? 18) * Math.PI) / 180, steps: phone ? 90 : 150 });
+    group.add(bh.mesh);
+    // the glowing ring is the only light in its sphere: a dim, red light for the worlds around it
+    group.add(new THREE.PointLight(new THREE.Color(disk.light || "#ff6a3a"), disk.light_power ?? 2.2, 0, 0));
+    node.bh = bh;
+    node.mesh = bh.mesh;
+    node.extent = r * (disk.reach ?? 13);
+    node.labelR = r * 2.7;   // the apparent edge of the shadow
+    node.noSpin = true;
+    node.update = ({ world, camera, view, t }) => bh.update(camera, view.scene, view.app.renderer, world, view.R, t, view.app.state.playing);
     return node;
   }
 

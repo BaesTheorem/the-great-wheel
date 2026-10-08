@@ -6,7 +6,9 @@ The [roadmap](ROADMAP.md) adds the rest of the Great Wheel: the Ethereal and Ast
 
 It shows Realmspace in full, with the bodies from *Realmspace* (TSR, 1991): the sun, the eight planets, their moons, the Tears of Selûne, Comet K'Thoutek, the Skull of the Void and more. They move on their orbits for the date that you choose on the Calendar of Harptos.
 
-Between the spheres is the phlogiston, with all 50 crystal spheres that published D&D material names. The map shows the currents and travel times that the books give, and three groups: the Known Spheres, the Arcane Inner Flow and the Vodoni Empire. So far, only Realmspace has its worlds on the map.
+The Dead Shell is charted too: its primary is a black hole, ray-traced so that light bends around it.
+
+Between the spheres is the phlogiston, with all 50 crystal spheres that published D&D material names. The map shows the currents and travel times that the books give, and three groups: the Known Spheres, the Arcane Inner Flow and the Vodoni Empire. So far, Realmspace and the Dead Shell have their worlds on the map.
 
 A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston) to 5e (wildspace systems in the silver Astral Sea). Each item gives the book and the pages for its facts. Each item also links to its page on the Forgotten Realms Wiki or the Spelljammer Wiki.
 
@@ -15,6 +17,7 @@ A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston
 - Drag to turn the view. Scroll or pinch to zoom. Click a sphere, body, current or group to see its information.
 - The View tiles: World flies to the selected world, Sphere shows the full sphere, and Phlogiston (Astral Sea in 5e) shows the map between the spheres. On that map, double-click a sphere to go into it.
 - The time bar moves the orbits forward or back. Campaign date returns to the date in Settings.
+- Inside a sphere, the orbit button on the right (or the O key) turns the orbit lines off and on.
 - Share copies a link to the current view, date and edition.
 - Add `?embed` to the address to put the map in a page of your own. The map then waits for a click before it takes the mouse wheel, and the page can scroll past it.
 

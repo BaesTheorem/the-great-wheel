@@ -26,6 +26,7 @@ VIEWS = [
     ("world", "#/realmspace/toril", 1440, 900, 1),
     ("edit", "?edit#/realmspace/glyth", 1440, 900, 1),
     ("phone", "#/realmspace/toril", 390, 844, 2),
+    ("black-hole", "#/dead-shell/black-hole", 1280, 800, 1),
 ]
 
 

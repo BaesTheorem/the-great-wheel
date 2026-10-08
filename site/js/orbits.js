@@ -88,6 +88,7 @@ const KIND_R = { asteroid: 0.06, structure: 0.08, ship: 0.06, comet: 0.06, porta
 export function drawRadius(b, isSatellite) {
   let r = SIZE_R[b.size_class] ?? KIND_R[b.kind] ?? 0.3;
   if (b.kind === "star" && !b.size_class) r = 0.62;
+  if (b.kind === "black-hole") r = 0.55;
   if (isSatellite) r *= 0.6;
   return r * (b.look?.scale || 1);
 }

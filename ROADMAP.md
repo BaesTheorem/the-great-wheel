@@ -8,6 +8,7 @@ The plane list below follows the [Great Wheel cosmology](https://forgottenrealms
 
 - [x] Realmspace, charted from *Realmspace* (TSR, 1991): the sun, 8 planets, their moons and rings, the Tears of Selûne, the sargassos, Comet K'Thoutek, the Skull of the Void, Caer Windlauer and 2 nebulae
 - [x] Orbits on the Calendar of Harptos, with a time control
+- [x] The Dead Shell, from *SJA2 Skull & Crossbows*: its two voidworlds, the Outpost, and a ray-traced black hole with a lensed accretion disk
 - [x] The phlogiston: all 50 crystal spheres that published D&D material names, 32 currents with their travel times, and 3 groups (the Known Spheres, the Arcane Inner Flow and the Vodoni Empire)
 - [x] A switch between the 2e cosmology (crystal shells, the phlogiston) and the 5e one (wildspace systems in the Astral Sea)
 - [x] A source page and a wiki link for each item

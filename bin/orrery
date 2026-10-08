@@ -34,7 +34,7 @@ OVERLAY = PRIVATE_DIR / "overlay.json"
 NOTE_FIELDS = ("dm", "dm_links")
 CONFIG = ROOT / "orrery.json"
 
-KINDS = {"star", "planet", "moon", "asteroid", "asteroid-field", "ring", "comet", "nebula", "structure", "ship",
+KINDS = {"star", "black-hole", "planet", "moon", "asteroid", "asteroid-field", "ring", "comet", "nebula", "structure", "ship",
          "sargasso", "portal", "island", "dead-god", "other"}
 EDITIONS = {"2e", "5e"}
 

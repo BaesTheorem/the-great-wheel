@@ -6,6 +6,7 @@ export const EDITIONS = ["2e", "5e"];
 
 export const KINDS = {
   star: { label: "Star", icon: "flare" },
+  "black-hole": { label: "Black hole", icon: "cyclone" },
   planet: { label: "Planet", icon: "public" },
   moon: { label: "Moon", icon: "dark_mode" },
   asteroid: { label: "Asteroid or rock", icon: "landslide" },

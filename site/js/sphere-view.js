@@ -17,6 +17,7 @@ export class SphereView {
   }
 
   dispose() {
+    for (const n of this.order) n.bh?.dispose();
     this.scene.traverse((o) => { o.geometry?.dispose?.(); if (o.material) [].concat(o.material).forEach((m) => m.dispose?.()); });
     this.scene = new THREE.Scene();
     this.nodes.clear();
@@ -127,7 +128,7 @@ export class SphereView {
     const R = this.R;
     if (this.boundary === "shell") {
       // 2e: the stars are openings in the shell, so they sit on it
-      this.scene.add(starfield(6500, R * 0.995, hashStr(this.sphereId)));
+      this.scene.add(starfield(this.sphere.stars ?? 6500, R * 0.995, hashStr(this.sphereId)));
       this.scene.add(new THREE.Mesh(new THREE.SphereGeometry(R, 96, 64), new THREE.ShaderMaterial({
         side: THREE.BackSide, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
         vertexShader: `varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
@@ -136,7 +137,7 @@ export class SphereView {
       this.scene.add(new THREE.Mesh(new THREE.SphereGeometry(R * 1.002, 96, 64), crystalMaterial()));
     } else {
       // 5e: no shell; a silver haze where wildspace meets the Astral Sea
-      this.scene.add(starfield(6500, 900, hashStr(this.sphereId)));
+      this.scene.add(starfield(this.sphere.stars ?? 6500, 900, hashStr(this.sphereId)));
       this.scene.add(new THREE.Mesh(new THREE.SphereGeometry(R, 96, 64), new THREE.ShaderMaterial({
         side: THREE.DoubleSide, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
         vertexShader: `varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
@@ -189,7 +190,7 @@ export class SphereView {
         n.world.copy(pw).add(this.mapRel(O.fixedPosition(b.fixed), p, n.sat));
       } else n.world.copy(pw);
       n.group.position.copy(n.world);
-      if (n.update) n.update({ world: n.world, camera: cam, t: this.app.t, dtReal });
+      if (n.update) n.update({ world: n.world, camera: cam, t: this.app.t, dtReal, view: this });
       const pv = n.pivot || n.mesh;
       if (pv && !n.noSpin) {
         if (n.faceCenter) pv.lookAt(0, 0, 0);
@@ -224,6 +225,7 @@ export class SphereView {
       const isSel = sel?.type === "body" && sel.id === b.id;
       const show = isSel || (!minor ? true : near && this.app.state.layers.minor);
       if (!show) continue;
+      if (n.labelR) r = n.labelR;
       items.push({ key: b.id, text: b.name, world: anchor, r, color: b.look?.color || "#9fb0c8", dim: minor && !n.sat ? true : b.kind === "nebula" || b.kind === "comet", ring: b.kind !== "asteroid-field", sel: isSel, kind: b.kind });
     }
     // surface pins (e.g. Calimport) when the camera is close to a textured world
@@ -270,6 +272,7 @@ export class SphereView {
   frameDistance() {
     let far = 3;
     for (const n of this.order) if (!n.sat && n.b.orbit && n.b.kind === "planet") far = Math.max(far, n.world.length());
+    for (const n of this.order) if (n.extent) far = Math.max(far, n.extent * 1.15);
     return far * 2.5;
   }
 
