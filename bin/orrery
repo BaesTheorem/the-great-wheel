@@ -1,0 +1,362 @@
+#!/usr/bin/env python3
+"""Wildspace Orrery: the local editor server, a data check, and the publish step.
+
+  orrery serve [--port 5027] [--open]   run the orrery with edit mode at http://127.0.0.1:5027/
+  orrery check                          validate the atlas
+  orrery deploy [--no-push] [-m MSG]    commit and push the public site (GitHub Pages builds it)
+                                        and the private layer
+  orrery new-sphere ID --name NAME [--pos X,Y,Z]
+                                        add an empty, uncharted sphere to the atlas
+  orrery fmt                            rewrite the atlas files in a stable format
+
+Two atlas files. private/atlas.json is the full atlas, with DM notes, DM links and secret items;
+it is not in the public repo (private/ can be its own private git repo). site/data/atlas.json is
+the public copy that the website loads: every "dm" note and "dm_links" list is removed, and so is
+every sphere, body, current or group marked "secret" (with whatever orbits a removed body).
+Without private/atlas.json, the public file is the full atlas. Settings are in orrery.json.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+import webbrowser
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import urlparse
+
+ROOT = Path(__file__).resolve().parent.parent
+SITE = ROOT / "site"
+ATLAS = SITE / "data" / "atlas.json"
+PRIVATE_DIR = ROOT / "private"
+PRIVATE = PRIVATE_DIR / "atlas.json"
+CONFIG = ROOT / "orrery.json"
+
+KINDS = {"star", "planet", "moon", "asteroid", "asteroid-field", "ring", "comet", "nebula", "structure", "ship",
+         "sargasso", "portal", "island", "dead-god", "other"}
+EDITIONS = {"2e", "5e"}
+
+
+def config() -> dict:
+    return json.loads(CONFIG.read_text())
+
+
+def load_full() -> dict:
+    """The full atlas: the private file when it exists, else the public one."""
+    return json.loads((PRIVATE if PRIVATE.exists() else ATLAS).read_text())
+
+
+def save_full(d: dict) -> None:
+    """Write the full atlas to the private file (when private/ exists) and the public copy."""
+    if PRIVATE_DIR.exists():
+        write_atomic(PRIVATE, dump(d))
+        write_atomic(ATLAS, dump(public_copy(d)))
+    else:
+        write_atomic(ATLAS, dump(d))
+
+
+def write_atomic(path: Path, text: str) -> None:
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text)
+    tmp.replace(path)
+
+
+# ---------- validation (the same rules as Atlas.validate in site/js/atlas.js) ----------
+def validate(d: dict) -> list[str]:
+    errs: list[str] = []
+    if d.get("format") != 1:
+        errs.append("format must be 1")
+    sphere_ids: set[str] = set()
+    for i, s in enumerate(d.get("spheres", [])):
+        where = f"spheres[{i}] ({s.get('id', 'no id')})"
+        if not s.get("id"):
+            errs.append(f"{where}: a sphere needs an id")
+        if s.get("id") in sphere_ids:
+            errs.append(f"{where}: the id is used twice")
+        sphere_ids.add(s.get("id"))
+        if not s.get("name"):
+            errs.append(f"{where}: a sphere needs a name")
+        pos = (s.get("map") or {}).get("pos")
+        if not (isinstance(pos, list) and len(pos) == 3):
+            errs.append(f"{where}: map.pos must be [x, y, z]")
+        if s.get("region") and s["region"] not in {g.get("id") for g in d.get("regions", [])}:
+            errs.append(f"{where}: region names no group: {s['region']}")
+        errs += validate_bodies(s.get("bodies", []), where, True)
+    errs += validate_bodies((d.get("between") or {}).get("bodies", []), "between", False)
+    flow_ids: set[str] = set()
+    for i, f in enumerate(d.get("flows", [])):
+        where = f"flows[{i}] ({f.get('id', 'no id')})"
+        if not f.get("id"):
+            errs.append(f"{where}: a current needs an id")
+        if f.get("id") in flow_ids:
+            errs.append(f"{where}: the id is used twice")
+        flow_ids.add(f.get("id"))
+        for end in ("from", "to"):
+            if f.get(end) not in sphere_ids:
+                errs.append(f"{where}: '{end}' names no sphere: {f.get(end)}")
+        if f.get("from") == f.get("to"):
+            errs.append(f"{where}: a current must join two different spheres")
+        if f.get("direction") not in ("one-way", "two-way", "route"):
+            errs.append(f"{where}: direction must be one-way, two-way or route")
+    return errs
+
+
+def validate_bodies(bodies: list, base: str, in_sphere: bool) -> list[str]:
+    errs: list[str] = []
+    ids = {b.get("id") for b in bodies}
+    seen: set[str] = set()
+    by_id = {b.get("id"): b for b in bodies}
+    for i, b in enumerate(bodies):
+        where = f"{base}.bodies[{i}] ({b.get('id', 'no id')})"
+        if not b.get("id"):
+            errs.append(f"{where}: a body needs an id")
+        if b.get("id") in seen:
+            errs.append(f"{where}: the id is used twice")
+        seen.add(b.get("id"))
+        if not b.get("name"):
+            errs.append(f"{where}: a body needs a name")
+        if b.get("kind") not in KINDS:
+            errs.append(f"{where}: unknown kind {b.get('kind')!r}")
+        if in_sphere:
+            parent = b.get("parent")
+            if parent and parent not in ids:
+                errs.append(f"{where}: parent names no body in this sphere: {parent}")
+            follows = (b.get("field") or {}).get("follows")
+            if parent and b.get("kind") != "ring" and not b.get("orbit") and not b.get("fixed") and not follows:
+                errs.append(f"{where}: a body with a parent needs an orbit or a fixed position")
+            o = b.get("orbit")
+            if o and not (num(o.get("radius_mi")) > 0 or (num(o.get("peri_mi")) > 0 and num(o.get("apo_mi")) >= num(o.get("peri_mi")))):
+                errs.append(f"{where}: orbit needs radius_mi, or peri_mi and apo_mi")
+        elif not isinstance((b.get("map") or {}).get("pos"), list):
+            errs.append(f"{where}: a body between the spheres needs map.pos [x, y, z]")
+        if b.get("editions") and not set(b["editions"]) <= EDITIONS:
+            errs.append(f"{where}: editions can only hold 2e and 5e")
+    for b in bodies:
+        p, n = b.get("parent"), 0
+        while p and n < 64:
+            n += 1
+            if p == b.get("id"):
+                errs.append(f"{base} ({b.get('id')}): parent chain loops back to itself")
+                break
+            p = (by_id.get(p) or {}).get("parent")
+    return errs
+
+
+def num(v) -> float:
+    return v if isinstance(v, (int, float)) and not isinstance(v, bool) else 0
+
+
+# ---------- the public copy ----------
+def public_copy(d: dict) -> dict:
+    d = json.loads(json.dumps(d))
+
+    def strip(o):
+        if isinstance(o, dict):
+            o.pop("dm", None)
+            o.pop("dm_links", None)
+            for v in o.values():
+                strip(v)
+        elif isinstance(o, list):
+            o[:] = [v for v in o if not (isinstance(v, dict) and v.get("private"))]
+            for v in o:
+                strip(v)
+
+    def keep_bodies(bodies: list) -> list:
+        gone = {b["id"] for b in bodies if b.get("secret")}
+        grew = True
+        while grew:
+            grew = False
+            for b in bodies:
+                if b.get("parent") in gone and b["id"] not in gone:
+                    gone.add(b["id"])
+                    grew = True
+        return [b for b in bodies if b["id"] not in gone]
+
+    d["spheres"] = [s for s in d.get("spheres", []) if not s.get("secret")]
+    for s in d["spheres"]:
+        s["bodies"] = keep_bodies(s.get("bodies", []))
+    if d.get("between"):
+        d["between"]["bodies"] = keep_bodies(d["between"].get("bodies", []))
+    ids = {s["id"] for s in d["spheres"]}
+    d["flows"] = [f for f in d.get("flows", []) if not f.get("secret") and f.get("from") in ids and f.get("to") in ids]
+    d["regions"] = [g for g in d.get("regions", []) if not g.get("secret")]
+    gids = {g["id"] for g in d["regions"]}
+    for s in d["spheres"]:
+        if s.get("region") and s["region"] not in gids:
+            s.pop("region")
+    strip(d)
+    return d
+
+
+def dump(d: dict) -> str:
+    return json.dumps(d, ensure_ascii=False, indent=2) + "\n"
+
+
+# ---------- git ----------
+def git(repo: Path, *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "-C", str(repo), *args], capture_output=True, text=True, check=False)
+
+
+def commit_and_push(repo: Path, paths: list[str], message: str, push: bool, log: list[str]) -> None:
+    git(repo, "add", "-A", *paths)
+    if git(repo, "diff", "--cached", "--quiet").returncode == 0:
+        log.append(f"{repo.name}: nothing new to commit")
+    else:
+        r = git(repo, "commit", "-m", message, "--", *paths)
+        log.append(f"{repo.name}: {r.stdout.strip().splitlines()[0] if r.stdout.strip() else r.stderr.strip()}")
+    if not push or not git(repo, "remote").stdout.strip():
+        return
+    ahead = git(repo, "rev-list", "--count", "@{u}..HEAD")
+    if ahead.returncode == 0 and ahead.stdout.strip() == "0":
+        log.append(f"{repo.name}: already up to date")
+        return
+    r = git(repo, "pull", "--rebase", "--autostash")
+    if r.returncode != 0:
+        git(repo, "rebase", "--abort")
+        raise RuntimeError(f"{repo.name}: pull --rebase failed: {r.stderr.strip()[:300]}")
+    r = git(repo, "push")
+    if r.returncode != 0:
+        raise RuntimeError(f"{repo.name}: push failed: {r.stderr.strip()[:300]}")
+    log.append(f"{repo.name}: pushed")
+
+
+def deploy(push: bool = True, message: str | None = None) -> tuple[list[str], str]:
+    """Write the public atlas, then commit and push this repo (GitHub Pages rebuilds the site from
+    it) and the private layer in private/ when that is a git repo."""
+    data = load_full()
+    errs = validate(data)
+    if errs:
+        raise RuntimeError("the atlas has errors: " + "; ".join(errs[:5]))
+    save_full(data)
+    log: list[str] = []
+    msg = message or "Update the atlas"
+    commit_and_push(ROOT, ["."], msg, push, log)
+    if (PRIVATE_DIR / ".git").exists():
+        commit_and_push(PRIVATE_DIR, ["."], msg, push, log)
+    return log, config()["site_url"]
+
+
+# ---------- the editor server ----------
+class Handler(SimpleHTTPRequestHandler):
+    def __init__(self, *a, **k):
+        super().__init__(*a, directory=str(SITE), **k)
+
+    def log_message(self, fmt, *args):  # quiet: only errors reach the terminal
+        if args and str(args[1]).startswith(("4", "5")):
+            sys.stderr.write(f"{self.address_string()} {fmt % args}\n")
+
+    def end_headers(self):
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
+
+    def send_json(self, code: int, obj: dict) -> None:
+        body = json.dumps(obj).encode()
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_GET(self):
+        p = urlparse(self.path).path
+        if p == "/api/status":
+            return self.send_json(200, {"edit": True, "site_url": config()["site_url"], "private": PRIVATE.exists()})
+        if p == "/api/atlas":
+            return self.send_json(200, load_full())
+        return super().do_GET()
+
+    def do_PUT(self):
+        if urlparse(self.path).path != "/api/atlas":
+            return self.send_json(404, {"error": "not found"})
+        n = int(self.headers.get("Content-Length") or 0)
+        if n <= 0 or n > 8_000_000:
+            return self.send_json(413, {"error": "the atlas is empty or too large"})
+        try:
+            data = json.loads(self.rfile.read(n))
+        except json.JSONDecodeError as e:
+            return self.send_json(400, {"error": f"not JSON: {e}"})
+        errs = validate(data)
+        if errs:
+            return self.send_json(422, {"error": "; ".join(errs[:5]), "errors": errs})
+        save_full(data)
+        return self.send_json(200, {"ok": True})
+
+    def do_POST(self):
+        if urlparse(self.path).path != "/api/publish":
+            return self.send_json(404, {"error": "not found"})
+        try:
+            log, url = deploy(push=True)
+        except Exception as e:  # noqa: BLE001 - every failure goes back to the browser as text
+            return self.send_json(500, {"ok": False, "error": str(e)})
+        return self.send_json(200, {"ok": True, "url": url, "log": log})
+
+
+def serve(port: int, open_browser: bool) -> None:
+    httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
+    url = f"http://127.0.0.1:{port}/?edit#/"
+    print(f"Wildspace Orrery editor: {url}  (Ctrl-C to stop)")
+    if open_browser:
+        webbrowser.open(url)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+
+
+def new_sphere(sid: str, name: str, pos: str | None) -> None:
+    d = load_full()
+    if any(s["id"] == sid for s in d["spheres"]):
+        sys.exit(f"a sphere with the id {sid!r} already exists")
+    xyz = [float(v) for v in pos.split(",")] if pos else [0.0, 0.0, 0.0]
+    d["spheres"].append({"id": sid, "name": name, "charted": False, "map": {"pos": xyz, "size": 1},
+                         "boundary": {"2e": "shell", "5e": "haze"}, "summary": "Not charted on this map yet.",
+                         "editions": ["2e", "5e"], "bodies": []})
+    save_full(d)
+    print(f"added {name} ({sid})")
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(prog="orrery", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    s = sub.add_parser("serve")
+    s.add_argument("--port", type=int, default=5027)
+    s.add_argument("--open", action="store_true")
+    sub.add_parser("check")
+    dp = sub.add_parser("deploy")
+    dp.add_argument("--no-push", action="store_true")
+    dp.add_argument("-m", "--message")
+    ns = sub.add_parser("new-sphere")
+    ns.add_argument("id")
+    ns.add_argument("--name", required=True)
+    ns.add_argument("--pos")
+    sub.add_parser("fmt")
+    a = ap.parse_args()
+    if a.cmd == "serve":
+        serve(a.port, a.open)
+    elif a.cmd == "check":
+        data = load_full()
+        errs = validate(data)
+        for e in errs:
+            print(e)
+        nowiki = [x.get("id") for x in data.get("spheres", []) + data.get("flows", []) + [b for s in data.get("spheres", []) for b in s.get("bodies", [])] + (data.get("between") or {}).get("bodies", []) if not x.get("wiki")]
+        if nowiki:
+            print(f"note: {len(nowiki)} item(s) have no Forgotten Realms Wiki page set (the map links a wiki search instead): {', '.join(nowiki)}")
+        print("atlas OK" if not errs else f"{len(errs)} problem(s)")
+        sys.exit(1 if errs else 0)
+    elif a.cmd == "deploy":
+        try:
+            log, url = deploy(push=not a.no_push, message=a.message)
+        except RuntimeError as e:
+            sys.exit(f"deploy failed: {e}")
+        print("\n".join(log))
+        print(url)
+    elif a.cmd == "new-sphere":
+        new_sphere(a.id, a.name, a.pos)
+    elif a.cmd == "fmt":
+        save_full(load_full())
+        print("formatted the atlas")
+
+
+if __name__ == "__main__":
+    main()

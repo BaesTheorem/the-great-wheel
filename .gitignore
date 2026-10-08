@@ -1,0 +1,8 @@
+# The private layer (full atlas with DM notes, DM links and secret items). It is its own private repo.
+private/
+# Sourcebook scans and their OCR text: never commit them (see sources/README.md)
+sources/*
+!sources/README.md
+site/data/*.tmp
+.DS_Store
+__pycache__/
