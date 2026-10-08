@@ -3,19 +3,16 @@
   "title": "Wildspace Orrery",
   "campaign": {
     "date": {
-      "year": 1492,
-      "doy": 1
+      "doy": 1,
+      "year": 1492
     },
     "home": "realmspace/toril"
   },
   "between": {
+    "bodies": [],
     "name": {
       "2e": "The Phlogiston",
       "5e": "The Astral Sea"
-    },
-    "summary": {
-      "2e": "The rainbow-colored, flammable medium that fills the space between the crystal spheres. Currents in it (the Flow) carry ships between spheres.",
-      "5e": "The silvery plane between the wildspace systems. A ship moves through it when its captain concentrates on a destination."
     },
     "sources": [
       {
@@ -27,12 +24,76 @@
         "pages": "4, 20-21"
       }
     ],
-    "bodies": [],
+    "summary": {
+      "2e": "The rainbow-colored, flammable medium that fills the space between the crystal spheres. Currents in it (the Flow) carry ships between spheres.",
+      "5e": "The silvery plane between the wildspace systems. A ship moves through it when its captain concentrates on a destination."
+    },
     "wiki": {
       "2e": "Phlogiston",
       "5e": "Astral Plane"
     }
   },
+  "regions": [
+    {
+      "editions": [
+        "2e",
+        "5e"
+      ],
+      "id": "known",
+      "name": "The Known Spheres",
+      "sources": [
+        {
+          "title": "The Astromundi Cluster",
+          "pages": "map of the Known Spheres"
+        },
+        {
+          "title": "Lorebook of the Void",
+          "pages": "50"
+        },
+        {
+          "title": "Concordance of Arcane Space",
+          "pages": "74"
+        }
+      ],
+      "summary": "A stable group of spheres around the triangle of Realmspace, Greyspace and Krynnspace, with Herospace, Greatspace, Darkspace, Faeriespace and Clusterspace. Some books use the name for the core three alone, or for all of known space.",
+      "wiki": "https://spelljammer.fandom.com/wiki/Known_Spheres,_The"
+    },
+    {
+      "editions": [
+        "2e"
+      ],
+      "id": "arcane",
+      "name": "Arcane Inner Flow",
+      "sources": [
+        {
+          "title": "Dungeon #36, \"The Sea of Sorrow\"",
+          "pages": "44-45"
+        },
+        {
+          "title": "Dragon #159, \"Rough Times on Refuge\"",
+          "pages": "10-14"
+        }
+      ],
+      "summary": "A stable group of fewer than a dozen spheres near Realmspace, among them Refuge, Pirtelspace and Darnannonspace. Two-way currents join its neighbors.",
+      "wiki": "https://spelljammer.fandom.com/wiki/Arcane_Inner_Flow"
+    },
+    {
+      "editions": [
+        "2e",
+        "5e"
+      ],
+      "id": "vodoni",
+      "name": "Vodoni Empire",
+      "sources": [
+        {
+          "title": "SJA4 Under the Dark Fist",
+          "pages": "3, 45, 51-53"
+        }
+      ],
+      "summary": "Twelve spheres that Emperor Vulkaran the Dark rules from Vodonispace. Its currents reach Realmspace, Greyspace and Krynnspace.",
+      "wiki": "Vodoni Empire"
+    }
+  ],
   "spheres": [
     {
       "id": "realmspace",
@@ -42,11 +103,12 @@
         "Skyward Realms"
       ],
       "charted": true,
+      "region": "known",
       "map": {
         "pos": [
           -2.7,
           -0.1,
-          0.0
+          0
         ],
         "size": 1.1
       },
@@ -85,6 +147,7 @@
           "pages": "3-5"
         }
       ],
+      "wiki": "Realmspace",
       "editions": [
         "2e",
         "5e"
@@ -131,27 +194,27 @@
               "pages": "5-6"
             }
           ],
+          "wiki": "The sun",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "The sun"
+          ]
         },
         {
           "id": "sargassos",
           "name": "The Sargassos",
           "kind": "sargasso",
           "parent": "sun",
+          "diameter_mi": 100000,
           "orbit": {
-            "radius_mi": 40000000,
+            "approx": true,
             "period_days": 32.6,
             "phase_deg": 0,
-            "approx": true
+            "radius_mi": 40000000
           },
           "field": {
             "count": 12
           },
-          "diameter_mi": 100000,
           "look": {
             "color": "#7d6bb3"
           },
@@ -180,11 +243,11 @@
               "pages": "6"
             }
           ],
+          "wiki": "Sargasso (wildspace)",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Sargasso (wildspace)"
+          ]
         },
         {
           "id": "anadia",
@@ -195,22 +258,22 @@
           "shape": "sphere",
           "size_class": "B",
           "orbit": {
-            "radius_mi": 50000000,
+            "incl_deg": 1.5,
             "period_days": 30,
             "phase_deg": 215,
-            "incl_deg": 1.5
+            "radius_mi": 50000000
           },
           "day_hours": 12,
           "look": {
+            "atmosphere": "#ffb48a",
             "color": "#ff8f66",
+            "keep": 0.2,
             "texture": "assets/textures/2k_mars.jpg",
             "tint": [
               1.12,
               0.98,
               0.66
-            ],
-            "keep": 0.2,
-            "atmosphere": "#ffb48a"
+            ]
           },
           "summary": "The innermost planet, small and amber-green, cut by canyons larger than the Great Rift. Halflings live at both poles. The hot equator belongs to umber hulks and other Anadian beasts.",
           "facts": [
@@ -249,11 +312,11 @@
               "pages": "7"
             }
           ],
+          "wiki": "Anadia",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Anadia"
+          ]
         },
         {
           "id": "coliar",
@@ -264,26 +327,26 @@
           "shape": "sphere",
           "size_class": "G",
           "orbit": {
-            "radius_mi": 100000000,
+            "incl_deg": -1,
             "period_days": 240,
             "phase_deg": 32,
-            "incl_deg": -1.0
+            "radius_mi": 100000000
           },
           "day_hours": 30,
           "look": {
+            "atmosphere": "#d8ccff",
             "color": "#c3b5ff",
+            "islands": {
+              "color": "#9fb08a",
+              "count": 46
+            },
+            "keep": 0,
             "texture": "assets/textures/2k_venus_atmosphere.jpg",
             "tint": [
               0.96,
               0.98,
               1.04
-            ],
-            "keep": 0,
-            "islands": {
-              "count": 46,
-              "color": "#9fb08a"
-            },
-            "atmosphere": "#d8ccff"
+            ]
           },
           "summary": "A huge world of air. Floating islands of earth and water orbit its core, between 50 and 30,000 miles from the center. Avian humanoids and reptiles live on them.",
           "facts": [
@@ -322,11 +385,11 @@
               "pages": "12"
             }
           ],
+          "wiki": "Coliar",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Coliar"
+          ]
         },
         {
           "id": "toril",
@@ -337,20 +400,20 @@
           "shape": "sphere",
           "size_class": "E",
           "orbit": {
-            "radius_mi": 200000000,
+            "incl_deg": 0,
             "period_days": 365,
             "phase_deg": 306,
-            "incl_deg": 0
+            "radius_mi": 200000000
           },
           "day_hours": 24,
           "look": {
+            "atmosphere": "#6db4ff",
             "color": "#4fb3ff",
             "texture": {
               "4096": "assets/textures/toril-4096.jpg",
               "8192": "assets/textures/toril-8192.jpg",
               "16384": "assets/textures/toril-16384.jpg"
-            },
-            "atmosphere": "#6db4ff"
+            }
           },
           "pins": [
             {
@@ -400,11 +463,11 @@
               "pages": "18-19"
             }
           ],
+          "wiki": "Toril",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Toril"
+          ]
         },
         {
           "id": "selune",
@@ -415,10 +478,10 @@
           "shape": "sphere",
           "size_class": "D",
           "orbit": {
-            "radius_mi": 183000,
+            "incl_deg": 12,
             "period_days": 30,
             "phase_deg": 40,
-            "incl_deg": 12
+            "radius_mi": 183000
           },
           "day_hours": 720,
           "look": {
@@ -454,11 +517,11 @@
               "pages": "25-28"
             }
           ],
+          "wiki": "Selûne (moon)",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Selûne (moon)"
+          ]
         },
         {
           "id": "tears",
@@ -469,12 +532,12 @@
           "shape": "cluster",
           "size_class": "A",
           "field": {
-            "follows": "selune",
             "arc_deg": 75,
             "count": 1300,
-            "spread": 0.05,
+            "follows": "selune",
+            "lights": 26,
             "rocks": 460,
-            "lights": 26
+            "spread": 0.05
           },
           "look": {
             "color": "#e9eefc"
@@ -504,11 +567,11 @@
               "pages": "29-31"
             }
           ],
+          "wiki": "Tears of Selûne",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Tears of Selûne"
+          ]
         },
         {
           "id": "bral",
@@ -519,11 +582,11 @@
           "shape": "city",
           "size_class": "A",
           "orbit": {
-            "radius_mi": 183000,
+            "approx": true,
+            "incl_deg": 12,
             "period_days": 30,
             "phase_deg": 345,
-            "incl_deg": 12,
-            "approx": true
+            "radius_mi": 183000
           },
           "look": {
             "color": "#b8a58c",
@@ -554,10 +617,10 @@
               "pages": "170"
             }
           ],
+          "wiki": "Rock of Bral",
           "editions": [
             "2e"
-          ],
-          "wiki": "Rock of Bral"
+          ]
         },
         {
           "id": "karpri",
@@ -568,16 +631,16 @@
           "shape": "sphere",
           "size_class": "D",
           "orbit": {
-            "radius_mi": 300000000,
+            "incl_deg": 2,
             "period_days": 650,
             "phase_deg": 172,
-            "incl_deg": 2.0
+            "radius_mi": 300000000
           },
           "day_hours": 1.2,
           "look": {
+            "atmosphere": "#7fd8ff",
             "color": "#3ed6cf",
-            "texture": "proc:karpri",
-            "atmosphere": "#7fd8ff"
+            "texture": "proc:karpri"
           },
           "summary": "An ocean world. Pack ice hundreds of miles thick covers the poles, and mats of weed on the equator carry huge insects. Aquatic elves live in the seas.",
           "facts": [
@@ -612,11 +675,11 @@
               "pages": "32"
             }
           ],
+          "wiki": "Karpri",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Karpri"
+          ]
         },
         {
           "id": "chandos",
@@ -627,16 +690,16 @@
           "shape": "sphere",
           "size_class": "F",
           "orbit": {
-            "radius_mi": 400000000,
+            "incl_deg": -1.6,
             "period_days": 2010,
             "phase_deg": 238,
-            "incl_deg": -1.6
+            "radius_mi": 400000000
           },
           "day_hours": 48,
           "look": {
+            "atmosphere": "#8fe3c8",
             "color": "#7bd88f",
-            "texture": "proc:chandos",
-            "atmosphere": "#8fe3c8"
+            "texture": "proc:chandos"
           },
           "summary": "A water world. Rocks pile up in its seas into islands that do not stay stable. The people descend from the crews of two spelljammers that crashed here long ago.",
           "facts": [
@@ -671,11 +734,11 @@
               "pages": "36"
             }
           ],
+          "wiki": "Chandos",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Chandos"
+          ]
         },
         {
           "id": "glyth",
@@ -686,21 +749,21 @@
           "shape": "sphere",
           "size_class": "E",
           "orbit": {
-            "radius_mi": 1000000000,
+            "incl_deg": 2.6,
             "period_days": 10800,
             "phase_deg": 13,
-            "incl_deg": 2.6
+            "radius_mi": 1000000000
           },
           "day_hours": 30.5,
           "look": {
             "color": "#b6bfcc",
+            "keep": 0,
             "texture": "assets/textures/2k_mercury.jpg",
             "tint": [
               0.86,
               0.9,
               0.98
-            ],
-            "keep": 0
+            ]
           },
           "summary": "A harsh gray world with a ring and three moons. Mind flayers have held it for about a century, and most activity happens underground.",
           "facts": [
@@ -739,11 +802,11 @@
               "pages": "39-43"
             }
           ],
+          "wiki": "Glyth",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Glyth"
+          ]
         },
         {
           "id": "glyth-rings",
@@ -776,11 +839,11 @@
               "pages": "42"
             }
           ],
+          "wiki": "Glyth#The Rings of Glyth",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Glyth#The Rings of Glyth"
+          ]
         },
         {
           "id": "haven",
@@ -791,11 +854,11 @@
           "shape": "irregular",
           "size_class": "A",
           "orbit": {
-            "radius_mi": 90000,
+            "approx": true,
+            "incl_deg": 24,
             "period_days": 6,
             "phase_deg": 120,
-            "incl_deg": 24,
-            "approx": true
+            "radius_mi": 90000
           },
           "look": {
             "color": "#a9a090"
@@ -821,11 +884,11 @@
               "pages": "42"
             }
           ],
+          "wiki": "Haven",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Haven"
+          ]
         },
         {
           "id": "mingabwe",
@@ -836,21 +899,21 @@
           "shape": "sphere",
           "size_class": "B",
           "orbit": {
-            "radius_mi": 235000,
+            "approx": true,
+            "incl_deg": 8,
             "period_days": 22,
             "phase_deg": 300,
-            "incl_deg": 8,
-            "approx": true
+            "radius_mi": 235000
           },
           "look": {
             "color": "#cfd8e6",
+            "keep": 0,
             "texture": "assets/textures/2k_moon.jpg",
             "tint": [
               0.92,
               0.98,
               1.12
-            ],
-            "keep": 0
+            ]
           },
           "summary": "A bitterly cold moon of Glyth and a trading post for merchants who are not mind flayers.",
           "facts": [
@@ -873,11 +936,11 @@
               "pages": "43"
             }
           ],
+          "wiki": "Mingabwe",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Mingabwe"
+          ]
         },
         {
           "id": "polluter",
@@ -888,10 +951,10 @@
           "shape": "irregular",
           "size_class": "A",
           "orbit": {
-            "radius_mi": 20000,
+            "approx": true,
             "period_days": 3,
             "phase_deg": 60,
-            "approx": true
+            "radius_mi": 20000
           },
           "look": {
             "color": "#9b9488"
@@ -913,11 +976,11 @@
               "pages": "43"
             }
           ],
+          "wiki": "Polluter",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Polluter"
+          ]
         },
         {
           "id": "garden",
@@ -928,10 +991,10 @@
           "shape": "cluster",
           "size_class": "A",
           "orbit": {
-            "radius_mi": 1200000000,
+            "incl_deg": -2.2,
             "period_days": 30660,
             "phase_deg": 117,
-            "incl_deg": -2.2
+            "radius_mi": 1200000000
           },
           "day_hours": 128,
           "look": {
@@ -976,11 +1039,11 @@
               "pages": "44"
             }
           ],
+          "wiki": "Garden",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Garden"
+          ]
         },
         {
           "id": "hcatha",
@@ -991,10 +1054,10 @@
           "shape": "disc",
           "size_class": "C",
           "orbit": {
-            "radius_mi": 1600000000,
+            "incl_deg": 1.2,
             "period_days": 60120,
             "phase_deg": 270,
-            "incl_deg": 1.2
+            "radius_mi": 1600000000
           },
           "look": {
             "color": "#d6e2ff"
@@ -1036,11 +1099,11 @@
               "pages": "47-50"
             }
           ],
+          "wiki": "H'Catha",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "H'Catha"
+          ]
         },
         {
           "id": "turnbetl",
@@ -1050,25 +1113,25 @@
           "element": "earth",
           "shape": "sphere",
           "size_class": "B",
-          "orbit": {
-            "peri_mi": 11500,
-            "apo_mi": 413000,
-            "period_days": 20,
-            "phase_deg": 200,
-            "argp_deg": 40,
-            "approx": true
-          },
           "diameter_mi": 980,
+          "orbit": {
+            "apo_mi": 413000,
+            "approx": true,
+            "argp_deg": 40,
+            "peri_mi": 11500,
+            "period_days": 20,
+            "phase_deg": 200
+          },
           "look": {
-            "color": "#e8b98a",
             "atmosphere": "#ffb066",
+            "color": "#e8b98a",
+            "keep": 0,
             "texture": "assets/textures/2k_moon.jpg",
             "tint": [
               1.25,
               0.92,
               0.62
-            ],
-            "keep": 0
+            ]
           },
           "summary": "The closer moon of H'Catha. Its atmosphere is made of highly unstable gases.",
           "facts": [
@@ -1091,11 +1154,11 @@
               "pages": "50"
             }
           ],
+          "wiki": "Turnbetl",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Turnbetl"
+          ]
         },
         {
           "id": "lumbe",
@@ -1106,12 +1169,12 @@
           "shape": "cylinder",
           "size_class": "A",
           "orbit": {
-            "peri_mi": 21500,
             "apo_mi": 817000,
-            "period_days": 45,
-            "phase_deg": 20,
+            "approx": true,
             "argp_deg": 210,
-            "approx": true
+            "peri_mi": 21500,
+            "period_days": 45,
+            "phase_deg": 20
           },
           "look": {
             "color": "#aab4c4"
@@ -1137,27 +1200,27 @@
               "pages": "50"
             }
           ],
+          "wiki": "Lumbe",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Lumbe"
+          ]
         },
         {
           "id": "kthoutek",
           "name": "Comet K'Thoutek",
           "kind": "comet",
           "parent": "sun",
+          "diameter_mi": 300,
           "orbit": {
-            "peri_mi": 15000000,
             "apo_mi": 2000000000,
-            "period_days": 86565,
-            "phase_deg": 190,
+            "argp_deg": 0,
             "incl_deg": 90,
             "node_deg": 35,
-            "argp_deg": 0
+            "peri_mi": 15000000,
+            "period_days": 86565,
+            "phase_deg": 190
           },
-          "diameter_mi": 300,
           "look": {
             "color": "#e8f0ff"
           },
@@ -1190,11 +1253,11 @@
               "pages": "53"
             }
           ],
+          "wiki": "K'Thoutek",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "K'Thoutek"
+          ]
         },
         {
           "id": "skull",
@@ -1203,10 +1266,10 @@
           "parent": "sun",
           "shape": "skull",
           "fixed": {
-            "r_mi": 3150000000,
-            "lon_deg": 62,
+            "approx": true,
             "lat_deg": 18,
-            "approx": true
+            "lon_deg": 62,
+            "r_mi": 3150000000
           },
           "look": {
             "color": "#efe6d2",
@@ -1229,11 +1292,11 @@
               "pages": "54"
             }
           ],
+          "wiki": "Skull of the Void",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Skull of the Void"
+          ]
         },
         {
           "id": "windlauer",
@@ -1242,13 +1305,13 @@
           "parent": "sun",
           "shape": "castle",
           "orbit": {
-            "peri_mi": 100000000,
             "apo_mi": 300000000,
-            "period_days": 365,
-            "phase_deg": 75,
+            "approx": true,
             "incl_deg": 45,
             "node_deg": 120,
-            "approx": true
+            "peri_mi": 100000000,
+            "period_days": 365,
+            "phase_deg": 75
           },
           "look": {
             "color": "#cfe8c4",
@@ -1271,11 +1334,11 @@
               "pages": "55-56"
             }
           ],
+          "wiki": "Caer Windlauer",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Caer Windlauer"
+          ]
         },
         {
           "id": "galleon-nebula",
@@ -1283,19 +1346,19 @@
           "kind": "nebula",
           "parent": "sun",
           "fixed": {
-            "r_mi": 2400000000,
-            "lon_deg": 150,
+            "approx": true,
             "lat_deg": 14,
-            "approx": true
+            "lon_deg": 150,
+            "r_mi": 2400000000
           },
           "cloud": {
-            "shape": "galleon",
-            "length_mi": 2000000,
             "colors": [
               "#7fd3ff",
               "#c58bff",
               "#ff9ac8"
-            ]
+            ],
+            "length_mi": 2000000,
+            "shape": "galleon"
           },
           "summary": "A nebula shaped like a multicolored galleon under sail, two million miles long and high. Through a spyglass its oars seem to row. Toril sees it mostly in autumn and early winter.",
           "facts": [
@@ -1314,11 +1377,11 @@
               "pages": "56"
             }
           ],
+          "wiki": "Galleon Nebula",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Galleon Nebula"
+          ]
         },
         {
           "id": "color-spray-nebula",
@@ -1326,21 +1389,21 @@
           "kind": "nebula",
           "parent": "sun",
           "fixed": {
-            "r_mi": 2200000000,
-            "lon_deg": 330,
+            "approx": true,
             "lat_deg": -10,
-            "approx": true
+            "lon_deg": 330,
+            "r_mi": 2200000000
           },
           "cloud": {
-            "shape": "fan",
-            "length_mi": 2000000,
             "colors": [
               "#ff6b8a",
               "#ffd36b",
               "#6bffb0",
               "#6bb8ff",
               "#b46bff"
-            ]
+            ],
+            "length_mi": 2000000,
+            "shape": "fan"
           },
           "summary": "A fan-shaped nebula that looks like a color spray spell, about two million miles long. Worshipers of Mystra take it as a sign of her favor. Toril sees it in spring and early summer.",
           "facts": [
@@ -1359,25 +1422,24 @@
               "pages": "56"
             }
           ],
+          "wiki": "Color Spray Nebula",
           "editions": [
             "2e",
             "5e"
-          ],
-          "wiki": "Color Spray Nebula"
+          ]
         }
-      ],
-      "wiki": "Realmspace",
-      "region": "known"
+      ]
     },
     {
       "id": "greyspace",
       "name": "Greyspace",
       "charted": false,
+      "region": "known",
       "map": {
         "pos": [
           0.7,
           2.6,
-          0.0
+          0
         ],
         "size": 0.9
       },
@@ -1393,23 +1455,23 @@
           "pages": "10-11"
         }
       ],
+      "wiki": "Greyspace",
       "editions": [
         "2e",
         "5e"
       ],
-      "bodies": [],
-      "wiki": "Greyspace",
-      "region": "known"
+      "bodies": []
     },
     {
       "id": "krynnspace",
       "name": "Krynnspace",
       "charted": false,
+      "region": "known",
       "map": {
         "pos": [
           2.6,
           -1.6,
-          0.0
+          0
         ],
         "size": 0.85
       },
@@ -1425,13 +1487,12 @@
           "pages": "10-11"
         }
       ],
+      "wiki": "Krynnspace",
       "editions": [
         "2e",
         "5e"
       ],
-      "bodies": [],
-      "wiki": "Krynnspace",
-      "region": "known"
+      "bodies": []
     },
     {
       "id": "herospace",
@@ -1598,7 +1659,7 @@
         "pos": [
           0.39,
           -0.45,
-          0.0
+          0
         ],
         "size": 0.9
       },
@@ -2456,8 +2517,7 @@
           "pages": "199-237"
         },
         {
-          "title": "SJR4 Practical Planetology",
-          "pages": ""
+          "title": "SJR4 Practical Planetology"
         }
       ],
       "wiki": "https://spelljammer.fandom.com/wiki/Vistaspace",
@@ -2615,7 +2675,7 @@
         "pos": [
           -4.36,
           5.08,
-          -0.0
+          0
         ],
         "size": 0.65
       },
@@ -3019,8 +3079,7 @@
       ],
       "sources": [
         {
-          "title": "Polyhedron #151, \"Spelljammer: Shadow of the Spider Moon\"",
-          "pages": ""
+          "title": "Polyhedron #151, \"Spelljammer: Shadow of the Spider Moon\""
         }
       ],
       "wiki": "https://spelljammer.fandom.com/wiki/Pyrespace",
@@ -3122,8 +3181,7 @@
       "facts": [],
       "sources": [
         {
-          "title": "Neverwinter (video game), Adventures in Wildspace",
-          "pages": ""
+          "title": "Neverwinter (video game), Adventures in Wildspace"
         }
       ],
       "wiki": "Remichispace",
@@ -3198,14 +3256,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "herospace-greyspace",
@@ -3216,14 +3273,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "herospace-faeriespace",
@@ -3234,14 +3290,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "herospace-greatspace",
@@ -3252,14 +3307,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "herospace-darkspace",
@@ -3270,14 +3324,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "greatspace-realmspace",
@@ -3288,14 +3341,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "darkspace-faeriespace",
@@ -3306,14 +3358,13 @@
       "summary": "A known current. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "SJA3 Crystal Spheres",
-          "pages": ""
+          "title": "SJA3 Crystal Spheres"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "clusterspace-realmspace",
@@ -3324,14 +3375,13 @@
       "summary": "A known current. Ships enter Clusterspace easily, but only living ships leave it.",
       "sources": [
         {
-          "title": "The Astromundi Cluster: The Astrogator's Guide",
-          "pages": ""
+          "title": "The Astromundi Cluster: The Astrogator's Guide"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "clusterspace-greyspace",
@@ -3342,14 +3392,13 @@
       "summary": "A known current. Ships enter Clusterspace easily, but only living ships leave it.",
       "sources": [
         {
-          "title": "The Astromundi Cluster: The Astrogator's Guide",
-          "pages": ""
+          "title": "The Astromundi Cluster: The Astrogator's Guide"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "clusterspace-krynnspace",
@@ -3360,14 +3409,13 @@
       "summary": "A known current. Ships enter Clusterspace easily, but only living ships leave it.",
       "sources": [
         {
-          "title": "The Astromundi Cluster: The Astrogator's Guide",
-          "pages": ""
+          "title": "The Astromundi Cluster: The Astrogator's Guide"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "realmspace-refuge",
@@ -3386,10 +3434,10 @@
           "pages": "40-45"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "refuge-pirtelspace",
@@ -3404,10 +3452,10 @@
           "pages": "44-45"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "pirtelspace-darnannonspace",
@@ -3422,10 +3470,10 @@
           "pages": "44-45"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "vodonispace-realmspace",
@@ -3440,10 +3488,10 @@
           "pages": "45, 51"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "vodonispace-greyspace",
@@ -3458,10 +3506,10 @@
           "pages": "45, 51"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "vodonispace-krynnspace",
@@ -3476,10 +3524,10 @@
           "pages": "45, 51"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "heartspace-krynnspace",
@@ -3490,14 +3538,13 @@
       "summary": "A known current from the Cloakmaster Cycle. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "The Cloakmaster Cycle: The Broken Sphere",
-          "pages": ""
+          "title": "The Cloakmaster Cycle: The Broken Sphere"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "heartspace-winterspace",
@@ -3508,14 +3555,13 @@
       "summary": "A known current from the Cloakmaster Cycle. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "The Cloakmaster Cycle: The Broken Sphere",
-          "pages": ""
+          "title": "The Cloakmaster Cycle: The Broken Sphere"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "heartspace-nexspace",
@@ -3526,14 +3572,13 @@
       "summary": "A known current from the Cloakmaster Cycle. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "The Cloakmaster Cycle: The Broken Sphere",
-          "pages": ""
+          "title": "The Cloakmaster Cycle: The Broken Sphere"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "nexspace-pathspace",
@@ -3544,14 +3589,13 @@
       "summary": "A known current from the Cloakmaster Cycle. The books name the link but not its direction.",
       "sources": [
         {
-          "title": "The Cloakmaster Cycle: The Broken Sphere",
-          "pages": ""
+          "title": "The Cloakmaster Cycle: The Broken Sphere"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "pathspace-krynnspace",
@@ -3566,10 +3610,10 @@
           "pages": "10"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "pathspace-primespace",
@@ -3584,10 +3628,10 @@
           "pages": "202"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "primespace-vistaspace",
@@ -3602,10 +3646,10 @@
           "pages": "202"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "realmspace-winterspace",
@@ -3620,10 +3664,10 @@
           "pages": "155"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "moragspace-realmspace",
@@ -3638,10 +3682,10 @@
           "pages": "7"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "moragspace-greyspace",
@@ -3652,14 +3696,13 @@
       "summary": "A known current.",
       "sources": [
         {
-          "title": "SJQ1 Heart of the Enemy",
-          "pages": ""
+          "title": "SJQ1 Heart of the Enemy"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "moragspace-shadowspace",
@@ -3670,14 +3713,13 @@
       "summary": "A known current.",
       "sources": [
         {
-          "title": "SJQ1 Heart of the Enemy",
-          "pages": ""
+          "title": "SJQ1 Heart of the Enemy"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "realmspace-shadowspace",
@@ -3692,10 +3734,10 @@
           "pages": "7"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
       "editions": [
         "2e"
-      ]
+      ],
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     },
     {
       "id": "shadowspace-greyspace",
@@ -3706,75 +3748,13 @@
       "summary": "A known current.",
       "sources": [
         {
-          "title": "SJQ1 Heart of the Enemy",
-          "pages": ""
+          "title": "SJQ1 Heart of the Enemy"
         }
       ],
-      "wiki": "Phlogiston#Stable Configurations in the Flow",
-      "editions": [
-        "2e"
-      ]
-    }
-  ],
-  "regions": [
-    {
-      "id": "known",
-      "name": "The Known Spheres",
-      "editions": [
-        "2e",
-        "5e"
-      ],
-      "summary": "A stable group of spheres around the triangle of Realmspace, Greyspace and Krynnspace, with Herospace, Greatspace, Darkspace, Faeriespace and Clusterspace. Some books use the name for the core three alone, or for all of known space.",
-      "sources": [
-        {
-          "title": "The Astromundi Cluster",
-          "pages": "map of the Known Spheres"
-        },
-        {
-          "title": "Lorebook of the Void",
-          "pages": "50"
-        },
-        {
-          "title": "Concordance of Arcane Space",
-          "pages": "74"
-        }
-      ],
-      "wiki": "https://spelljammer.fandom.com/wiki/Known_Spheres,_The"
-    },
-    {
-      "id": "arcane",
-      "name": "Arcane Inner Flow",
       "editions": [
         "2e"
       ],
-      "summary": "A stable group of fewer than a dozen spheres near Realmspace, among them Refuge, Pirtelspace and Darnannonspace. Two-way currents join its neighbors.",
-      "sources": [
-        {
-          "title": "Dungeon #36, \"The Sea of Sorrow\"",
-          "pages": "44-45"
-        },
-        {
-          "title": "Dragon #159, \"Rough Times on Refuge\"",
-          "pages": "10-14"
-        }
-      ],
-      "wiki": "https://spelljammer.fandom.com/wiki/Arcane_Inner_Flow"
-    },
-    {
-      "id": "vodoni",
-      "name": "Vodoni Empire",
-      "editions": [
-        "2e",
-        "5e"
-      ],
-      "summary": "Twelve spheres that Emperor Vulkaran the Dark rules from Vodonispace. Its currents reach Realmspace, Greyspace and Krynnspace.",
-      "sources": [
-        {
-          "title": "SJA4 Under the Dark Fist",
-          "pages": "3, 45, 51-53"
-        }
-      ],
-      "wiki": "Vodoni Empire"
+      "wiki": "Phlogiston#Stable Configurations in the Flow"
     }
   ]
 }

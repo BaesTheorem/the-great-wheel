@@ -184,12 +184,16 @@ export class BetweenView {
     const out = [], sel = this.app.state.selected;
     const related = new Set();
     if (sel?.type === "sphere") for (const f of this.flows) { if (f.f.from === sel.id) related.add(f.f.id); if (f.f.to === sel.id) related.add(f.f.id); }
+    // spheres one current away from a charted sphere get their names before the rest
+    const charted = new Set(this.items.filter((i) => i.type === "sphere" && i.s.charted).map((i) => i.id));
+    const near = new Set();
+    for (const f of this.flows) { if (charted.has(f.f.from)) near.add(f.f.to); if (charted.has(f.f.to)) near.add(f.f.from); }
     for (const it of this.items) {
       if (it.type === "sphere") {
         const isSel = sel?.type === "sphere" && sel.id === it.id;
         const inRegion = sel?.type === "region" && it.s.region === sel.id;
         out.push({ key: it.id, text: it.s.name, world: it.world, r: it.r, below: true, sub: isSel && !it.s.charted ? "Uncharted" : "", ring: true, dash: !it.s.charted, sel: isSel || inRegion,
-          color: it.s.charted ? "#9db4ff" : "rgba(220,228,255,.42)", prio: isSel ? 0 : it.s.charted ? 1 : 3 - Math.min(it.r, 1) });
+          color: it.s.charted ? "#9db4ff" : "rgba(220,228,255,.42)", prio: isSel ? 0 : it.s.charted ? 1 : near.has(it.id) ? 1.5 : 3 - Math.min(it.r, 1) });
       } else {
         const isSel = sel?.type === "body" && sel.id === it.id;
         out.push({ key: it.id, text: it.b.name, world: it.world, r: it.r, color: it.b.look?.color || "#c8d0e0", ring: true, sel: isSel, prio: isSel ? 0 : 3 });
