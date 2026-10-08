@@ -30,7 +30,7 @@ class App {
     this.camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.01, 6000);
     this.controls = new OrbitControls(this.camera, $("#c"));
     Object.assign(this.controls, { enableDamping: !this.reducedMotion, dampingFactor: 0.08, rotateSpeed: 0.55, zoomSpeed: 0.9, minDistance: 0.08 });
-    this.controls.addEventListener("start", () => { if (this.fly) this.fly = null; });
+    this.controls.addEventListener("start", () => { if (this.fly) this.fly = null; this.idleSpin = false; });
     if (EMBED) {
       document.body.classList.add("embed");
       this.controls.enabled = false;
@@ -187,7 +187,9 @@ class App {
       if (its.length) c.divideScalar(its.length);
       const d = this.view.frameDistance() * Math.max(1, (innerHeight / innerWidth) * 1.1);
       this.controls.maxDistance = Math.max(d * 2.5, this.view.mapRadius() * 3.2);
-      this.flyTo(c, c.clone().add(new THREE.Vector3(0, d * 0.05, d)), instant);
+      // a three-quarter view from above, so the spheres' depth shows from the first frame
+      this.flyTo(c, c.clone().add(new THREE.Vector3(0.38, 0.34, 0.86).normalize().multiplyScalar(d)), instant);
+      this.idleSpin = !this.reducedMotion;
     }
   }
 
@@ -232,6 +234,7 @@ class App {
   select(sel, opts = {}) {
     const st = this.state;
     st.selected = sel;
+    if (sel) this.idleSpin = false;
     if (sel && st.view === "sphere" && sel.type === "body") { sel.sphere = st.sphereId; if (opts.fly !== false) this.focusBody(sel.id, opts.instant); }
     if (sel && st.view === "between" && opts.fly !== false) {
       const it = this.view.items.find((i) => i.type === sel.type && i.id === sel.id);
@@ -573,7 +576,10 @@ class App {
         const w = this.view.bodyWorld(this.track);
         if (w) { const d = w.clone().sub(this.controls.target); this.camera.position.add(d); this.controls.target.add(d); }
       }
-      this.controls.update();
+      // the phlogiston map turns slowly until the first drag or click, to show its depth
+      this.controls.autoRotate = !!(this.idleSpin && st.view === "between" && !this.fly && !st.selected && (!document.body.classList.contains("embed") || this.active));
+      this.controls.autoRotateSpeed = 0.35;
+      this.controls.update(dt);
       this.view?.render(this.renderer, this.camera);
       this.labels.update(st.layers.labels ? this.visibleLabels() : [], this.camera);
       if ((this.frameN = (this.frameN || 0) + 1) % 10 === 0) { renderTime(this); this.renderReadout(); }

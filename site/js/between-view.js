@@ -37,8 +37,12 @@ void main(){
   gl_FragColor = vec4(col, 1.0);
 }`;
 
-const tubeVert = `varying vec2 vUv; varying vec3 vN; varying vec3 vV;
-  void main(){ vUv = uv; vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`;
+const tubeVert = `varying vec2 vUv; varying vec3 vN; varying vec3 vV; varying float vDepth;
+  void main(){ vUv = uv; vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); vDepth = -mv.z; gl_Position = projectionMatrix * mv; }`;
+// far things dim, so the depth of the map reads; fogNear/fogFar follow the camera (see update())
+const FADE = `uniform float fogNear; uniform float fogFar; varying float vDepth;
+  float depthFade(){ return 1.0 - 0.72 * smoothstep(fogNear, fogFar, vDepth); }`;
+const fogUniforms = () => ({ fogNear: { value: 1e6 }, fogFar: { value: 2e6 } });
 
 export class BetweenView {
   constructor(app) {
@@ -80,6 +84,7 @@ export class BetweenView {
     // one unit sphere for every bead (50 spheres would otherwise mean 50 dense meshes)
     const beadGeo = new THREE.SphereGeometry(1, 72, 48);
     const mats = { bead: astral ? hazeMaterial() : beadMaterial(), dim: astral ? hazeMaterial() : beadMaterial([0.02, 0.022, 0.035]) };
+    this.fadeMats = [mats.bead, mats.dim];
     for (const s of spheres) {
       const r = s.map?.size || 1;
       const pos = new THREE.Vector3(...(s.map?.pos || [0, 0, 0]));
@@ -109,11 +114,13 @@ export class BetweenView {
       const curves = f.direction === "two-way" ? [this.curve(A, B, 0.09, f), this.curve(B, A, 0.09, f)] : [this.curve(A, B, 0, f)];
       for (const c of curves) {
         const mat = route ? routeMaterial() : flowMaterial(f.direction === "two-way" ? 1 : 0.85);
+        const glow = route ? glowMaterial(0.55) : glowMaterial();
         this.flowMats.push(mat);
+        this.fadeMats.push(mat, glow);
         this.scene.add(new THREE.Mesh(new THREE.TubeGeometry(c, 120, route ? 0.022 : f.direction === "two-way" ? 0.034 : 0.03, 10), mat));
-        this.scene.add(new THREE.Mesh(new THREE.TubeGeometry(c, 60, route ? 0.11 : 0.16, 8), route ? glowMaterial(0.55) : glowMaterial()));
+        this.scene.add(new THREE.Mesh(new THREE.TubeGeometry(c, 60, route ? 0.11 : 0.16, 8), glow));
       }
-      const dir = B.pos.clone().sub(A.pos).normalize(), side = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 0, 1)).normalize();
+      const dir = B.pos.clone().sub(A.pos).normalize(), side = perpendicular(dir);
       const mid = curves[0].getPoint(0.5), toMid = mid.clone().sub(A.pos.clone().add(B.pos).multiplyScalar(0.5));
       const out = toMid.lengthSq() > 1e-4 ? toMid.normalize() : side;
       this.flows.push({ f, curve: curves[0], samples: curves[0].getPoints(64), labelPos: mid.clone().addScaledVector(out, 0.32) });
@@ -156,16 +163,20 @@ export class BetweenView {
 
   curve(A, B, off, f) {
     const dir = B.pos.clone().sub(A.pos).normalize();
-    const side = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 0, 1)).normalize().multiplyScalar(off);
+    const perp = perpendicular(dir);
+    const side = perp.clone().multiplyScalar(off);
     const start = A.pos.clone().addScaledVector(dir, A.r * 1.04).add(side), end = B.pos.clone().addScaledVector(dir, -B.r * 1.04).add(side);
-    // bend each current a little to one side (stable per current) so the triangle reads as currents, not rulers
-    const bendSide = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 0, 1)).normalize();
+    // bend each current a little to one side (stable per current) so the currents read as currents, not rulers
+    const bendSide = perp;
     const bend = (f.bend ?? ((hashStr(f.id) % 100) / 100 - 0.5) * 0.9);
     const mid = start.clone().add(end).multiplyScalar(0.5).addScaledVector(bendSide, bend * start.distanceTo(end) * 0.25).add(side);
     return new THREE.CatmullRomCurve3([start, mid, end]);
   }
 
   update(day, dtReal, tSec) {
+    const camD = this.app.camera.position.distanceTo(this.app.controls.target);
+    for (const m of this.fadeMats || []) { m.uniforms.fogNear.value = camD * 0.85; m.uniforms.fogFar.value = camD * 2.4; }
+    this.camD = camD;
     this.bgMat.uniforms.t.value = this.app.reducedMotion ? 0 : tSec;
     this.bgMat.uniforms.aspect.value = innerWidth / innerHeight;
     for (const m of this.flowMats) m.uniforms.t.value = this.app.reducedMotion ? 0 : tSec;
@@ -192,8 +203,10 @@ export class BetweenView {
       if (it.type === "sphere") {
         const isSel = sel?.type === "sphere" && sel.id === it.id;
         const inRegion = sel?.type === "region" && it.s.region === sel.id;
-        out.push({ key: it.id, text: it.s.name, world: it.world, r: it.r, below: true, sub: isSel && !it.s.charted ? "Uncharted" : "", ring: true, dash: !it.s.charted, sel: isSel || inRegion,
-          color: it.s.charted ? "#9db4ff" : "rgba(220,228,255,.42)", prio: isSel ? 0 : it.s.charted ? 1 : near.has(it.id) ? 1.5 : 3 - Math.min(it.r, 1) });
+        const depth = this.depthOf(it.world);
+        out.push({ key: it.id, text: it.s.name, world: it.world, r: it.r, below: true, sub: isSel && !it.s.charted ? "Uncharted" : "", ring: true, dash: !it.s.charted, sel: isSel, hl: inRegion,
+          color: it.s.charted ? "#9db4ff" : "rgba(220,228,255,.42)", fade: isSel || inRegion ? 1 : 1 - 0.6 * depth,
+          prio: isSel ? 0 : (it.s.charted ? 1 : near.has(it.id) ? 1.5 : 3 - Math.min(it.r, 1)) + depth * 1.2 });
       } else {
         const isSel = sel?.type === "body" && sel.id === it.id;
         out.push({ key: it.id, text: it.b.name, world: it.world, r: it.r, color: it.b.look?.color || "#c8d0e0", ring: true, sel: isSel, prio: isSel ? 0 : 3 });
@@ -212,6 +225,12 @@ export class BetweenView {
         span: [f.samples[0], f.samples[f.samples.length - 1]], minSpan: isSel || related.has(f.f.id) ? 0 : 230 });
     }
     return out;
+  }
+
+  // 0 for things at the camera's focus, 1 for things far behind it.
+  depthOf(p) {
+    const camD = this.camD || 10, d = this.app.camera.position.distanceTo(p);
+    return Math.max(0, Math.min(1, (d - camD * 0.85) / (camD * 1.55)));
   }
 
   // The group label under a screen point, if any (labels are hit-tested in ui.js).
@@ -257,50 +276,57 @@ export class BetweenView {
 
 function flowMaterial(strength) {
   return new THREE.ShaderMaterial({
-    uniforms: { k: { value: strength }, t: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
+    uniforms: { k: { value: strength }, t: { value: 0 }, ...fogUniforms() }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
     vertexShader: tubeVert,
-    fragmentShader: `uniform float k; uniform float t; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
+    fragmentShader: `${FADE} uniform float k; uniform float t; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
       void main(){
         float s = fract(vUv.x * 11.0 - t * 0.35), pulse = pow(s, 7.0);
         float edge = pow(abs(dot(vN, vV)), 1.3);
         float ends = smoothstep(0.0, 0.07, vUv.x) * smoothstep(1.0, 0.93, vUv.x);
-        gl_FragColor = vec4(vec3(0.86, 0.94, 1.0) * (0.32 + 1.5 * pulse) * edge * ends * k, 1.0);
+        gl_FragColor = vec4(vec3(0.86, 0.94, 1.0) * (0.32 + 1.5 * pulse) * edge * ends * k * depthFade(), 1.0);
       }`,
   });
+}
+
+// A unit vector at right angles to dir, stable for every direction: the cross product with the
+// world axis that is farthest from dir.
+function perpendicular(dir) {
+  const ax = Math.abs(dir.x) < 0.6 ? new THREE.Vector3(1, 0, 0) : Math.abs(dir.y) < 0.6 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(0, 0, 1);
+  return new THREE.Vector3().crossVectors(dir, ax).normalize();
 }
 
 // A known route whose direction the books do not give: an even, slow shimmer along the tube.
 function routeMaterial() {
   return new THREE.ShaderMaterial({
-    uniforms: { t: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
+    uniforms: { t: { value: 0 }, ...fogUniforms() }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
     vertexShader: tubeVert,
-    fragmentShader: `uniform float t; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
+    fragmentShader: `${FADE} uniform float t; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
       void main(){
         float edge = pow(abs(dot(vN, vV)), 1.3);
         float ends = smoothstep(0.0, 0.07, vUv.x) * smoothstep(1.0, 0.93, vUv.x);
         float dots = 0.5 + 0.5 * sin(vUv.x * 90.0);
         float breathe = 0.75 + 0.25 * sin(t * 0.8 + vUv.x * 6.0);
-        gl_FragColor = vec4(vec3(0.78, 0.86, 1.0) * (0.18 + 0.42 * dots) * breathe * edge * ends, 1.0);
+        gl_FragColor = vec4(vec3(0.78, 0.86, 1.0) * (0.18 + 0.42 * dots) * breathe * edge * ends * depthFade(), 1.0);
       }`,
   });
 }
 
 function glowMaterial(k = 1) {
   return new THREE.ShaderMaterial({
-    uniforms: { k: { value: k } },
+    uniforms: { k: { value: k }, ...fogUniforms() },
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
     vertexShader: tubeVert,
     fragmentShader: `varying vec2 vUv; varying vec3 vN; varying vec3 vV;
-      uniform float k; void main(){ float ends = smoothstep(0.0, 0.1, vUv.x) * smoothstep(1.0, 0.9, vUv.x); float e = pow(abs(dot(vN, vV)), 2.2); gl_FragColor = vec4(vec3(0.55, 0.7, 1.0) * e * ends * 0.16 * k, 1.0); }`,
+      ${FADE} uniform float k; void main(){ float ends = smoothstep(0.0, 0.1, vUv.x) * smoothstep(1.0, 0.9, vUv.x); float e = pow(abs(dot(vN, vV)), 2.2); gl_FragColor = vec4(vec3(0.55, 0.7, 1.0) * e * ends * 0.16 * k * depthFade(), 1.0); }`,
   });
 }
 
 // 5e: a wildspace system seen from the Astral Sea, a soft silver bubble rather than a shell.
 function hazeMaterial() {
   return new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
+    uniforms: fogUniforms(), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
     vertexShader: tubeVert,
-    fragmentShader: `varying vec2 vUv; varying vec3 vN; varying vec3 vV;
-      void main(){ float ndv = clamp(dot(vN, vV), 0.0, 1.0); float f = pow(1.0 - ndv, 2.0); gl_FragColor = vec4(vec3(0.8, 0.84, 0.95) * (0.06 + f * 0.75), 1.0); }`,
+    fragmentShader: `${FADE} varying vec2 vUv; varying vec3 vN; varying vec3 vV;
+      void main(){ float ndv = clamp(dot(vN, vV), 0.0, 1.0); float f = pow(1.0 - ndv, 2.0); gl_FragColor = vec4(vec3(0.8, 0.84, 0.95) * (0.06 + f * 0.75) * depthFade(), 1.0); }`,
   });
 }

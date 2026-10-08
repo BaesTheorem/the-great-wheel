@@ -46,7 +46,7 @@ Each item has DM notes, DM links and a Secret switch. They do not go into the pu
 
 Every item has `sources` (the book and the pages) and `wiki` (a Forgotten Realms Wiki title such as `"Glyth"` or `"Glyth#Haven"`, or a full URL). A field in `by_edition` replaces the base field in one edition, for example `"by_edition": {"5e": {"summary": "..."}}`.
 
-Sphere positions on the phlogiston map follow the known currents and groups. The distances between spheres are not to scale.
+Sphere positions on the phlogiston map come from `tools/layout.py`, a 3D force layout that follows the known currents and groups. The books give no positions in the phlogiston, so the distances between spheres are not to scale. A sphere with `"pinned": true` in its `map` keeps its position.
 
 ## Commands
 
@@ -59,6 +59,7 @@ Sphere positions on the phlogiston map follow the known currents and groups. The
 | `bin/orrery new-sphere ID --name NAME [--pos X,Y,Z]` | Adds an empty sphere |
 | `tools/smoke.py [--shots DIR] [--tour]` | Opens each view in headless Chromium and fails on a page error (needs Playwright) |
 | `tools/test_layers.py` | Tests the split into the public atlas and the private overlay |
+| `tools/layout.py [--new] [--seed N]` | Lays the spheres out in 3D from their currents and groups; `--new` places only new spheres |
 | `tools/make-app.sh` | Builds a macOS app that starts the local editor with a double-click |
 | `tools/assets/fetch_models.py`, `tools/assets/build_models.py` | Downloads the source models, then makes the web models with headless Blender |
 

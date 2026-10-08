@@ -306,16 +306,17 @@ export function crystalMaterial() {
 // The outside of a crystal shell: dark ceramic with a rainbow rim (the phlogiston's light).
 export function beadMaterial(tint = [0.028, 0.032, 0.05]) {
   return new THREE.ShaderMaterial({
-    uniforms: { base: { value: new THREE.Vector3(...tint) } },
-    vertexShader: `varying vec3 vN; varying vec3 vV;
-      void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
-    fragmentShader: `uniform vec3 base; varying vec3 vN; varying vec3 vV;
+    uniforms: { base: { value: new THREE.Vector3(...tint) }, fogNear: { value: 1e6 }, fogFar: { value: 2e6 } },
+    vertexShader: `varying vec3 vN; varying vec3 vV; varying float vDepth;
+      void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); vDepth = -mv.z; gl_Position = projectionMatrix * mv; }`,
+    fragmentShader: `uniform vec3 base; uniform float fogNear; uniform float fogFar; varying vec3 vN; varying vec3 vV; varying float vDepth;
       void main(){
         float ndv = clamp(dot(vN, vV), 0.0, 1.0), fr = pow(1.0 - ndv, 3.0);
         vec3 iri = 0.5 + 0.5 * cos(6.2831 * (vec3(0.0, 0.33, 0.67) + vN.y * 0.55 + vN.x * 0.35));
         vec3 col = base * (0.4 + 0.6 * ndv) + mix(vec3(0.78, 0.84, 1.0), iri, 0.6) * fr * 1.25;
         vec3 Lh = normalize(normalize(vec3(-0.45, 0.65, 0.7)) + vV);
         col += pow(max(dot(vN, Lh), 0.0), 600.0) * 0.45;
+        col *= 1.0 - 0.72 * smoothstep(fogNear, fogFar, vDepth);  // far beads dim, so the depth reads
         gl_FragColor = vec4(col, 1.0);
       }`,
   });

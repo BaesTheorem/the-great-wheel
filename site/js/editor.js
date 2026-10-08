@@ -139,6 +139,7 @@ function sphereSpec(isNew) {
     { key: "region", label: "Group", type: "select", options: [["", "None"], ...((window.orrery?.state.atlas.data.regions) || []).map((g) => [g.id, g.name])] },
     { key: "map.pos", label: "Position on the map", type: "vec3", place: true },
     { key: "map.size", label: "Size on the map (1 is normal)", type: "number", step: 0.05 },
+    { key: "map.pinned", label: "Keep this position when tools/layout.py lays the map out again", type: "switch" },
     { key: "shell_radius_mi", label: "Shell radius (miles)", type: "number", help: "Blank: twice the farthest orbit, the rule from the Concordance of Arcane Space." },
     { key: "boundary.2e", label: "Edge in 2e", type: "select", options: [["shell", "Crystal shell"], ["haze", "Haze"]] },
     { key: "boundary.5e", label: "Edge in 5e", type: "select", options: [["haze", "Silver haze"], ["shell", "Crystal shell"]] },

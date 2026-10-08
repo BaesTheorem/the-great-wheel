@@ -50,9 +50,10 @@ export class Labels {
       let el = this.els.get(it.key);
       if (!el) { el = this.make(it); this.els.set(it.key, el); this.root.appendChild(el); }
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
-      el.classList.toggle("sel", !!it.sel);
+      el.classList.toggle("sel", !!(it.sel || it.hl));
       el.classList.toggle("dim", !!it.dim);
       el.classList.toggle("notext", !showText);
+      el.style.opacity = it.fade != null ? it.fade.toFixed(2) : "";
       el._x = x; el._y = y; el._rr = rr; el._item = it; el._box = showText ? box : null;
       const ring = el.firstChild;
       if (ring?.classList?.contains("ring")) { ring.style.width = ring.style.height = `${2 * rr}px`; }
