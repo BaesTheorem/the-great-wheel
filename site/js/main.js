@@ -14,6 +14,17 @@ const phone = () => innerWidth < 760;
 // ?embed: the orrery inside another page (a campaign page, for example). It waits for a click
 // before it takes the mouse wheel and touch, so the host page still scrolls past it.
 const EMBED = new URLSearchParams(location.search).has("embed");
+// ?pin=WORLD:U:V:NAME (it can repeat): a map pin that only a link with it shows, for example the
+// home city of a campaign on the campaign's own page. U and V give the place on the world's map
+// texture, from 0 to 1. These pins are never part of the atlas.
+const URL_PINS = new Map();
+for (const p of new URLSearchParams(location.search).getAll("pin")) {
+  const [id, u, v, ...rest] = p.split(":");
+  const name = rest.join(":").trim().slice(0, 60);
+  if (!id || !name || !(parseFloat(u) >= 0 && parseFloat(u) <= 1) || !(parseFloat(v) >= 0 && parseFloat(v) <= 1)) continue;
+  if (!URL_PINS.has(id)) URL_PINS.set(id, []);
+  URL_PINS.get(id).push({ name, u: parseFloat(u), v: parseFloat(v) });
+}
 
 class App {
   async init() {
@@ -37,6 +48,7 @@ class App {
       $("#embedhint span").textContent = matchMedia("(pointer: coarse)").matches ? "Tap to explore the map" : "Click to explore the map";
     }
     this.labels = new Labels($("#labels"));
+    this.urlPins = URL_PINS;
     this.editor = new Editor(this);
     this.lastFrame = performance.now();
     this.t = 0;
@@ -115,7 +127,11 @@ class App {
 
   updateFullLink() {
     const a = $("#fullbtn");
-    if (a) a.href = location.pathname + location.hash;
+    if (!a) return;
+    // the full page keeps the link's own pins, but not the embed mode
+    const q = new URLSearchParams();
+    for (const p of new URLSearchParams(location.search).getAll("pin")) q.append("pin", p);
+    a.href = location.pathname + (q.toString() ? `?${q}` : "") + location.hash;
   }
 
   activate() {

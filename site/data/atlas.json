@@ -416,13 +416,6 @@
               "16384": "assets/textures/toril-16384.jpg"
             }
           },
-          "pins": [
-            {
-              "name": "Calimport",
-              "u": 0.306671,
-              "v": 0.387291
-            }
-          ],
           "summary": "The third planet and the most populous world in Realmspace, with the widest variety of life. Selûne orbits it, and the Tears of Selûne trail behind the moon.",
           "facts": [
             [

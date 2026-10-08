@@ -20,6 +20,7 @@ A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston
 - Inside a sphere, the orbit button on the right (or the O key) turns the orbit lines off and on.
 - Share copies a link to the current view, date and edition.
 - Add `?embed` to the address to put the map in a page of your own. The map then waits for a click before it takes the mouse wheel, and the page can scroll past it.
+- Add `pin=WORLD:U:V:NAME` to the address to show a pin that only that link shows, for example the home city of a campaign on the campaign's own page. `U` and `V` give the place on the world's map texture, from 0 to 1. You can add more than one pin. Example: `?embed&pin=toril:0.5:0.42:Home#/realmspace/toril`.
 
 ## Edit the map
 

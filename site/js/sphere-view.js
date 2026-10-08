@@ -228,11 +228,12 @@ export class SphereView {
       if (n.labelR) r = n.labelR;
       items.push({ key: b.id, text: b.name, world: anchor, r, color: b.look?.color || "#9fb0c8", dim: minor && !n.sat ? true : b.kind === "nebula" || b.kind === "comet", ring: b.kind !== "asteroid-field", sel: isSel, kind: b.kind });
     }
-    // surface pins (e.g. Calimport) when the camera is close to a textured world
+    // surface pins when the camera is close to a textured world
     for (const n of this.order) {
-      if (!n.b.pins?.length || !n.mesh) continue;
+      const pins = this.pinsOf(n.b);
+      if (!pins.length || !n.mesh) continue;
       if (cam.position.distanceTo(n.world) > n.r * 16) continue;
-      for (const pin of n.b.pins) {
+      for (const pin of pins) {
         const phi = pin.u * TAU, th = pin.v * Math.PI;
         const local = new THREE.Vector3(-Math.cos(phi) * Math.sin(th), Math.cos(th), Math.sin(phi) * Math.sin(th)).multiplyScalar(n.r * 1.004);
         const w = n.mesh.localToWorld(local.clone());
@@ -248,10 +249,15 @@ export class SphereView {
     renderer.render(this.scene, camera);
   }
 
-  // Turn a world on its axis so its first map pin (Calimport on Toril) faces the given direction.
+  // The pins on a world: its own from the atlas, then any that the page link gives (?pin=).
+  pinsOf(b) {
+    return [...(this.app.urlPins?.get(b.id) || []), ...(b.pins || [])];
+  }
+
+  // Turn a world on its axis so its first map pin faces the given direction.
   facePin(id, dir) {
     const n = this.nodes.get(id);
-    const pin = n?.b.pins?.[0];
+    const pin = n && this.pinsOf(n.b)[0];
     if (!pin || !n.mesh) return;
     const phi = pin.u * TAU, th = pin.v * Math.PI;
     const local = new THREE.Vector3(-Math.cos(phi) * Math.sin(th), Math.cos(th), Math.sin(phi) * Math.sin(th));
