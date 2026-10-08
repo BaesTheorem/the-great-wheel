@@ -111,7 +111,7 @@ export function miles(n) {
   if (n >= 1e6) return `${(n / 1e6).toLocaleString(undefined, { maximumFractionDigits: 1 })} million mi`;
   return `${Math.round(n).toLocaleString()} mi`;
 }
-const sourceText = (s) => `${esc(s.title)}${s.pages ? `, p. ${esc(s.pages)}` : ""}`;
+const sourceText = (s) => `${esc(s.title)}${s.pages ? `, ${/\d/.test(s.pages) ? "p. " : ""}${esc(s.pages)}` : ""}`;
 
 // The Forgotten Realms Wiki page for an entity: a page title ("Glyth#Haven" for a section) or a
 // full URL. Without one, a wiki search for the name, so every entity links somewhere useful.
