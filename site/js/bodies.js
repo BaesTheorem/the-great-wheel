@@ -3,12 +3,14 @@
 // update() handles what has to follow the scene (a comet's tails, the Spindle facing the sun).
 // Models load in the background: a simple shape stands in until the model arrives.
 import * as THREE from "three";
-import { bodyTexture, radialTex, sprite, points, rng, gauss, hashStr, TAU, canvasTex, loadImage, srgb } from "./gfx.js";
+import { bodyTexture, radialTex, sprite, points, rng, gauss, hashStr, TAU, canvasTex, loadImage, srgb, recolor } from "./gfx.js";
 import { modelClone, meshParts, ROCKS, ROCKS_LO, studioEnv } from "./models.js";
 import { BlackHole } from "./blackhole.js";
+import { bakeWorld } from "./planets.js";
 
 const glow = (stops) => radialTex(stops, 256);
 const ringTexCache = new Map();
+const sunTexCache = new Map();   // star surfaces by color, shared by every star of that color
 const V = () => new THREE.Vector3();
 
 // Put a model under the pivot when it has loaded, in place of the stand-in shape.
@@ -32,7 +34,7 @@ function attach(node, url, scale, opts = {}) {
 
 const tintOf = (b, fallback = "#ffffff") => new THREE.Color(b.look?.tint_color || b.look?.color || fallback);
 
-export async function buildBody(b, r, renderer) {
+export async function buildBody(b, r, renderer, opts = {}) {
   const color = new THREE.Color(b.look?.color || "#9fb0c8");
   const group = new THREE.Group(), pivot = new THREE.Group();
   group.add(pivot);
@@ -40,20 +42,49 @@ export async function buildBody(b, r, renderer) {
   const shape = b.shape || (["asteroid", "island", "dead-god"].includes(b.kind) ? "irregular" : "sphere");
   const look = b.look || {};
 
+  if (b.kind === "star" && look.cluster > 1) return starCluster(node, b, r, color);
   if (b.kind === "star") {
     const core = new THREE.Mesh(new THREE.SphereGeometry(r * 0.9, 64, 48), new THREE.MeshBasicMaterial({ color, toneMapped: false }));
     pivot.add(core);
+    // the photo of the Sun is orange: a star of another color gets the photo in gray, tinted
+    const hex = (look.color || "#fff3e0").toLowerCase(), tinted = hex !== "#fff3e0";
     loadImage("assets/textures/2k_sun.jpg").then((im) => {
       if (!im) return;
-      core.material.map = srgb(new THREE.Texture(im));
-      core.material.color = color.clone().lerp(new THREE.Color("#ffffff"), 0.35).multiplyScalar(1.25);
+      if (!sunTexCache.has(hex)) {
+        const rgbOf = [1, 3, 5].map((k) => parseInt(hex.slice(k, k + 2), 16) / 255);
+        sunTexCache.set(hex, tinted ? recolor(im, rgbOf.map((v) => 0.55 + 1.15 * v), 0.08) : srgb(new THREE.Texture(im)));
+      }
+      core.material.map = sunTexCache.get(hex);
+      if (tinted) {
+        core.material.color = new THREE.Color(1.15, 1.15, 1.15);
+      } else {
+        core.material.color = color.clone().lerp(new THREE.Color("#ffffff"), 0.35).multiplyScalar(1.25);
+      }
       core.material.needsUpdate = true;
     });
-    const warm = color.clone().lerp(new THREE.Color("#ffb070"), 0.5);
+    const warm = color.clone().lerp(new THREE.Color("#ffb070"), tinted ? 0.12 : 0.5);
     const c = (k, a) => `rgba(${Math.round(warm.r * 255 * k)},${Math.round(warm.g * 255 * k)},${Math.round(warm.b * 255 * k)},${a})`;
-    group.add(sprite(glow([[0, "rgba(255,252,246,1)"], [0.1, c(1, 0.9)], [0.3, c(1, 0.32)], [0.6, c(0.9, 0.08)], [1, c(0.8, 0)]]), r * 11));
-    group.add(sprite(glow([[0, c(1, 0.22)], [0.35, c(1, 0.06)], [1, "rgba(0,0,0,0)"]]), r * 36));
-    group.add(new THREE.PointLight(0xfff3e4, 3.4, 0, 0));
+    // a sun that circles another body (one of several suns) gets a smaller halo, so a sky of many
+    // suns does not wash out
+    const halo = opts.secondary ? 0.5 : 1;
+    group.add(sprite(glow([[0, "rgba(255,252,246,1)"], [0.1, c(1, 0.9)], [0.3, c(1, 0.32)], [0.6, c(0.9, 0.08)], [1, c(0.8, 0)]]), r * 11 * halo));
+    group.add(sprite(glow([[0, c(1, 0.22)], [0.35, c(1, 0.06)], [1, "rgba(0,0,0,0)"]]), r * 36 * halo * halo));
+    // the light takes some of the star's color (a red sun lights its worlds red); a minor star
+    // (look.light false) lights nothing
+    if (look.light !== false) group.add(new THREE.PointLight(new THREE.Color("#fff3e4").lerp(color, 0.45), 3.4, 0, 0));
+    if (shape === "cluster") fireKnot(node, b, r, color);
+    if (look.pulse_hours > 0) {
+      // a star that swells and shrinks (Heartspace's Heart): the beat follows the clock, slowed
+      // to one beat in five seconds at most so that it reads as a beat
+      let phase = 0;
+      const w = TAU * 24 / look.pulse_hours;
+      node.update = ({ dtReal, view }) => {
+        const st = view.app.state, rate = st.playing ? st.rate : 0;
+        phase += Math.min(Math.abs(rate * w), 1.25) * dtReal;
+        const k = 1 + 0.1 * Math.sin(phase);
+        pivot.scale.setScalar(k);
+      };
+    }
     if (b.day_hours > 0) node.spin = TAU / (b.day_hours / 24);  // Realmspace's sun: a 37-hour day
     node.noTumble = true;
     return node;
@@ -107,16 +138,14 @@ export async function buildBody(b, r, renderer) {
       isSkull ? { material: new THREE.MeshStandardMaterial({ vertexColors: true, color: tintOf(b, "#efe6d2"), roughness: 0.85 }) } : {});
     if (isSkull) node.faceCenter = true;
     if (shape === "castle") node.slowTurn = 0.04;
-  } else if (shape === "disc") {
-    discWorld(node, b, r);
+  } else if (shape === "tree") {
+    node.tree = true;   // the sphere view grows the tree (growTree), when it knows where its branches end
+    node.noSpin = true;
+  } else if (shape === "disc" || shape === "hemisphere") {
+    if (look.spindle) discWorld(node, b, r);   // H'Catha: a sea with the Spindle at its center
+    else await flatWorld(node, b, r, renderer, color, shape === "hemisphere");
   } else if (shape === "cluster") {
-    // a stand-in chain of rocks; Garden itself uses a model (look.model)
-    const R = rng(hashStr(b.id));
-    for (let i = 0; i < 6; i++) {
-      const s = new THREE.Mesh(new THREE.IcosahedronGeometry(r * (0.3 + R() * 0.25), 1), new THREE.MeshStandardMaterial({ color: 0x6d5a42, roughness: 1, flatShading: true }));
-      s.position.set((i - 2.5) * r * 0.8, Math.sin(i * 1.7) * r * 0.4, Math.cos(i * 1.3) * r * 0.35);
-      pivot.add(s);
-    }
+    rockCluster(node, b, r, color);
   } else if (shape === "irregular") {
     node.standin = new THREE.Mesh(new THREE.IcosahedronGeometry(r * 0.85, 1), new THREE.MeshStandardMaterial({ color, roughness: 1, flatShading: true }));
     pivot.add(node.standin);
@@ -133,7 +162,7 @@ export async function buildBody(b, r, renderer) {
       body.add(door);
     }
     node.tumble = 0.45;
-  } else if (shape === "castle" || b.kind === "structure") {
+  } else if (shape === "castle" || (b.kind === "structure" && !b.shape)) {
     const stone = new THREE.MeshStandardMaterial({ color: 0xd9d4c8, roughness: 0.9 });
     pivot.add(new THREE.Mesh(new THREE.CylinderGeometry(r * 1.1, r * 0.6, r * 0.35, 24), new THREE.MeshStandardMaterial({ color: 0x5d7a45, roughness: 1 })));
     const keep = new THREE.Mesh(new THREE.BoxGeometry(r * 0.7, r * 0.6, r * 0.7), stone);
@@ -144,14 +173,21 @@ export async function buildBody(b, r, renderer) {
     hull.rotation.z = Math.PI / 2;
     pivot.add(hull);
   } else {
-    const map = b.kind !== "structure" ? await bodyTexture(look, renderer) : null;
-    const mat = new THREE.MeshStandardMaterial({ map, color: map ? 0xffffff : color, roughness: 0.92, metalness: 0 });
-    node.surface = new THREE.Mesh(new THREE.SphereGeometry(r, 64, 48), mat);
+    // a globe, or a solid of another shape with the same kind of surface (ellipsoid, crescent, torus, cube)
+    const solid = ["ellipsoid", "crescent", "torus", "cube", "tetrahedron"].includes(shape) ? shape : "sphere";
+    const { mat, clouds } = await worldMaterial(b, look, renderer, color);
+    node.surface = new THREE.Mesh(worldGeometry(solid, r, look), mat);
     pivot.add(node.surface);
-    node.texturedSphere = !!map;
+    node.texturedSphere = solid === "sphere" && !!mat.map;
+    if (clouds && (solid === "sphere" || solid === "ellipsoid")) {
+      const cg = worldGeometry(solid, r * 1.012, look);
+      const layer = new THREE.Mesh(cg, new THREE.MeshStandardMaterial({ color: new THREE.Color(look.proc.cloud_color || "#ffffff"), alphaMap: clouds, transparent: true, depthWrite: false, roughness: 1 }));
+      pivot.add(layer);
+      node.update = ({ dtReal }) => { layer.rotation.y += 0.012 * dtReal; };
+    }
   }
 
-  if (look.atmosphere) {
+  if (look.atmosphere && (shape === "sphere" || shape === "ellipsoid" || shape === "cluster")) {
     const atm = new THREE.Color(look.atmosphere);
     group.add(new THREE.Mesh(new THREE.SphereGeometry(r * 1.004, 64, 48), rimMaterial(atm)));
     const limb = 1 / 1.34;
@@ -161,6 +197,145 @@ export async function buildBody(b, r, renderer) {
   if (look.moonlets) moonlets(node, b, r);
   if (b.day_hours > 0) node.spin = TAU / (b.day_hours / 24);
   return node;
+}
+
+// A star that is a cluster of fire bodies of many colors circling each other (Clusterspace's
+// Firefall): bright globes on tilted circles around the core.
+function fireKnot(node, b, r, color) {
+  const R = rng(hashStr(b.id + "knot")), hues = [0.02, 0.08, 0.13, 0.55, 0.62, 0.8, 0.95];
+  const holder = new THREE.Group();
+  node.group.add(holder);
+  const rings = [];
+  for (let i = 0; i < 7; i++) {
+    const ring = new THREE.Group();
+    ring.rotation.set(R() * 3, R() * 3, R() * 3);
+    const c = new THREE.Color().setHSL(hues[i], 0.85, 0.62);
+    const ball = new THREE.Mesh(new THREE.SphereGeometry(r * (0.16 + 0.12 * R()), 24, 16), new THREE.MeshBasicMaterial({ color: c, toneMapped: false }));
+    ball.position.x = r * (1.05 + 0.5 * R());
+    ball.add(sprite(glow([[0, "rgba(255,255,255,.9)"], [0.25, "rgba(255,255,255,.3)"], [1, "rgba(0,0,0,0)"]]), r * 1.6, 0.8, c));
+    ring.add(ball);
+    ring.userData.w = (0.3 + 0.5 * R()) * (R() < 0.5 ? 1 : -1);
+    holder.add(ring);
+    rings.push(ring);
+  }
+  node.extent = r * 2;
+  node.update = ({ dtReal }) => { for (const g of rings) g.rotation.y += g.userData.w * dtReal; };
+}
+
+// A group of small stars that count as one body (Greyspace's Sisters): bright points with halos,
+// and no light of their own.
+function starCluster(node, b, r, color) {
+  const R = rng(hashStr(b.id + "stars")), n = Math.min(b.look.cluster, 40);
+  const warm = color.clone().lerp(new THREE.Color("#ffffff"), 0.4);
+  const halo = glow([[0, "rgba(255,255,255,1)"], [0.15, "rgba(255,255,255,.55)"], [0.45, "rgba(255,255,255,.08)"], [1, "rgba(0,0,0,0)"]]);
+  for (let i = 0; i < n; i++) {
+    const u = R() * 2 - 1, a = R() * TAU, d = r * 2.2 * Math.cbrt(R()), s2 = Math.sqrt(1 - u * u);
+    const k = r * (0.12 + 0.12 * R());
+    const core = new THREE.Mesh(new THREE.SphereGeometry(k, 16, 12), new THREE.MeshBasicMaterial({ color: warm, toneMapped: false }));
+    core.position.set(Math.cos(a) * s2 * d, u * d * 0.6, Math.sin(a) * s2 * d);
+    const h = sprite(halo, k * 9, 0.8, color);
+    h.position.copy(core.position);
+    node.group.add(core, h);
+  }
+  node.noSpin = true;
+  node.extent = r * 2.6;
+  return node;
+}
+
+// ---------- surfaces and solids ----------
+// The surface of a world: painted on the GPU (look.proc), a texture file, or a plain painted globe.
+async function worldMaterial(b, look, renderer, color) {
+  if (look.proc?.style) {
+    const maps = bakeWorld(renderer, look, b.id, { big: "GHIJ".includes(b.size_class || "") });
+    const mat = new THREE.MeshStandardMaterial({ map: maps.map, roughness: maps.roughnessMap ? 1 : 0.92, roughnessMap: maps.roughnessMap || null, metalness: 0 });
+    if (maps.emissiveMap) Object.assign(mat, { emissiveMap: maps.emissiveMap, emissive: new THREE.Color(0xffffff), emissiveIntensity: look.proc.glow ?? 1.6 });
+    return { mat, clouds: maps.cloudMap || null };
+  }
+  const map = b.kind !== "structure" ? await bodyTexture(look, renderer) : null;
+  return { mat: new THREE.MeshStandardMaterial({ map, color: map ? 0xffffff : color, roughness: 0.92, metalness: 0 }), clouds: null };
+}
+
+// The solid for a world's shape. An ellipsoid is a stretched globe (look.stretch [x, y, z]); a
+// crescent is a globe with a round bite out of one side; a torus lies flat in its orbit plane.
+function worldGeometry(shape, r, look = {}) {
+  if (shape === "ellipsoid") {
+    const g = new THREE.SphereGeometry(r, 64, 48);
+    const [x, y, z] = look.stretch || [1.3, 0.78, 0.92];
+    return g.scale(x, y, z);
+  }
+  if (shape === "crescent") {
+    const g = new THREE.SphereGeometry(r, 192, 144);
+    const p = g.attributes.position, cx = r * 0.6, R = r * 0.86;
+    for (let i = 0; i < p.count; i++) {
+      const x = p.getX(i), y = p.getY(i), z = p.getZ(i), rho2 = y * y + z * z;
+      // a point inside the bite moves along x onto the near face of the bite, which hollows that side
+      if ((x - cx) * (x - cx) + rho2 < R * R) p.setX(i, cx - Math.sqrt(R * R - rho2));
+    }
+    g.computeVertexNormals();
+    return g.rotateZ(Math.PI / 2 - 0.75);   // the bite looks up and to one side: a crescent from most views
+  }
+  if (shape === "torus") return new THREE.TorusGeometry(r * 0.72, r * 0.3, 48, 128).rotateX(Math.PI / 2);
+  if (shape === "cube") return new THREE.BoxGeometry(r * 1.45, r * 1.45, r * 1.45, 8, 8, 8);
+  if (shape === "tetrahedron") return new THREE.TetrahedronGeometry(r * 1.35, 0);
+  return new THREE.SphereGeometry(r, 64, 48);
+}
+
+// A flat world: a thick disc with a painted top and bottom and a rock rim. A hemisphere world
+// (Clusterspace's flat worlds) is a dome of rock with its painted flat side to the sun.
+async function flatWorld(node, b, r, renderer, color, hemisphere = false) {
+  const look = b.look || {};
+  const top = look.proc?.style ? bakeWorld(renderer, look, b.id, { flat: true, big: "GHIJ".includes(b.size_class || "") }).map : await bodyTexture(look, renderer);
+  const face = new THREE.MeshStandardMaterial({ map: top, color: top ? 0xffffff : color, roughness: 0.9 });
+  const rim = new THREE.MeshStandardMaterial({ color: new THREE.Color(look.rim_color || "#6d6458"), roughness: 1 });
+  const spinner = new THREE.Group();
+  if (hemisphere) {
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(r, 96, 48, 0, TAU, Math.PI / 2, Math.PI / 2), rim);
+    const cap = new THREE.Mesh(new THREE.CircleGeometry(r, 128).rotateX(-Math.PI / 2), face);
+    cap.position.y = 0.001;
+    spinner.add(dome, cap);
+  } else {
+    spinner.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r * 0.97, r * 0.09, 160, 1), [rim, face, face]));
+  }
+  node.pivot.add(spinner);
+  // the disc keeps its face turned to the sun, a little from above, so its day side shows
+  const spin = b.day_hours > 0 ? TAU / (b.day_hours / 24) : 0, up = new THREE.Vector3(0, 1, 0);
+  node.update = ({ world, dtReal, view }) => {
+    const toSun = (view.sunPos || V()).clone().sub(world).normalize().add(new THREE.Vector3(0, 0.45, 0)).normalize();
+    node.pivot.quaternion.setFromUnitVectors(up, toSun);
+    const st = view.app.state, rate = st.playing ? st.rate : 0, step = Math.max(-0.15, Math.min(0.15, rate * spin)) * dtReal;
+    if (look.flip) spinner.rotation.x += step;   // it turns over and over, like a tossed coin
+    else spinner.rotation.y += step;
+  };
+  node.noSpin = true;
+}
+
+// A cluster world: several rocks that travel together as one body.
+function rockCluster(node, b, r, color) {
+  const R = rng(hashStr(b.id + "cl")), n = Math.min(b.look?.pieces || 9, 80);
+  const tint = color.clone().lerp(new THREE.Color("#ffffff"), 0.3);
+  for (let i = 0; i < n; i++) {
+    // the rocks fill a ball, the biggest near the middle; more pieces are smaller
+    const u = R() * 2 - 1, a = R() * TAU, d = r * 0.85 * Math.cbrt(R()), s2 = Math.sqrt(1 - u * u);
+    const k = r * (i === 0 ? 0.42 : (0.1 + 0.24 * R() * R()) * Math.min(1, 3 / Math.sqrt(n)));
+    const h = u * d * 0.7;
+    const rot = new THREE.Euler(R() * 6, R() * 6, R() * 6);
+    const holder = new THREE.Group();
+    holder.position.set(Math.cos(a) * d * s2, i === 0 ? 0 : h, Math.sin(a) * d * s2);
+    if (i === 0) holder.position.set(0, 0, 0);
+    const stand = new THREE.Mesh(new THREE.IcosahedronGeometry(k * 0.9, 1), new THREE.MeshStandardMaterial({ color, roughness: 1, flatShading: true }));
+    holder.add(stand);
+    node.pivot.add(holder);
+    modelClone(ROCKS[i % 4]).then((m) => {
+      if (!m) return;
+      m.scale.setScalar(k);
+      m.rotation.copy(rot);
+      m.traverse((o) => { if (o.isMesh) { o.material = o.material.clone(); o.material.color.multiply(tint); } });
+      holder.remove(stand);
+      stand.geometry.dispose();
+      holder.add(m);
+    });
+  }
+  node.tumble = 0.05;
 }
 
 // ---------- H'Catha: a flat disc of water with the Spindle at its center ----------

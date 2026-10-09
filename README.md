@@ -6,9 +6,11 @@ The [roadmap](ROADMAP.md) adds the rest of the Great Wheel: the Ethereal and Ast
 
 It shows Realmspace in full, with the bodies from *Realmspace* (TSR, 1991): the sun, the eight planets, their moons, the Tears of Selûne, Comet K'Thoutek, the Skull of the Void and more. They move on their orbits for the date that you choose on the Calendar of Harptos.
 
-The Dead Shell is charted too: its primary is a black hole, ray-traced so that light bends around it.
+Every other sphere that a book describes has its bodies on the map too: 34 spheres and 357 bodies in all, each from the sourcebook, magazine article or novel that describes it. For example: Greyspace, where the sun Liga circles the world Oerth; Krynnspace and the three moons of magic; the Astromundi Cluster, a sphere of broken worlds; the twelve spheres of the Vodoni Empire; Faeriespace, one great tree with suns for fruit; and Doomspace and Xaryxispace from 5e. The primary of the Dead Shell is a black hole, ray-traced so that light bends around it.
 
-Between the spheres is the phlogiston, with all 50 crystal spheres that published D&D material names. The map shows the currents and travel times that the books give, and three groups: the Known Spheres, the Arcane Inner Flow and the Vodoni Empire. So far, Realmspace and the Dead Shell have their worlds on the map.
+Between the spheres is the phlogiston, with all 50 crystal spheres that published D&D material names. The map shows the currents and travel times that the books give, and three groups: the Known Spheres, the Arcane Inner Flow and the Vodoni Empire. A sphere that the books name but do not describe shows its facts and sources, with no bodies.
+
+Most books give no distances or years, so most orbits outside Realmspace, Greyspace and Krynnspace are estimates. The data marks each estimate, and the info panel shows it as an approximate map position.
 
 A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston) to 5e (wildspace systems in the silver Astral Sea). Each item gives the book and the pages for its facts. Each item also links to its page on the Forgotten Realms Wiki or the Spelljammer Wiki.
 
@@ -63,17 +65,16 @@ Sphere positions on the phlogiston map come from `tools/layout.py`, a 3D force l
 | `bin/orrery new-sphere ID --name NAME [--pos X,Y,Z]` | Adds an empty sphere |
 | `tools/smoke.py [--shots DIR] [--tour]` | Opens each view in headless Chromium and fails on a page error (needs Playwright) |
 | `tools/test_layers.py` | Tests the split into the public atlas and the private overlay |
+| `tools/columns.py BOOK.pdf OUT.txt [--cols N]` | Writes the text of a sourcebook PDF in reading order, column by column |
+| `tools/chart_check.py CHART.json ...` | Checks chart files: the atlas check plus the house rules |
+| `tools/chart_merge.py CHART.json ...` | Merges chart files into the atlas |
 | `tools/layout.py [--new] [--seed N]` | Lays the spheres out in 3D from their currents and groups; `--new` places only new spheres |
 | `tools/make-app.sh` | Builds a macOS app that starts the local editor with a double-click |
 | `tools/assets/fetch_models.py`, `tools/assets/build_models.py` | Downloads the source models, then makes the web models with headless Blender |
 
-## Add a sphere from a sourcebook
+## Chart a sphere from a book
 
-1. Put the scan in `sources/`. Git ignores that folder.
-2. If the scan has no text layer, run OCR: `ocrmypdf --skip-text scan.pdf scan-ocr.pdf`, then `pdftotext -layout scan-ocr.pdf book.txt`.
-3. Find the stat blocks (`PLANET NAME`, `PLANET TYPE`, `PLANET SIZE`, `SATELLITES`, `DAY LENGTH`, `YEAR LENGTH`, `DISTANCE/TIME FROM`).
-4. Add the bodies in the editor, with the book and the pages in Sources and the wiki page in the wiki field.
-5. Set the sphere to Charted, run `bin/orrery check`, then click Publish.
+[docs/CHARTING.md](docs/CHARTING.md) gives the steps and the data format. In short: make text from the book (`ocrmypdf`, then `tools/columns.py`), write a chart file for the sphere, check it with `tools/chart_check.py`, then merge it with `tools/chart_merge.py`. Git ignores the `sources/` folder, so no book goes into the repo.
 
 ## Credits
 

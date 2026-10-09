@@ -234,9 +234,11 @@ class App {
     const field = node?.fieldOf && node.parent;
     let target = w;
     if (field) target = this.view.fieldAnchor(id) || w;
-    const dist = (b?.kind === "star" ? r * 16 : b?.kind === "black-hole" ? node.extent * 2.1 : b?.kind === "nebula" ? 6 : field ? node.parent.r * 2.6 : Math.max(r * 6.5, 0.12)) * portrait;
+    const ring = node?.fieldRing;
+    if (ring && !field) target = ring.parent.world;
+    const dist = (b?.kind === "star" ? (node.extent ? node.extent * 5 : r * 16) : b?.kind === "black-hole" ? node.extent * 2.1 : b?.kind === "nebula" ? 6 : field ? node.parent.r * 2.6 : ring ? ring.radius * 2.6 : Math.max(r * 6.5, 0.12)) * portrait;
     const cur = this.camera.position.clone().sub(this.controls.target).normalize();
-    const sun = target.clone().negate().normalize();
+    const sun = (this.view.sunPos?.clone() || new THREE.Vector3()).sub(target).normalize();   // toward the light (in a geocentric sphere the sun is not at the center)
     let dir = target.lengthSq() > 1e-6 && b?.kind !== "star" && b?.kind !== "black-hole" ? sun.clone().multiplyScalar(0.8).add(cur.multiplyScalar(0.35)).normalize() : cur;
     if (b?.shape === "disc") dir = new THREE.Vector3().crossVectors(sun, new THREE.Vector3(0, 1, 0)).normalize().multiplyScalar(0.85).add(sun.multiplyScalar(0.45)).normalize();
     // a black hole reads best from just above its disk, where the far side of the disk bends over the top

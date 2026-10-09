@@ -19,6 +19,10 @@
 - Galleon outline for the Galleon Nebula (`site/assets/shapes/galleon.svg`): "Galleon" by Lorc, https://game-icons.net, CC BY 3.0.
 - Maps of Toril (`site/assets/textures/toril-*.jpg`): World Map of Toril by Adam Whitehead (Atlas of Ice and Fire, https://atlasoficeandfireblog.wordpress.com/), with Faerûn from the Wizards of the Coast 3E map laid over it.
 
+## Painted worlds
+
+Worlds with no texture file are painted on the GPU from 3D simplex noise (`site/js/planets.js`). The noise is webgl-noise by Ian McEwan and Stefan Gustavson (Ashima Arts, https://github.com/ashima/webgl-noise), MIT license.
+
 ## Black hole
 
 The black hole follows the ray-tracing method of Otto Seiskari's black-hole (https://github.com/oseiskar/black-hole, MIT license): each light ray is followed along its orbit in its own plane.

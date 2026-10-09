@@ -2,8 +2,9 @@
 // lines, and the boundary (a crystal shell with stars on it in 2e, a silver haze in 5e).
 import * as THREE from "three";
 import * as O from "./orbits.js";
-import { starfield, OrbitLine, hashStr, radialTex, sprite, TAU } from "./gfx.js";
+import { starfield, OrbitLine, hashStr, radialTex, sprite, TAU, rng } from "./gfx.js";
 import { buildBody, ringMesh, fieldPoints, fieldRocks } from "./bodies.js";
+import { disposeBaked, bakeWorld } from "./planets.js";
 
 const V = () => new THREE.Vector3();
 
@@ -14,10 +15,12 @@ export class SphereView {
     this.nodes = new Map();
     this.order = [];
     this.kind = "sphere";
+    this.sunPos = new THREE.Vector3();   // where the first star is (the light), for bodies that face it
   }
 
   dispose() {
     for (const n of this.order) n.bh?.dispose();
+    disposeBaked();
     this.scene.traverse((o) => { o.geometry?.dispose?.(); if (o.material) [].concat(o.material).forEach((m) => m.dispose?.()); });
     this.scene = new THREE.Scene();
     this.nodes.clear();
@@ -53,13 +56,16 @@ export class SphereView {
     this.boundary = this.sphere.boundary?.[edition] || (edition === "2e" ? "shell" : "haze");
     this.buildBoundary(edition);
 
-    this.scene.add(new THREE.AmbientLight(0x9fb0d0, 0.16));
+    this.ambient = new THREE.AmbientLight(0x9fb0d0, 0.16);
+    this.scene.add(this.ambient);
 
+    // the suns that light the sphere; every one after the first gets a smaller halo
+    const lit = order.filter((b) => b.kind === "star" && b.look?.light !== false && !(b.look?.cluster > 1));
     for (const b of order) {
       const parent = b.parent ? this.nodes.get(b.parent) : null;
       const sat = !!(parent && parent.b.parent);
       const r = O.drawRadius(b, sat);
-      const node = await buildBody(b, r, renderer);
+      const node = await buildBody(b, r, renderer, { secondary: lit.indexOf(b) > 0 });
       Object.assign(node, { b, parent, sat, el: b.orbit ? O.elements(b.orbit) : null, world: V(), angle: 0 });
       if (b.orbit && node.el.P && b.day_hours && Math.abs(b.day_hours / 24 - node.el.P) < 0.02 * node.el.P) node.locked = true;
       this.nodes.set(b.id, node);
@@ -98,9 +104,25 @@ export class SphereView {
           node.group.add(node.points);
           node.group.add(fieldRocks(b, mapped, hashStr(b.id), parent.r * 0.022));
         }
-      } else if (b.kind === "asteroid-field" && parent) {
+      } else if (b.kind === "asteroid-field") {
+        // a ring of rocks around the parent (or around the center of the sphere when it has none)
         const el = b.orbit ? O.elements(b.orbit) : { a: 1, e: 0, i: 0, node: 0, argp: 0, P: 0, M0: 0 };
-        node.points = fieldPoints(b, (d) => this.mapRel(O.positionAt({ ...el, M0: d * TAU * 7.31, P: 0 }, 0, V()), parent, sat), hashStr(b.id));
+        if (b.field?.fill || b.field?.shell) {
+          // rocks all through the sphere out to the orbit radius (Passarspace, Kra'akenspace), or a
+          // hollow shell of rocks all around the parent (Greyspace's Grinder), not a ring
+          const fillIt = !!b.field.fill;
+          const spot = (R) => {
+            const u = R() * 2 - 1, a = R() * TAU, s2 = Math.sqrt(1 - u * u), d = fillIt ? el.a * Math.cbrt(0.02 + 0.98 * R()) : el.a;
+            return this.mapRel(new THREE.Vector3(Math.cos(a) * s2, u, Math.sin(a) * s2).multiplyScalar(d), parent, sat);
+          };
+          const R1 = rng(hashStr(b.id + "dust")), R2 = rng(hashStr(b.id + "rocks"));
+          node.points = fieldPoints(b, () => spot(R1), hashStr(b.id), fillIt ? 2 : 1.6);
+          // real rocks too, or the dust reads as stars
+          node.group.add(fieldRocks(b, () => spot(R2), hashStr(b.id), this.R * (fillIt ? 0.012 : 0.008)));
+        } else {
+          node.points = fieldPoints(b, (d) => this.mapRel(O.positionAt({ ...el, M0: d * TAU * 7.31, P: 0 }, 0, V()), parent, sat), hashStr(b.id));
+        }
+        node.fieldRing = { parent: parent || { world: new THREE.Vector3(), r: 0 }, radius: this.mapRel(new THREE.Vector3(el.a || 1, 0, 0), parent, sat).length() };
         node.group.add(node.points);
       }
 
@@ -114,7 +136,78 @@ export class SphereView {
       }
       if (!node.ringOf) this.scene.add(node.group);
     }
+    for (const n of this.order) if (n.tree) this.growTree(n);
+
+    // A sphere with many suns (Faeriespace has sixteen) keeps four lights, because each light costs
+    // every pixel of every world. The other suns still shine, and the ambient light stands in for them.
+    const lights = [];
+    this.scene.traverse((o) => { if (o.isPointLight) lights.push(o); });
+    if (lights.length > 4) {
+      lights.slice(4).forEach((l) => l.parent.remove(l));
+      this.ambient.intensity = 0.16 + 0.04 * Math.min(lights.length - 4, 10);
+    }
+    // a sphere with no sun at all (Darkspace, Passarspace) gets enough ambient light to see its rocks
+    if (!lights.length) this.ambient.intensity = 0.55;
     this.update(this.app.state.day, 0);
+  }
+
+  // A tree that fills the sphere (Faeriespace's Great Tree): a trunk through the center, and a
+  // branch out to each body that rests on it or hangs from it (its children with a fixed place),
+  // with leaves along the branches. The books give no shape, so this follows the bodies' places.
+  growTree(n) {
+    const kids = this.order.filter((c) => c.parent === n && c.b.fixed);
+    const ends = kids.map((c) => ({ c, p: this.mapRel(O.fixedPosition(c.b.fixed), n, c.sat) }));
+    const top = Math.max(4, ...ends.map((e) => Math.abs(e.p.y))) * 1.3;
+    const R = rng(hashStr(n.b.id + "tree"));
+    const bark = new THREE.MeshStandardMaterial({ color: new THREE.Color(n.b.look?.bark || "#6b4a30"), roughness: 1 });
+    const trunkR = top * 0.035;
+    const group = new THREE.Group();
+    group.add(new THREE.Mesh(new THREE.CylinderGeometry(trunkR * 0.7, trunkR * 1.25, top * 2, 24, 8), bark));
+    // a tapered tube along a curve: thick at the trunk, thin at the end
+    const branch = (curve, r0, r1) => {
+      const g = new THREE.TubeGeometry(curve, 40, 1, 8, false), pos = g.attributes.position, v = new THREE.Vector3();
+      for (let i = 0; i <= 40; i++) {
+        const c = curve.getPointAt(i / 40), rad = r0 + (r1 - r0) * (i / 40);
+        for (let j = 0; j <= 8; j++) {
+          const k = i * 9 + j;
+          v.fromBufferAttribute(pos, k).sub(c).multiplyScalar(rad).add(c);
+          pos.setXYZ(k, v.x, v.y, v.z);
+        }
+      }
+      g.computeVertexNormals();
+      group.add(new THREE.Mesh(g, bark));
+    };
+    const leaves = [];
+    for (const { c, p } of ends) {
+      const y0 = Math.max(-top * 0.85, Math.min(top * 0.85, p.y * 0.6));
+      const start = new THREE.Vector3(0, y0, 0);
+      const out = p.clone().setY(0).normalize();
+      const end = p.clone().sub(p.clone().sub(start).normalize().multiplyScalar(c.r * 1.3));
+      const mid = start.clone().lerp(end, 0.5).add(out.clone().multiplyScalar(start.distanceTo(end) * 0.12)).add(new THREE.Vector3(0, start.distanceTo(end) * 0.08, 0));
+      const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+      const heavy = c.b.kind === "planet" ? 1 : 0.6;
+      branch(curve, trunkR * 0.55 * heavy, trunkR * 0.12 * heavy);
+      // two side shoots from each branch
+      for (let k = 0; k < 2; k++) {
+        const t = 0.35 + 0.4 * R(), a = curve.getPointAt(t);
+        const dir = new THREE.Vector3(R() - 0.5, R() * 0.6, R() - 0.5).normalize();
+        const b2 = a.clone().add(dir.multiplyScalar(start.distanceTo(end) * (0.15 + 0.15 * R())));
+        branch(new THREE.QuadraticBezierCurve3(a, a.clone().lerp(b2, 0.5).add(new THREE.Vector3(0, 0.3, 0)), b2), trunkR * 0.18 * heavy, trunkR * 0.04);
+        for (let q = 0; q < 70; q++) leaves.push(b2.clone().add(new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).multiplyScalar(start.distanceTo(end) * 0.12)));
+      }
+      for (let q = 0; q < 140; q++) {
+        const t = 0.5 + 0.5 * R();
+        leaves.push(curve.getPointAt(t).add(new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).multiplyScalar(start.distanceTo(end) * 0.1)));
+      }
+    }
+    const lg = new THREE.BufferGeometry().setFromPoints(leaves);
+    const leafCols = new Float32Array(leaves.length * 3);
+    for (let i = 0; i < leaves.length; i++) new THREE.Color().setHSL(0.24 + 0.1 * R(), 0.55, 0.3 + 0.15 * R()).toArray(leafCols, i * 3);
+    lg.setAttribute("color", new THREE.BufferAttribute(leafCols, 3));
+    group.add(new THREE.Points(lg, new THREE.PointsMaterial({ size: trunkR * 0.9, vertexColors: true, sizeAttenuation: true, transparent: true, opacity: 0.85, depthWrite: false })));
+    n.group.add(group);
+    n.extent = top;
+    n.labelR = trunkR * 2;
   }
 
   // A position relative to the parent (true miles) -> view units, with the mapping for its level.
@@ -126,6 +219,13 @@ export class SphereView {
 
   buildBoundary(edition) {
     const R = this.R;
+    // a sphere whose shell holds land on its inner face (Herdspace: seas, mountains and farms all
+    // around the sun), painted like a world and seen from inside
+    const inner = this.sphere.inner;
+    if (inner?.proc?.style && this.boundary === "shell") {
+      const maps = bakeWorld(this.app.renderer, { proc: inner.proc }, this.sphereId + "-inner", { big: true });
+      this.scene.add(new THREE.Mesh(new THREE.SphereGeometry(R * 0.985, 128, 96), new THREE.MeshStandardMaterial({ map: maps.map, side: THREE.BackSide, roughness: 1 })));
+    }
     if (this.boundary === "shell") {
       // 2e: the stars are openings in the shell, so they sit on it
       this.scene.add(starfield(this.sphere.stars ?? 6500, R * 0.995, hashStr(this.sphereId)));
@@ -149,6 +249,7 @@ export class SphereView {
   update(day, dtReal) {
     const st = this.app.state, rate = st.playing ? st.rate : 0;
     const cam = this.app.camera;
+    this.sunSeen = false;
     for (const n of this.order) {
       const b = n.b, p = n.parent;
       const pw = p ? p.world : V();
@@ -190,6 +291,7 @@ export class SphereView {
         n.world.copy(pw).add(this.mapRel(O.fixedPosition(b.fixed), p, n.sat));
       } else n.world.copy(pw);
       n.group.position.copy(n.world);
+      if (b.kind === "star" && b.look?.light !== false && !(b.look?.cluster > 1) && !this.sunSeen) { this.sunPos.copy(n.world); this.sunSeen = true; }
       if (n.update) n.update({ world: n.world, camera: cam, t: this.app.t, dtReal, view: this });
       const pv = n.pivot || n.mesh;
       if (pv && !n.noSpin) {
@@ -277,7 +379,8 @@ export class SphereView {
   bodyRadius(id) { return this.nodes.get(id)?.r || 0.5; }
   frameDistance() {
     let far = 3;
-    for (const n of this.order) if (!n.sat && n.b.orbit && n.b.kind === "planet") far = Math.max(far, n.world.length());
+    // the worlds and suns that circle the primary or sit at fixed places (not comets, clouds or rocks)
+    for (const n of this.order) if (!n.sat && n.parent && (n.b.orbit || n.b.fixed) && ["planet", "star", "moon", "structure", "other", "black-hole"].includes(n.b.kind)) far = Math.max(far, n.world.length());
     for (const n of this.order) if (n.extent) far = Math.max(far, n.extent * 1.15);
     return far * 2.5;
   }

@@ -23,7 +23,9 @@ export const KINDS = {
   other: { label: "Other", icon: "category" },
 };
 export const ELEMENTS = ["earth", "air", "fire", "water", "live", "other"];
-export const SHAPES = ["sphere", "disc", "cluster", "irregular", "cylinder", "skull", "castle", "ship", "cloud"];
+export const SHAPES = ["sphere", "disc", "hemisphere", "cluster", "irregular", "ellipsoid", "crescent", "torus", "cube", "tetrahedron", "tree", "cylinder", "skull", "castle", "ship", "cloud", "other"];
+// Styles of painted worlds (look.proc.style, see planets.js).
+export const PROC_STYLES = ["terran", "ocean", "jungle", "desert", "ice", "lava", "gas", "cloud", "rock", "crystal", "living"];
 export const SIZE_CLASSES = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 export const SIZE_HELP = {
   A: "under 10 mi", B: "10-100 mi", C: "100-1,000 mi", D: "1,000-4,000 mi", E: "4,000-10,000 mi",
@@ -200,7 +202,7 @@ export class Atlas {
 
 const ORDER = {
   "": ["format", "title", "campaign", "between", "regions", "spheres", "flows"],
-  sphere: ["id", "name", "aka", "charted", "secret", "region", "map", "shell_radius_mi", "boundary", "calendar", "summary", "facts", "sources", "links", "wiki", "dm", "dm_links", "editions", "by_edition", "bodies"],
+  sphere: ["id", "name", "aka", "charted", "secret", "region", "map", "shell_radius_mi", "boundary", "stars", "inner", "calendar", "summary", "facts", "sources", "links", "wiki", "dm", "dm_links", "editions", "by_edition", "bodies"],
   body: ["id", "name", "kind", "parent", "secret", "element", "shape", "size_class", "diameter_mi", "orbit", "fixed", "map", "field", "ring", "cloud", "day_hours", "look", "pins", "summary", "facts", "sources", "links", "wiki", "dm", "dm_links", "editions", "by_edition"],
   flow: ["id", "from", "to", "direction", "days", "secret", "summary", "sources", "dm", "editions", "by_edition"],
 };

@@ -2,7 +2,7 @@
 // only with the local editor server (bin/orrery serve): a save writes the public atlas and the
 // private overlay, and Publish commits and pushes them. The published website has no edit mode;
 // to edit there, change site/data/atlas.json on GitHub.
-import { KINDS, ELEMENTS, SHAPES, SIZE_CLASSES, SIZE_HELP, EDITIONS, BETWEEN_KINDS, uniqueId } from "./atlas.js";
+import { KINDS, ELEMENTS, SHAPES, SIZE_CLASSES, SIZE_HELP, EDITIONS, BETWEEN_KINDS, PROC_STYLES, uniqueId } from "./atlas.js";
 import { esc, toast, confirmDialog } from "./ui.js";
 import * as H from "./harptos.js";
 
@@ -23,6 +23,14 @@ const TEXTURES = [
   ["assets/textures/2k_mercury.jpg", "Cratered gray (Mercury)"],
   ["assets/textures/2k_moon.jpg", "Moon"],
   ["assets/textures/2k_venus_atmosphere.jpg", "Cloud deck (Venus)"],
+  ["assets/textures/2k_venus_surface.jpg", "Volcanic plains (Venus surface)"],
+  ["assets/textures/2k_jupiter.jpg", "Banded giant (Jupiter)"],
+  ["assets/textures/2k_neptune.jpg", "Blue giant (Neptune)"],
+  ["assets/textures/2k_uranus.jpg", "Pale giant (Uranus)"],
+  ["assets/textures/2k_ceres_fictional.jpg", "Dwarf world, cratered (Ceres)"],
+  ["assets/textures/2k_eris_fictional.jpg", "Dwarf world, icy (Eris)"],
+  ["assets/textures/2k_haumea_fictional.jpg", "Dwarf world, bright ice (Haumea)"],
+  ["assets/textures/2k_makemake_fictional.jpg", "Dwarf world, red-brown (Makemake)"],
   ["proc:karpri", "Ocean with ice caps"],
   ["proc:chandos", "Ocean with islands"],
 ];
@@ -46,7 +54,10 @@ function prune(o) {
 
 // ---------- form specs ----------
 const opt = (pairs) => pairs.map((p) => (Array.isArray(p) ? p : [p, p]));
-const isOrbiter = (o) => !["star", "ring", "asteroid-field"].includes(o.kind) && o.parent;
+const worldLike = (o) => ["planet", "moon", "other"].includes(o.kind) && (!o.shape || ["sphere", "ellipsoid", "crescent", "torus", "cube", "tetrahedron", "disc", "hemisphere"].includes(o.shape));
+// A body that moves on an orbit or sits at a fixed place: anything with a parent, a star too (a sun
+// can orbit a world, as Liga orbits Oerth), except rings and asteroid fields.
+const isOrbiter = (o) => !["ring", "asteroid-field"].includes(o.kind) && o.parent;
 
 function bodySpec(app, sphereId, obj) {
   const atlas = app.state.atlas;
@@ -96,6 +107,8 @@ function bodySpec(app, sphereId, obj) {
     { key: "field.arc_deg", label: "Length of the trail (degrees of orbit)", type: "number", when: (o) => o.kind === "asteroid-field" && o.field?.follows },
     { key: "field.count", label: "How many rocks or globes", type: "number", when: (o) => ["asteroid-field", "sargasso"].includes(o.kind) },
     { key: "field.spread", label: "Spread (0.01 to 0.2)", type: "number", step: 0.01, when: (o) => o.kind === "asteroid-field" },
+    { key: "field.shell", label: "A hollow shell all around its parent, not a ring", type: "switch", when: (o) => o.kind === "asteroid-field" && !o.field?.follows },
+    { key: "field.fill", label: "Fills the space out to its orbit radius", type: "switch", when: (o) => o.kind === "asteroid-field" && !o.field?.follows },
     { key: "ring.inner", label: "Inner edge (times the planet's radius)", type: "number", step: 0.05, when: (o) => o.kind === "ring" },
     { key: "ring.outer", label: "Outer edge (times the planet's radius)", type: "number", step: 0.05, when: (o) => o.kind === "ring" },
     { key: "ring.tilt_deg", label: "Tilt (degrees)", type: "number", when: (o) => o.kind === "ring" },
@@ -104,8 +117,19 @@ function bodySpec(app, sphereId, obj) {
 
     { type: "section", label: "Look" },
     { key: "look.color", label: "Color (orbit line and marker)", type: "color" },
-    { key: "look.texture", label: "Surface", type: "texture", when: (o) => ["planet", "moon", "other"].includes(o.kind) && (!o.shape || o.shape === "sphere") },
+    { key: "look.proc.style", label: "Painted surface", type: "select", options: [["", "None (use the surface below)"], ...opt(PROC_STYLES)], rerender: true, help: "A world painted from noise. It replaces the surface below.", when: worldLike },
+    { key: "look.proc.sea", label: "Water cover (0 to 1)", type: "number", step: 0.05, when: (o) => ["terran", "ocean", "jungle"].includes(o.look?.proc?.style) },
+    { key: "look.proc.ice", label: "Polar ice (0 to 0.5)", type: "number", step: 0.02, when: (o) => ["terran", "ocean", "jungle", "desert"].includes(o.look?.proc?.style) },
+    { key: "look.proc.clouds", label: "Cloud cover (0 to 1)", type: "number", step: 0.05, when: (o) => !!o.look?.proc?.style && o.look.proc.style !== "gas" },
+    { key: "look.proc.bands", label: "Number of bands", type: "number", when: (o) => o.look?.proc?.style === "gas" },
+    { key: "look.proc.scale", label: "Feature size (1 to 3, larger is finer)", type: "number", step: 0.1, when: (o) => !!o.look?.proc?.style },
+    { key: "look.proc.palette", label: "Colors (comma list of #hex, in the style's order)", type: "list", when: (o) => !!o.look?.proc?.style },
+    { key: "look.proc.seed", label: "Variation (any word: a new pattern)", type: "text", when: (o) => !!o.look?.proc?.style },
+    { key: "look.texture", label: "Surface", type: "texture", when: (o) => worldLike(o) && !o.look?.proc?.style },
     { key: "look.atmosphere", label: "Atmosphere glow (#hex, blank for none)", type: "text", when: (o) => ["planet", "moon"].includes(o.kind) },
+    { key: "look.light", label: "Lights the worlds around it", type: "switch", invert: true, when: (o) => o.kind === "star", help: "Off for a minor star. A sphere keeps the first four lights." },
+    { key: "look.cluster", label: "A group of this many small stars", type: "number", when: (o) => o.kind === "star" },
+    { key: "look.pulse_hours", label: "Swells and shrinks every (hours)", type: "number", when: (o) => o.kind === "star" },
     { key: "look.scale", label: "Draw size (1 is normal)", type: "number", step: 0.1 },
     { key: "look.model", label: "3D model", type: "model", when: (o) => !["ring", "asteroid-field", "nebula", "comet", "sargasso", "star"].includes(o.kind) },
     { key: "look.moonlets", label: "Small moons around it", type: "number", when: (o) => ["planet", "moon", "asteroid", "other"].includes(o.kind) },
@@ -519,7 +543,7 @@ function fieldHTML(f, o) {
       return `<label class="colorrow"><input type="color" data-k="${k}" value="${cur}"><span>${esc(f.label)}</span></label>`;
     }
     case "switch":
-      return `<label class="lrow"><span><b>${esc(f.label)}</b>${help}</span><span class="switch"><input type="checkbox" data-k="${k}" ${v ? "checked" : ""}><span></span></span></label>`;
+      return `<label class="lrow"><span><b>${esc(f.label)}</b>${help}</span><span class="switch"><input type="checkbox" data-k="${k}" ${(f.invert ? v !== false : v) ? "checked" : ""}><span></span></span></label>`;
     case "editions": {
       const cur = Array.isArray(v) && v.length ? v : EDITIONS;
       return `<div class="edrow"><span>${esc(f.label)}</span>${EDITIONS.map((e) => `<label class="checkbox"><input type="checkbox" data-k="${k}" data-ed-val="${e}" ${cur.includes(e) ? "checked" : ""}><span>${e}</span></label>`).join("")}${help}</div>`;
@@ -545,7 +569,7 @@ function readInto(form, o, fields) {
     if (!els.length) continue;
     if (f.type === "number") { const s = els[0].value.trim(); set(o, f.key, s === "" ? "" : Number(s)); }
     else if (f.type === "days") { const s = els[0].value.trim().replace(/\s*(to|–|—)\s*/g, "-"); set(o, f.key, s === "" ? "" : /^\d+(\.\d+)?$/.test(s) ? Number(s) : s); }
-    else if (f.type === "switch") set(o, f.key, els[0].checked ? true : "");
+    else if (f.type === "switch") set(o, f.key, f.invert ? (els[0].checked ? "" : false) : (els[0].checked ? true : ""));   // an inverted switch stores only false
     else if (f.type === "list") set(o, f.key, els[0].value.split(",").map((x) => x.trim()).filter(Boolean));
     else if (f.type === "editions") set(o, f.key, els.filter((e) => e.checked).map((e) => e.dataset.edVal));
     else if (f.type === "vec3") set(o, f.key, [0, 1, 2].map((i) => Number(els.find((e) => e.dataset.i == i)?.value || 0)));
