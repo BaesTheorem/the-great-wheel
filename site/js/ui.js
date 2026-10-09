@@ -268,7 +268,7 @@ export function layersHTML(app) {
   const { layers, scale, edition } = app.state;
   const sw = (key, label, help) => `<label class="lrow"><span><b>${label}</b>${help ? `<small>${help}</small>` : ""}</span><span class="switch"><input type="checkbox" data-layer="${key}" ${layers[key] ? "checked" : ""}><span></span></span></label>`;
   return `<div class="blk"><h3>Show</h3>
-      ${sw("orbits", "Orbits")}${sw("labels", "Labels")}${sw("minor", "Moons and minor bodies", "Shown when the camera is near their planet")}${sw("boundary", edition === "5e" ? "Edge of wildspace" : "Crystal shell")}${sw("stars", "Stars")}
+      ${sw("orbits", "Orbits")}${sw("shadows", "Shadows", "The night side of each world. Off when you center a world, so all of it shows")}${sw("labels", "Labels")}${sw("minor", "Moons and minor bodies", "Shown when the camera is near their planet")}${sw("boundary", edition === "5e" ? "Edge of wildspace" : "Crystal shell")}${sw("stars", "Stars")}
     </div>
     <div class="blk"><h3>Scale</h3>
       <div class="seg wide"><a data-act="scale:schematic" class="${scale === "schematic" ? "on" : ""}">Schematic</a><a data-act="scale:true" class="${scale === "true" ? "on" : ""}">True distances</a></div>

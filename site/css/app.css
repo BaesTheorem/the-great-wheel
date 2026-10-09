@@ -97,6 +97,7 @@ body.panel-open .editbar { left: calc(50% + 180px); }
 .rail .gap { height: 8px; }
 .rail .sphereonly { display: none; }
 body.view-sphere .rail .sphereonly { display: grid; }
+body.view-sphere:not(.shadows-off) .rail a[data-r="shadows"],
 body.view-sphere:not(.orbits-off) .rail a[data-r="orbits"] { background: rgba(157, 180, 255, .22); border-color: rgba(157, 180, 255, .45); }
 
 /* ---------- title and distance (after Eyes on Exoplanets) ---------- */

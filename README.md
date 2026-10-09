@@ -19,7 +19,7 @@ A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston
 - Drag to turn the view. Scroll or pinch to zoom. Click a sphere, body, current or group to see its information.
 - The View tiles: World flies to the selected world, Sphere shows the full sphere, and Phlogiston (Astral Sea in 5e) shows the map between the spheres. On that map, double-click a sphere to go into it.
 - The time bar moves the orbits forward or back. Campaign date returns to the date in Settings.
-- Inside a sphere, the orbit button on the right (or the O key) turns the orbit lines off and on.
+- Inside a sphere, the orbit button on the right (or the O key) turns the orbit lines off and on. The shadows button (or the S key) turns the night side of the worlds off and on. When you center a world, shadows go off, so all of its face shows.
 - Share copies a link to the current view, date and edition.
 - Add `?embed` to the address to put the map in a page of your own. The map then waits for a click before it takes the mouse wheel, and the page can scroll past it.
 - Add `pin=WORLD:U:V:NAME` to the address to show a pin that only that link shows, for example the home city of a campaign on the campaign's own page. `U` and `V` give the place on the world's map texture, from 0 to 1. You can add more than one pin. Example: `?embed&pin=toril:0.5:0.42:Home#/realmspace/toril`.

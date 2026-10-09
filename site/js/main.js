@@ -59,7 +59,7 @@ class App {
     catch (e) { return this.fail(`The map data did not load (${esc(e.message)}).`); }
     this.state = {
       atlas, edition: "2e", view: "between", sphereId: null, selected: null, day: 0, rate: 1, playing: !this.reducedMotion,
-      scale: "schematic", layers: { orbits: true, labels: true, minor: true, boundary: true, stars: true }, edit: false, panel: null,
+      scale: "schematic", layers: { orbits: true, labels: true, minor: true, boundary: true, stars: true, shadows: true }, edit: false, panel: null,
     };
     this.state.day = this.campaignDay();
     if (this.editor.allowed) document.body.classList.add("can-edit");
@@ -199,6 +199,7 @@ class App {
     if (st.view === "sphere") {
       const d = this.view.frameDistance();
       this.controls.maxDistance = this.view.R * 2.6;
+      this.setLayer("shadows", true, true);   // the whole sphere: worlds lit by their suns
       this.flyTo(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, d * Math.sin(0.36), d * Math.cos(0.36)), instant);
     } else {
       const c = new THREE.Vector3();
@@ -249,6 +250,7 @@ class App {
     dir.y = Math.max(dir.y, 0.22);
     dir.normalize();
     this.view.facePin?.(id, dir);
+    this.setLayer("shadows", false, true);   // a centered world shows all of its face; S brings the night side back
     this.flyTo(target, target.clone().addScaledVector(dir, dist), instant, field ? null : id);
     if (b?.look?.texture && typeof b.look.texture === "object") this.view.sharpen(id);
   }
@@ -406,6 +408,7 @@ class App {
       else if (r === "layers") st.panel === "layers" ? this.closePanel() : this.openPanel("layers");
       else if (r === "in" || r === "out") this.zoom(r === "in" ? 0.7 : 1.45);
       else if (r === "orbits") this.setLayer("orbits", !st.layers.orbits);
+      else if (r === "shadows") this.setLayer("shadows", !st.layers.shadows);
       else if (r === "scale") { st.scale = st.scale === "schematic" ? "true" : "schematic"; toast(st.scale === "true" ? "True distances" : "Schematic scale"); this.viewDirty = true; this.rebuild(); }
       else if (r === "full") document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
     };
@@ -451,6 +454,7 @@ class App {
       else if (e.key === "Escape") { if (st.panel) this.closePanel(); else if (st.selected) { st.selected = null; this.writeHash(); this.renderChrome(); } }
       else if (e.key === "/") { e.preventDefault(); $("#search input").focus(); }
       else if ((e.key === "o" || e.key === "O") && st.view === "sphere") this.setLayer("orbits", !st.layers.orbits);
+      else if ((e.key === "s" || e.key === "S") && st.view === "sphere") this.setLayer("shadows", !st.layers.shadows);
     });
   }
 
@@ -551,16 +555,20 @@ class App {
   goSphere(id) { location.hash = `#/${encodeURIComponent(id)}`; }
   goBody(sid, bid) { location.hash = `#/${encodeURIComponent(sid)}/${encodeURIComponent(bid)}`; }
 
-  setLayer(key, on) {
+  setLayer(key, on, quiet = false) {
+    if (this.state.layers[key] === on && quiet) return;
     this.state.layers[key] = on;
     this.applyLayers();
     if (this.state.panel === "layers") this.renderPanel();
-    toast(key === "orbits" ? (on ? "Orbits on" : "Orbits off") : on ? "On" : "Off", 1400);
+    const names = { orbits: "Orbits", shadows: "Shadows" };
+    if (!quiet) toast(`${names[key] || "Layer"} ${on ? "on" : "off"}`, 1400);
   }
 
   applyLayers() {
     const L = this.state.layers;
     document.body.classList.toggle("orbits-off", !L.orbits);
+    document.body.classList.toggle("shadows-off", !L.shadows);
+    if (this.state.view === "sphere") this.view.setShadows?.(L.shadows);
     document.body.classList.toggle("no-labels", !L.labels);
     if (this.state.view === "sphere") {
       for (const n of this.view.order) if (n.orbit) n.orbit.holder.visible = L.orbits;

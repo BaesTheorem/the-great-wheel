@@ -166,6 +166,11 @@ export class SphereView {
       this.ambient.intensity = 0.45;
       this.scene.add(new THREE.HemisphereLight(0xd6e4ff, 0x3a3028, 3.2));
     }
+    // with shadows off, a light from the camera shows the whole face of a world, night side too
+    this.baseAmbient = this.ambient.intensity;
+    this.headlight = new THREE.DirectionalLight(0xffffff, 0);
+    this.scene.add(this.headlight, this.headlight.target);
+    this.setShadows(this.app.state.layers.shadows);
     this.update(this.app.state.day, 0);
   }
 
@@ -228,6 +233,15 @@ export class SphereView {
     n.labelR = trunkR * 2;
   }
 
+  // Shadows on: the suns light the worlds, so each has a night side. Off: a light from the camera
+  // and more ambient light show every face.
+  setShadows(on) {
+    if (!this.headlight) return;
+    this.shadowsOn = on;
+    this.headlight.intensity = on ? 0 : 2.1;
+    this.ambient.intensity = on ? this.baseAmbient : Math.max(this.baseAmbient, 0.55);
+  }
+
   // A position relative to the parent (true miles) -> view units, with the mapping for its level.
   mapRel(vMi, parent, sat) {
     if (sat) return O.mapSatellite(vMi, parent.r, V());
@@ -268,6 +282,10 @@ export class SphereView {
     const st = this.app.state, rate = st.playing ? st.rate : 0;
     const cam = this.app.camera;
     this.sunSeen = false;
+    if (this.headlight && !this.shadowsOn) {
+      this.headlight.position.copy(cam.position);
+      this.headlight.target.position.copy(this.app.controls.target);
+    }
     for (const n of this.order) {
       const b = n.b, p = n.parent;
       const pw = p ? p.world : V();
