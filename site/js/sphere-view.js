@@ -30,6 +30,8 @@ export class SphereView {
   async build(sphereId) {
     const { atlas, edition, scale, edit } = this.app.state;
     const renderer = this.app.renderer;
+    // a newer build (the user opened another sphere) makes this one stop at its next wait
+    const token = (this.buildToken = (this.buildToken || 0) + 1);
     this.dispose();
     this.sphereId = sphereId;
     this.sphere = atlas.spheres(edition, true).find((s) => s.id === sphereId);
@@ -66,6 +68,7 @@ export class SphereView {
       const sat = !!(parent && parent.b.parent);
       const r = O.drawRadius(b, sat);
       const node = await buildBody(b, r, renderer, { secondary: lit.indexOf(b) > 0 });
+      if (token !== this.buildToken) return false;
       Object.assign(node, { b, parent, sat, el: b.orbit ? O.elements(b.orbit) : null, world: V(), angle: 0 });
       if (b.orbit && node.el.P && b.day_hours && Math.abs(b.day_hours / 24 - node.el.P) < 0.02 * node.el.P) node.locked = true;
       this.nodes.set(b.id, node);
@@ -73,6 +76,7 @@ export class SphereView {
 
       if (b.kind === "ring" && parent) {
         const m = await ringMesh(b, parent.r, renderer);
+        if (token !== this.buildToken) return false;
         parent.group.add(m);
         node.mesh = m;
         node.group = parent.group;

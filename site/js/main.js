@@ -156,7 +156,9 @@ class App {
     st.view = "sphere"; st.sphereId = id;
     if (!this.sphereView) this.sphereView = new SphereView(this);
     this.view = this.sphereView;
-    await this.view.build(id);
+    const built = await this.sphereView.build(id);
+    // the user went somewhere else while it was building: that view takes over
+    if (built === false || st.view !== "sphere" || st.sphereId !== id) return;
     this.viewDirty = false;
     this.labels.clear();
     this.applyLayers();
@@ -172,7 +174,8 @@ class App {
     st.view = "between"; st.sphereId = null; st.selected = null;
     if (!this.betweenView) this.betweenView = new BetweenView(this);
     this.view = this.betweenView;
-    await this.view.build();
+    await this.betweenView.build();
+    if (st.view !== "between") return;   // the user opened a sphere while it was building
     this.viewDirty = false;
     this.labels.clear();
     this.frame(true);
