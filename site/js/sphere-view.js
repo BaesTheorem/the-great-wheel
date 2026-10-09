@@ -5,6 +5,7 @@ import * as O from "./orbits.js";
 import { starfield, OrbitLine, hashStr, radialTex, sprite, TAU, rng } from "./gfx.js";
 import { buildBody, ringMesh, fieldPoints, fieldRocks } from "./bodies.js";
 import { disposeBaked, bakeWorld } from "./planets.js";
+import { growTree } from "./tree.js";
 
 const V = () => new THREE.Vector3();
 
@@ -72,6 +73,7 @@ export class SphereView {
       const sat = !!(parent && parent.b.parent);
       const r = O.drawRadius(b, sat);
       const node = await buildBody(b, r, renderer, { secondary: lit.indexOf(b) > 0 });
+      node.secondaryStar = lit.length > 3 && lit.indexOf(b) > 0;   // one of many suns: its label shows up close
       if (token !== this.buildToken) return false;
       Object.assign(node, { b, parent, sat, el: b.orbit ? O.elements(b.orbit) : null, world: V(), angle: 0 });
       if (b.orbit && node.el.P && b.day_hours && Math.abs(b.day_hours / 24 - node.el.P) < 0.02 * node.el.P) node.locked = true;
@@ -151,7 +153,7 @@ export class SphereView {
       }
       if (!node.ringOf) this.scene.add(node.group);
     }
-    for (const n of this.order) if (n.tree) this.growTree(n);
+    for (const n of this.order) if (n.tree) growTree(this, n);
 
     // A sphere with many suns (Faeriespace has sixteen) keeps four lights, because each light costs
     // every pixel of every world. The other suns still shine, and the ambient light stands in for them.
@@ -172,65 +174,6 @@ export class SphereView {
     this.scene.add(this.headlight, this.headlight.target);
     this.setShadows(this.app.state.layers.shadows);
     this.update(this.app.state.day, 0);
-  }
-
-  // A tree that fills the sphere (Faeriespace's Great Tree): a trunk through the center, and a
-  // branch out to each body that rests on it or hangs from it (its children with a fixed place),
-  // with leaves along the branches. The books give no shape, so this follows the bodies' places.
-  growTree(n) {
-    const kids = this.order.filter((c) => c.parent === n && c.b.fixed);
-    const ends = kids.map((c) => ({ c, p: this.mapRel(O.fixedPosition(c.b.fixed), n, c.sat) }));
-    const top = Math.max(4, ...ends.map((e) => Math.abs(e.p.y))) * 1.3;
-    const R = rng(hashStr(n.b.id + "tree"));
-    const bark = new THREE.MeshStandardMaterial({ color: new THREE.Color(n.b.look?.bark || "#6b4a30"), roughness: 1 });
-    const trunkR = top * 0.035;
-    const group = new THREE.Group();
-    group.add(new THREE.Mesh(new THREE.CylinderGeometry(trunkR * 0.7, trunkR * 1.25, top * 2, 24, 8), bark));
-    // a tapered tube along a curve: thick at the trunk, thin at the end
-    const branch = (curve, r0, r1) => {
-      const g = new THREE.TubeGeometry(curve, 40, 1, 8, false), pos = g.attributes.position, v = new THREE.Vector3();
-      for (let i = 0; i <= 40; i++) {
-        const c = curve.getPointAt(i / 40), rad = r0 + (r1 - r0) * (i / 40);
-        for (let j = 0; j <= 8; j++) {
-          const k = i * 9 + j;
-          v.fromBufferAttribute(pos, k).sub(c).multiplyScalar(rad).add(c);
-          pos.setXYZ(k, v.x, v.y, v.z);
-        }
-      }
-      g.computeVertexNormals();
-      group.add(new THREE.Mesh(g, bark));
-    };
-    const leaves = [];
-    for (const { c, p } of ends) {
-      const y0 = Math.max(-top * 0.85, Math.min(top * 0.85, p.y * 0.6));
-      const start = new THREE.Vector3(0, y0, 0);
-      const out = p.clone().setY(0).normalize();
-      const end = p.clone().sub(p.clone().sub(start).normalize().multiplyScalar(c.r * 1.3));
-      const mid = start.clone().lerp(end, 0.5).add(out.clone().multiplyScalar(start.distanceTo(end) * 0.12)).add(new THREE.Vector3(0, start.distanceTo(end) * 0.08, 0));
-      const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-      const heavy = c.b.kind === "planet" ? 1 : 0.6;
-      branch(curve, trunkR * 0.55 * heavy, trunkR * 0.12 * heavy);
-      // two side shoots from each branch
-      for (let k = 0; k < 2; k++) {
-        const t = 0.35 + 0.4 * R(), a = curve.getPointAt(t);
-        const dir = new THREE.Vector3(R() - 0.5, R() * 0.6, R() - 0.5).normalize();
-        const b2 = a.clone().add(dir.multiplyScalar(start.distanceTo(end) * (0.15 + 0.15 * R())));
-        branch(new THREE.QuadraticBezierCurve3(a, a.clone().lerp(b2, 0.5).add(new THREE.Vector3(0, 0.3, 0)), b2), trunkR * 0.18 * heavy, trunkR * 0.04);
-        for (let q = 0; q < 70; q++) leaves.push(b2.clone().add(new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).multiplyScalar(start.distanceTo(end) * 0.12)));
-      }
-      for (let q = 0; q < 140; q++) {
-        const t = 0.5 + 0.5 * R();
-        leaves.push(curve.getPointAt(t).add(new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).multiplyScalar(start.distanceTo(end) * 0.1)));
-      }
-    }
-    const lg = new THREE.BufferGeometry().setFromPoints(leaves);
-    const leafCols = new Float32Array(leaves.length * 3);
-    for (let i = 0; i < leaves.length; i++) new THREE.Color().setHSL(0.24 + 0.1 * R(), 0.55, 0.3 + 0.15 * R()).toArray(leafCols, i * 3);
-    lg.setAttribute("color", new THREE.BufferAttribute(leafCols, 3));
-    group.add(new THREE.Points(lg, new THREE.PointsMaterial({ size: trunkR * 0.9, vertexColors: true, sizeAttenuation: true, transparent: true, opacity: 0.85, depthWrite: false })));
-    n.group.add(group);
-    n.extent = top;
-    n.labelR = trunkR * 2;
   }
 
   // Shadows on: the suns light the worlds, so each has a night side. Off: a light from the camera
@@ -359,7 +302,7 @@ export class SphereView {
         r = 0.05;
       }
       const near = n.parent ? cam.position.distanceTo(n.parent.world) < Math.max(n.parent.r * 26, 4) : true;
-      const minor = n.sat || ["asteroid", "asteroid-field", "sargasso", "portal"].includes(b.kind);
+      const minor = n.sat || n.secondaryStar || ["asteroid", "asteroid-field", "sargasso", "portal"].includes(b.kind);
       const isSel = sel?.type === "body" && sel.id === b.id;
       const show = isSel || (!minor ? true : near && this.app.state.layers.minor);
       if (!show) continue;
