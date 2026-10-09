@@ -55,6 +55,10 @@ export class SphereView {
     }
     const shellMi = this.sphere.shell_radius_mi || (far ? far * 2 : 1e9);
     this.R = O.primaryRadius(shellMi, scale);
+    // a tiny sphere (Shadowspace is about 38,000 miles across) is drawn larger, so that its worlds
+    // do not pile up on its sun; distances inside it keep their proportions
+    this.distK = this.R < 6 ? 6 / this.R : 1;
+    this.R *= this.distK;
     this.boundary = this.sphere.boundary?.[edition] || (edition === "2e" ? "shell" : "haze");
     this.buildBoundary(edition);
 
@@ -125,7 +129,13 @@ export class SphereView {
           const reach = this.mapRel(new THREE.Vector3(el.a || 1, 0, 0), parent, sat).length();
           node.group.add(fieldRocks(b, () => spot(R2), hashStr(b.id), reach * (fillIt ? 0.02 : 0.004)));
         } else {
-          node.points = fieldPoints(b, (d) => this.mapRel(O.positionAt({ ...el, M0: d * TAU * 7.31, P: 0 }, 0, V()), parent, sat), hashStr(b.id));
+          const ringAt = (d) => this.mapRel(O.positionAt({ ...el, M0: d * TAU * 7.31, P: 0 }, 0, V()), parent, sat);
+          node.points = fieldPoints(b, ringAt, hashStr(b.id));
+          // real rocks when the data asks for them (field.rocks), as in a broken world's remains
+          if (b.field?.rocks) {
+            const R2 = rng(hashStr(b.id + "ringrocks"));
+            node.group.add(fieldRocks(b, () => ringAt(R2()), hashStr(b.id), this.mapRel(new THREE.Vector3(el.a || 1, 0, 0), parent, sat).length() * 0.012));
+          }
         }
         node.fieldRing = { parent: parent || { world: new THREE.Vector3(), r: 0 }, radius: this.mapRel(new THREE.Vector3(el.a || 1, 0, 0), parent, sat).length() };
         node.group.add(node.points);
@@ -220,8 +230,8 @@ export class SphereView {
 
   // A position relative to the parent (true miles) -> view units, with the mapping for its level.
   mapRel(vMi, parent, sat) {
-    if (!parent) return O.mapPrimary(vMi, this.app.state.scale, V());
-    return sat ? O.mapSatellite(vMi, parent.r, V()) : O.mapPrimary(vMi, this.app.state.scale, V());
+    if (sat) return O.mapSatellite(vMi, parent.r, V());
+    return O.mapPrimary(vMi, this.app.state.scale, V()).multiplyScalar(this.distK || 1);
   }
   orbitNormal(el) { return new THREE.Vector3(0, 1, 0).applyAxisAngle(new THREE.Vector3(1, 0, 0), el.i).applyAxisAngle(new THREE.Vector3(0, 1, 0), el.node); }
 
@@ -388,7 +398,8 @@ export class SphereView {
   frameDistance() {
     let far = 3;
     // the worlds and suns that circle the primary or sit at fixed places (not comets, clouds or rocks)
-    for (const n of this.order) if (!n.sat && n.parent && (n.b.orbit || n.b.fixed) && ["planet", "star", "moon", "structure", "other", "black-hole"].includes(n.b.kind)) far = Math.max(far, n.world.length());
+    for (const n of this.order) if (!n.sat && (n.b.orbit || n.b.fixed) && ["planet", "star", "moon", "structure", "other", "black-hole"].includes(n.b.kind)) far = Math.max(far, n.world.length());
+    for (const n of this.order) if (n.fieldRing && !n.parent) far = Math.max(far, n.fieldRing.radius);   // a field around an empty center
     for (const n of this.order) if (n.extent) far = Math.max(far, n.extent * 1.15);
     return far * 2.5;
   }

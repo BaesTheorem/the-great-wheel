@@ -17628,7 +17628,7 @@
       "aka": [
         "Steelstar-space"
       ],
-      "charted": false,
+      "charted": true,
       "map": {
         "pos": [
           8.34,
@@ -17641,8 +17641,37 @@
         "2e": "shell",
         "5e": "haze"
       },
-      "summary": "A remote, half-legendary sphere named for its dull gray fire world. Ogres who survived the First Unhuman War rebuild their fleet here around their last kingship. Khelben Arunsun of Toril confirmed that it exists.",
-      "facts": [],
+      "summary": "A crystal sphere far from the known spaceways. Its primary is a fire world with a dim grey light, the Steel Star. The Kingship of the ogres that the elves did not kill circles it.",
+      "facts": [
+        [
+          "Location",
+          "Far from the known spaceways"
+        ],
+        [
+          "Primary",
+          "The Steel Star, a fire world with a dim grey light"
+        ],
+        [
+          "Kingship",
+          "A large warship of the ogres circles the Steel Star. The Ogre King holds court on it."
+        ],
+        [
+          "Fleet",
+          "Many smaller ships travel with the Kingship. The ogres took them from wrecks and from other crews."
+        ],
+        [
+          "Ogre plans",
+          "The ogres make two more kingships in nearby spheres. They send raiders to get ships, helms and human mages."
+        ],
+        [
+          "Report",
+          "The human mage Khelben Arunsun confirms the Steel Star, the Kingship and the ogre strength."
+        ],
+        [
+          "Elves",
+          "Elven patrols look for the two new kingships and find none."
+        ]
+      ],
       "sources": [
         {
           "title": "SJR1 Lost Ships",
@@ -17654,12 +17683,54 @@
         "2e",
         "5e"
       ],
-      "bodies": []
+      "bodies": [
+        {
+          "id": "the-steel-star",
+          "name": "The Steel Star",
+          "kind": "star",
+          "parent": null,
+          "element": "fire",
+          "shape": "sphere",
+          "look": {
+            "color": "#a9b0bb"
+          },
+          "summary": "The fire world that gives the sphere its name. Its light is dim grey. A large ogre warship circles it.",
+          "facts": [
+            [
+              "Type",
+              "Fire world. It is the primary of the sphere."
+            ],
+            [
+              "Light",
+              "Dim grey. The book also calls it the Grey Star."
+            ],
+            [
+              "Size",
+              "The book gives no diameter and no day length."
+            ],
+            [
+              "Satellites",
+              "None named. The Kingship of the ogres, a ship, circles it."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJR1 Lost Ships",
+              "pages": "55-56"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Steel_Star#Overview",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        }
+      ]
     },
     {
       "id": "redeyes",
       "name": "Redeyes",
-      "charted": false,
+      "charted": true,
       "map": {
         "pos": [
           -9.71,
@@ -17672,8 +17743,49 @@
         "2e": "shell",
         "5e": "haze"
       },
-      "summary": "A huge sphere with two large dark-red fire bodies. It lies between human and mind flayer space, so it is often a battleground, and wreckage fills it. A death tyrant and many scavvers live here.",
-      "facts": [],
+      "summary": "A large crystal sphere with two deep red fire worlds. It lies between human space and illithid space. Fleets fight there frequently, and wreckage and debris fill it.",
+      "facts": [
+        [
+          "Size",
+          "Large. The book gives no number."
+        ],
+        [
+          "Fire worlds",
+          "Two large fire worlds of deep red dominate the sphere. The book gives them no names."
+        ],
+        [
+          "Position",
+          "Between human space and illithid space"
+        ],
+        [
+          "Battles",
+          "Fleets fight in the sphere frequently. Salvage and space debris litter it."
+        ],
+        [
+          "Scavengers",
+          "Only desperate or well-armed crews go there to scavenge."
+        ],
+        [
+          "Life",
+          "One or more rogue death tyrants, many scavvers, red-eyed space stirges, and many human and humanoid reavers"
+        ],
+        [
+          "Space stirges",
+          "The stirges are cinnamon-brown with red eyes. Cold and bad air have no effect on them."
+        ],
+        [
+          "Raiders",
+          "A small number of raiders there have treasure that is worth a fight."
+        ],
+        [
+          "Initiation",
+          "Guilds, secret societies and military brotherhoods send recruits in. A recruit must show a space stirge corpse as proof."
+        ],
+        [
+          "Wreck",
+          "A wrecked space leviathan, a ship of an unknown builder, drifts near Redeyes."
+        ]
+      ],
       "sources": [
         {
           "title": "SJR1 Lost Ships",
@@ -17685,12 +17797,147 @@
         "2e",
         "5e"
       ],
-      "bodies": []
+      "bodies": [
+        {
+          "id": "red-fire-world-1",
+          "name": "Red fire world I",
+          "kind": "star",
+          "parent": null,
+          "element": "fire",
+          "shape": "sphere",
+          "size_class": "G",
+          "look": {
+            "color": "#c8321e"
+          },
+          "summary": "One of the two deep red fire worlds of Redeyes. The book gives them no names.",
+          "facts": [
+            [
+              "Type",
+              "Fire body"
+            ],
+            [
+              "Color",
+              "Deep red"
+            ],
+            [
+              "Name",
+              "The book gives none"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJR1 Lost Ships",
+              "pages": "62"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Redeyes",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "red-fire-world-2",
+          "name": "Red fire world II",
+          "kind": "star",
+          "parent": "red-fire-world-1",
+          "element": "fire",
+          "shape": "sphere",
+          "size_class": "F",
+          "orbit": {
+            "radius_mi": 150000000,
+            "period_days": 600,
+            "phase_deg": 200,
+            "incl_deg": 4,
+            "approx": true
+          },
+          "look": {
+            "color": "#b4281a"
+          },
+          "summary": "The second deep red fire world of Redeyes. The book does not say how the two move, so the map puts this one in orbit around the first.",
+          "facts": [
+            [
+              "Type",
+              "Fire body"
+            ],
+            [
+              "Color",
+              "Deep red"
+            ],
+            [
+              "Name",
+              "The book gives none"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJR1 Lost Ships",
+              "pages": "62"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Redeyes",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "wreckage",
+          "name": "Wreckage and debris",
+          "kind": "asteroid-field",
+          "parent": "red-fire-world-1",
+          "element": "earth",
+          "orbit": {
+            "radius_mi": 900000000,
+            "period_days": 5000,
+            "phase_deg": 0,
+            "approx": true
+          },
+          "field": {
+            "fill": true,
+            "count": 1400,
+            "spread": 0.02,
+            "rocks": 450,
+            "lights": 0
+          },
+          "look": {
+            "color": "#a07060",
+            "rock_color": "#8a6a5a"
+          },
+          "summary": "Fleets fight in Redeyes often, so wreckage and debris fill the sphere.",
+          "facts": [
+            [
+              "Type",
+              "Wreckage of ships"
+            ],
+            [
+              "Cause",
+              "Frequent fleet battles between human and illithid space"
+            ],
+            [
+              "Name",
+              "The book gives none"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJR1 Lost Ships",
+              "pages": "62"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Redeyes",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        }
+      ],
+      "shell_radius_mi": 1000000000
     },
     {
       "id": "moragspace",
       "name": "Moragspace",
-      "charted": false,
+      "charted": true,
       "map": {
         "pos": [
           -4.24,
@@ -17703,15 +17950,31 @@
         "2e": "shell",
         "5e": "haze"
       },
-      "summary": "A small sphere that centuries of war broke: its planets are fragments, and few natives remain. The scro rule it from Gamaro Base.",
+      "summary": "A small crystal sphere whose planets giant space turtles ate centuries ago. Only broken fragments and chunks of rock remain, and few natives survive. Its sun is a flat disc in the farthest orbit, with its lit face toward the center.",
       "facts": [
+        [
+          "Size",
+          "Not large, compared with Realmspace or Greyspace"
+        ],
+        [
+          "Center",
+          "Empty. The planets and the sun all orbit the center of the sphere."
+        ],
+        [
+          "Sun",
+          "A flat disc in the farthest orbit, outside the planets. One circuit takes almost a year."
+        ],
+        [
+          "Planets",
+          "Gamaroids, giant space turtles, ate them over several centuries. Fragments remain, and many hold air."
+        ],
         [
           "Control",
           "The scro, from Gamaro Base"
         ],
         [
-          "To Realmspace",
-          "About 21 days"
+          "On the map",
+          "The books give no distances. The map shows estimates."
         ]
       ],
       "sources": [
@@ -17729,12 +17992,170 @@
         "2e",
         "5e"
       ],
-      "bodies": []
+      "bodies": [
+        {
+          "id": "fragments",
+          "name": "Planet fragments",
+          "kind": "asteroid-field",
+          "parent": null,
+          "element": "earth",
+          "orbit": {
+            "radius_mi": 280000000,
+            "period_days": 900,
+            "phase_deg": 0,
+            "approx": true
+          },
+          "field": {
+            "count": 2400,
+            "spread": 0.45,
+            "rocks": 700,
+            "lights": 6
+          },
+          "look": {
+            "color": "#d8c8ae",
+            "rock_color": "#a8957c"
+          },
+          "summary": "The broken remains of the planets of Moragspace, which gamaroids ate over several centuries. Many fragments are large enough to hold air, but few natives survive.",
+          "facts": [
+            [
+              "Type",
+              "Fragments and chunks of rock"
+            ],
+            [
+              "Cause",
+              "Gamaroids, giant turtle-like monsters, ate the planets"
+            ],
+            [
+              "Air",
+              "Many fragments are large enough to hold an atmosphere"
+            ],
+            [
+              "Name",
+              "The books give none"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJS1 Goblins' Return",
+              "pages": "7"
+            },
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "81"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Moragspace",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "sun",
+          "name": "The sun",
+          "kind": "star",
+          "parent": null,
+          "element": "fire",
+          "shape": "disc",
+          "size_class": "F",
+          "orbit": {
+            "radius_mi": 650000000,
+            "period_days": 350,
+            "phase_deg": 180,
+            "incl_deg": 0,
+            "approx": true
+          },
+          "look": {
+            "color": "#ffe2a8"
+          },
+          "summary": "The sun of Moragspace is a flat disc. It travels the farthest orbit from the center, outside the planets, and its lit face always points to the center of the sphere. One circuit takes almost a year.",
+          "facts": [
+            [
+              "Type",
+              "Fire body, a flat disc"
+            ],
+            [
+              "Orbit",
+              "The farthest from the center, outside the planets"
+            ],
+            [
+              "Year",
+              "Almost a year for one circuit"
+            ],
+            [
+              "Lit side",
+              "Faces the center of the sphere"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJS1 Goblins' Return",
+              "pages": "7"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Moragspace",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "gamaro-base",
+          "name": "Gamaro Base",
+          "kind": "structure",
+          "parent": null,
+          "shape": "irregular",
+          "size_class": "A",
+          "fixed": {
+            "r_mi": 220000000,
+            "lon_deg": 140,
+            "lat_deg": 6,
+            "approx": true
+          },
+          "look": {
+            "color": "#8f9a7a"
+          },
+          "summary": "A scro base made from the shell and skeleton of a dead gamaroid, a giant turtle-like monster. A feud among its factions and a deadly fungus later left it in ruins.",
+          "facts": [
+            [
+              "Type",
+              "The shell and skeleton of a gamaroid"
+            ],
+            [
+              "Size",
+              "Its air envelope reaches 7,500 feet from front to back"
+            ],
+            [
+              "Shell",
+              "100 feet thick, as tough as stone"
+            ],
+            [
+              "Owners",
+              "The scro and their allies"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJS1 Goblins' Return",
+              "pages": "7"
+            },
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "81"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Gamaro_Base",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        }
+      ]
     },
     {
       "id": "shadowspace",
       "name": "Shadowspace",
-      "charted": false,
+      "charted": true,
       "map": {
         "pos": [
           -7.22,
@@ -17747,17 +18168,61 @@
         "2e": "shell",
         "5e": "haze"
       },
-      "summary": "A small, little-known sphere full of black fog. You can see planets only from within 20,000 miles.",
+      "summary": "A small crystal sphere with black haze in it and black clouds around its shell. At the center is Myyn, a green pyramid sun that an idol of the god Utok changed. All bodies then stopped in position, and most planets became flat disks.",
       "facts": [
         [
-          "From Realmspace",
-          "12 to 21 days"
+          "Size",
+          "Small. On the book's map the shell has a radius of about 19 hexes. One hex is 2,000 miles, so the radius is about 38,000 miles."
+        ],
+        [
+          "Primary",
+          "Myyn, a green pyramid sun at the center"
+        ],
+        [
+          "Planets",
+          "Nine, from the sun outward: Tryggyt, Delless, Pajjax, Kiffin, Wirrit, Chonnot, Ivussus, Lukkum and Sohhoras"
+        ],
+        [
+          "Other bodies",
+          "The comet Empunatus, the Debris Belt, the cloud Frozen Darkness and four constellations on the shell"
+        ],
+        [
+          "Haze",
+          "A thin black haze fills the sphere. A crew sees a planet only when it is less than 20,000 miles away. The constellations and the sun show from everywhere."
+        ],
+        [
+          "Frozen bodies",
+          "All bodies stay in position. Not even a wish returns them to their orbits. The map shows the former orbital paths."
+        ],
+        [
+          "Black clouds",
+          "Black clouds surround the shell. Shadows live in them and can board a ship that enters."
+        ],
+        [
+          "Entry points",
+          "The clouds have three openings. Two wispy ones are each about 1,000 miles wide. A clear one is about 4,000 miles wide. A ship must use magic, such as phase door, to go through the shell."
+        ],
+        [
+          "Temperature",
+          "About 50 degrees F in wildspace"
+        ],
+        [
+          "Travel",
+          "About 3 weeks from the elven fleet Constellation, and about 1 week from Moragspace. The part of the journey in the flow takes 12 to 18 days."
+        ],
+        [
+          "Cause",
+          "Utok, a rogue god, built an idol in Myyn. Its gem aims the rays of the sun at Myyn, the world in the sun. The sun turned green, and the planets froze and collapsed."
+        ],
+        [
+          "Repair",
+          "If the gem stays out of the idol, the sun turns red again. The planets swell back to spheres and move again, and Empunatus carries supplies again."
         ]
       ],
       "sources": [
         {
           "title": "SJQ1 Heart of the Enemy",
-          "pages": "7, 9, 30"
+          "pages": "2, 7-9, 30-33, 40-42, 68-69, 80"
         }
       ],
       "wiki": "https://spelljammer.fandom.com/wiki/Shadowspace",
@@ -17765,7 +18230,1117 @@
         "2e",
         "5e"
       ],
-      "bodies": []
+      "bodies": [
+        {
+          "id": "myyn",
+          "name": "Myyn",
+          "kind": "star",
+          "parent": null,
+          "element": "fire",
+          "shape": "tetrahedron",
+          "size_class": "C",
+          "look": {
+            "color": "#76e05a"
+          },
+          "summary": "The pyramid sun at the center of Shadowspace. It has four triangular faces of green flame, and each side is about 1,000 miles long. It was red before the idol of Utok changed it.",
+          "facts": [
+            [
+              "Type",
+              "Fire body of type C with a regular shape. It is the primary of the sphere."
+            ],
+            [
+              "Size",
+              "A pyramid with four triangular faces. Each side is about 1,000 miles long."
+            ],
+            [
+              "Color",
+              "Bright green. It was red before the idol of Utok aimed its rays at the world in the sun."
+            ],
+            [
+              "Heat",
+              "Less than 6,000 miles from the sun, the heat rises to about 100 degrees F. This does not damage a ship."
+            ],
+            [
+              "Portal",
+              "A ship that comes less than 4,000 miles from the sun enters an invisible portal. The portal leads to the world in the sun."
+            ],
+            [
+              "Inner world",
+              "The world Myyn is the four inner faces of the pyramid, each about 300 miles long on a side. About 70,000 inaii, winged horses, live there."
+            ],
+            [
+              "Day",
+              "Day and night each last 12 hours on the inner faces."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 31-32, 68-69"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Myyn",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "tryggyt",
+          "name": "Tryggyt",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "earth",
+          "shape": "disc",
+          "size_class": "C",
+          "fixed": {
+            "r_mi": 6900,
+            "lon_deg": 51,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 220,
+          "look": {
+            "color": "#35563f",
+            "proc": {
+              "style": "terran",
+              "sea": 0.5,
+              "ice": 0,
+              "clouds": 0,
+              "palette": [
+                "#0a1310",
+                "#17302a",
+                "#3f7a3d",
+                "#6b7a45",
+                "#55633b",
+                "#cdd8c0"
+              ]
+            }
+          },
+          "summary": "The innermost planet. It is a flat world of shallow black seas and green islands. The shisix, a race of serpent folk, died out here.",
+          "facts": [
+            [
+              "Type",
+              "Flat earth world of type C. It was a sphere before the sun changed."
+            ],
+            [
+              "Size",
+              "About 220 miles across and 25 miles thick"
+            ],
+            [
+              "Position",
+              "The innermost planet, nearest to the sun"
+            ],
+            [
+              "Climate",
+              "About 90 degrees F. The air smells of rot."
+            ],
+            [
+              "Life",
+              "Swamp plants and cold-blooded animals. The cold killed many of them, and the shisix died out."
+            ],
+            [
+              "Shrine",
+              "An underground shrine of the shisix, on an island, holds a painting of Shadowspace. It shows a red sun and planets that are spheres."
+            ],
+            [
+              "Supply",
+              "Empunatus took debris water from this planet to Kiffin."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 62, 64-68"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Tryggyt",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "delless",
+          "name": "Delless",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "earth",
+          "shape": "disc",
+          "size_class": "C",
+          "fixed": {
+            "r_mi": 8500,
+            "lon_deg": 170,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 130,
+          "look": {
+            "color": "#b88c52",
+            "proc": {
+              "style": "desert",
+              "clouds": 0.55,
+              "cloud_color": "#f6f1e6",
+              "palette": [
+                "#a9814e",
+                "#c8a370",
+                "#5e5040",
+                "#8a6b43",
+                "#d8c9a8"
+              ]
+            }
+          },
+          "summary": "The second planet from the sun. It is a flat world of brown sand with fluffy clouds above it. Cloud roaches, insects 3 inches long, are most of its life.",
+          "facts": [
+            [
+              "Type",
+              "Flat earth world of type C. It was a sphere before the sun changed."
+            ],
+            [
+              "Size",
+              "About 130 miles across and 10 miles thick"
+            ],
+            [
+              "Position",
+              "The second planet from the sun"
+            ],
+            [
+              "Climate",
+              "About 85 degrees F. The air is dry and stale, but safe to breathe."
+            ],
+            [
+              "Life",
+              "Cloud roaches 3 inches long. A rare queen is about 70 feet long."
+            ],
+            [
+              "Portal",
+              "A refuse portal, a pool of orange light about 5 miles wide, sends waste to Sohhoras."
+            ],
+            [
+              "Outpost",
+              "A crystal tower on the lower face flashes red and yellow light into space. A lone scholar from Gorros lives there."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 59-64"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Delless",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "pajjax",
+          "name": "Pajjax",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "earth",
+          "shape": "disc",
+          "size_class": "B",
+          "fixed": {
+            "r_mi": 13400,
+            "lon_deg": 96,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 75,
+          "look": {
+            "color": "#8c8a86",
+            "proc": {
+              "style": "rock",
+              "palette": [
+                "#9a9791",
+                "#66635e",
+                "#b8453a"
+              ]
+            }
+          },
+          "summary": "A flat world of gray hills and dry plains. Some bright red hills are red dragons in deep sleep. Rodents fill the plains.",
+          "facts": [
+            [
+              "Type",
+              "Flat earth world of type B. It was a sphere before the sun changed."
+            ],
+            [
+              "Size",
+              "About 75 miles across and 2 miles thick"
+            ],
+            [
+              "Climate",
+              "About 80 degrees F. The air smells of alcohol and stings the eyes."
+            ],
+            [
+              "Life",
+              "Red dragons in deep sleep, and many harmless rodents"
+            ],
+            [
+              "History",
+              "A green mist from Lukkum kept the dragons about 1 foot long. When the mist stopped, they grew to their normal length and most starved."
+            ],
+            [
+              "Portal",
+              "A refuse portal, a pool of orange light about 5 miles wide, on the top face"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 57-58"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Pajjax",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "kiffin",
+          "name": "Kiffin",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "live",
+          "shape": "disc",
+          "size_class": "B",
+          "fixed": {
+            "r_mi": 14400,
+            "lon_deg": 263,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 100,
+          "look": {
+            "color": "#8a8c8e",
+            "proc": {
+              "style": "living",
+              "palette": [
+                "#8c8e90",
+                "#6f7274",
+                "#a9abad"
+              ]
+            }
+          },
+          "summary": "A flat planet that is a living, thinking being. It is a disc of gray mud that rests on a coil of its own tentacle. A violet star circles it as a moon.",
+          "facts": [
+            [
+              "Type",
+              "Living flat world of type B. It was a smooth, rubbery sphere before the sun changed."
+            ],
+            [
+              "Size",
+              "About 100 miles across and 5 miles thick"
+            ],
+            [
+              "Climate",
+              "About 75 degrees F"
+            ],
+            [
+              "Mind",
+              "The planet is alive. It acts like a rude child and tells ships to go away."
+            ],
+            [
+              "Tentacle",
+              "It rests on a tentacle 50 feet thick. It can use a tentacle to throw a ship far into space."
+            ],
+            [
+              "Moon",
+              "Diss's Eye, a violet star that it took from the constellation Diss"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 55-58"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Kiffin",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "diss-eye",
+          "name": "Diss's Eye",
+          "kind": "moon",
+          "parent": "kiffin",
+          "element": "other",
+          "shape": "sphere",
+          "size_class": "A",
+          "fixed": {
+            "r_mi": 55,
+            "lon_deg": 20,
+            "lat_deg": 40,
+            "approx": true
+          },
+          "diameter_mi": 0.057,
+          "look": {
+            "color": "#b48cff",
+            "proc": {
+              "style": "cloud",
+              "palette": [
+                "#e6d4ff",
+                "#b794f0",
+                "#fbf3ff",
+                "#9d78d6"
+              ]
+            }
+          },
+          "summary": "A violet star, 300 feet across, that Kiffin took from the constellation Diss. It floats above Kiffin like a moon. A crew can put it back in Diss.",
+          "facts": [
+            [
+              "Type",
+              "A star of the constellation Diss that circles Kiffin like a moon"
+            ],
+            [
+              "Size",
+              "A glowing globe 300 feet across, like a large violet pearl. It weighs about 200 pounds."
+            ],
+            [
+              "Distance",
+              "The book says it floats at a distance of some miles above Kiffin."
+            ],
+            [
+              "Light",
+              "A crew can see it from 20 hexes (40,000 miles), like the stars of the constellations."
+            ],
+            [
+              "Return",
+              "If a crew puts it back in the hole in Diss, Diss shows the crew the orbiting asteroid."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "42-43, 55-57"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Kiffin#Satellites",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "wirrit",
+          "name": "Wirrit",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "air",
+          "shape": "sphere",
+          "size_class": "B",
+          "fixed": {
+            "r_mi": 18900,
+            "lon_deg": 4,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 100,
+          "look": {
+            "color": "#e3d29a",
+            "proc": {
+              "style": "cloud",
+              "palette": [
+                "#eadca5",
+                "#b89a62",
+                "#fff3c9",
+                "#d6bd7c"
+              ]
+            }
+          },
+          "summary": "A sphere of breathable air about 100 miles across, with no solid surface. Its outer layer is yellow and its middle layer is brown. The core is a portal of orange light.",
+          "facts": [
+            [
+              "Type",
+              "Air body of type B, a sphere"
+            ],
+            [
+              "Size",
+              "About 100 miles across"
+            ],
+            [
+              "Climate",
+              "About 70 degrees F. The air is safe to breathe."
+            ],
+            [
+              "Winds",
+              "Light winds in the outer layer. Stronger winds in the brown middle layer."
+            ],
+            [
+              "Life",
+              "Scycroids, blobs of fungus about 2 feet across, move in the winds."
+            ],
+            [
+              "Landing",
+              "No ship can land. The planet has no solid surface."
+            ],
+            [
+              "Portal",
+              "The core is a refuse portal of orange light."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 53-55"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Wirrit",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "chonnot",
+          "name": "Chonnot",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "water",
+          "shape": "disc",
+          "size_class": "B",
+          "fixed": {
+            "r_mi": 20200,
+            "lon_deg": 279,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 150,
+          "look": {
+            "color": "#2d6fb3",
+            "proc": {
+              "style": "ocean",
+              "sea": 0.96,
+              "clouds": 0,
+              "palette": [
+                "#0a2a55",
+                "#1b5ca3",
+                "#3f8f3a",
+                "#6e8d4f",
+                "#4b7a3e",
+                "#e6eef5"
+              ]
+            }
+          },
+          "summary": "A flat disc of water, 150 miles across. Small islands with tall trees dot it. Goldfish and dragon turtles live in the water.",
+          "facts": [
+            [
+              "Type",
+              "Flat water world of type B. It was a sphere of water with no salt before the sun changed."
+            ],
+            [
+              "Size",
+              "About 150 miles across and 10 miles thick"
+            ],
+            [
+              "Climate",
+              "About 65 degrees F in the air and the water"
+            ],
+            [
+              "Islands",
+              "Islands about 1 mile wide with dense, tall trees. A ship cannot land on them."
+            ],
+            [
+              "Life",
+              "Goldfish 1 foot long, and dragon turtles that eat them. The two groups shrink in number."
+            ],
+            [
+              "Portal",
+              "A refuse portal, a pool of orange light about 5 miles wide, near the edge of the top face"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 52-53"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Chonnot",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "ivussus",
+          "name": "Ivussus",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "earth",
+          "shape": "cluster",
+          "size_class": "A",
+          "fixed": {
+            "r_mi": 22300,
+            "lon_deg": 325,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 20,
+          "look": {
+            "color": "#8f9490"
+          },
+          "summary": "A shattered world. It is a cloud of gray rock chunks in an area 10 miles in radius. The largest chunk is 300 feet across.",
+          "facts": [
+            [
+              "Type",
+              "Cluster of earth bodies, type A. It was a sphere before the sun changed."
+            ],
+            [
+              "Size",
+              "The cloud has a radius of 10 miles. The largest chunk is 300 feet across."
+            ],
+            [
+              "Climate",
+              "About 60 degrees F. The chunks keep air that is safe to breathe."
+            ],
+            [
+              "Life",
+              "Dead plants are on most chunks. A pod of eight kindori, whale-like creatures, lives in the cloud."
+            ],
+            [
+              "History",
+              "It was a forest world. Plant roots held it together, and it broke apart when the plants died."
+            ],
+            [
+              "Landing",
+              "A ship can land on about 1 chunk in 10."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 51-52"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Ivussus",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "lukkum",
+          "name": "Lukkum",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "earth",
+          "shape": "disc",
+          "size_class": "B",
+          "fixed": {
+            "r_mi": 24900,
+            "lon_deg": 27,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 150,
+          "look": {
+            "color": "#6ea35c",
+            "proc": {
+              "style": "terran",
+              "sea": 0.05,
+              "ice": 0,
+              "clouds": 0.95,
+              "cloud_color": "#5f9a4f",
+              "palette": [
+                "#1c3a2a",
+                "#2c5a3c",
+                "#5f7d3f",
+                "#8d8a66",
+                "#6b6a5a",
+                "#cfd6c4"
+              ]
+            }
+          },
+          "summary": "A flat disc of rock below dark green mist. Volcanoes make the mist, and the bad air makes the odux, who have blue skin, ill. Before the sun changed, it was a sphere of grass and valleys.",
+          "facts": [
+            [
+              "Type",
+              "Flat earth world of type B. It was a sphere before the sun changed."
+            ],
+            [
+              "Size",
+              "About 150 miles across and 5 miles thick"
+            ],
+            [
+              "Climate",
+              "About 55 degrees F. A layer of green mist about 2 miles thick covers the planet."
+            ],
+            [
+              "Air",
+              "The air is bad and makes air-breathers ill. Volcanoes that do not erupt send out the mist."
+            ],
+            [
+              "Life",
+              "The odux, a peaceful race, and the dridge, rock beings below the ground. The number of odux falls each year."
+            ],
+            [
+              "Portal",
+              "A refuse portal, a pool of orange light about 5 miles wide, on the top face"
+            ],
+            [
+              "Supply",
+              "Empunatus brought clean air from Ivussus and took the green mist to Pajjax."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 46-51"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Lukkum",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "sohhoras",
+          "name": "Sohhoras",
+          "kind": "planet",
+          "parent": "myyn",
+          "element": "earth",
+          "shape": "sphere",
+          "size_class": "B",
+          "fixed": {
+            "r_mi": 26900,
+            "lon_deg": 143,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 75,
+          "look": {
+            "color": "#4a4a4c",
+            "proc": {
+              "style": "rock",
+              "palette": [
+                "#6b6a68",
+                "#2f2f31",
+                "#85807a"
+              ]
+            }
+          },
+          "summary": "A solid sphere of dark granite, 75 miles across. It kept its shape when the sun changed. It is the garbage dump of the sphere, and a vampire lives in its caves.",
+          "facts": [
+            [
+              "Type",
+              "Earth body of type B, a sphere"
+            ],
+            [
+              "Size",
+              "About 75 miles across"
+            ],
+            [
+              "Climate",
+              "About 50 degrees F on the surface"
+            ],
+            [
+              "Role",
+              "Refuse portals on the other planets send waste to its refuse pit."
+            ],
+            [
+              "Inside",
+              "Passages and large caves, with gravity that pulls south. A ship can fly through them."
+            ],
+            [
+              "Danger",
+              "A vampire lives here with an undead giant and undead inaii. Rumors of treasure make spacefarers come to it."
+            ],
+            [
+              "Landing",
+              "A ship can land almost anywhere on the surface, but not in the refuse pit."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 42-46"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Sohhoras",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "empunatus",
+          "name": "Empunatus",
+          "kind": "comet",
+          "parent": "myyn",
+          "element": "other",
+          "shape": "other",
+          "fixed": {
+            "r_mi": 16500,
+            "lon_deg": 60,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "diameter_mi": 5,
+          "look": {
+            "color": "#ffd27a"
+          },
+          "summary": "A being shaped like an immense comet. Its tail is 300 miles long. Its head is 5 miles across and has a human face with long hair.",
+          "facts": [
+            [
+              "Type",
+              "A being of light of many colors. It looks like a comet with a human head."
+            ],
+            [
+              "Size",
+              "Head 5 miles across, tail about 300 miles long"
+            ],
+            [
+              "Role",
+              "The gods made it to move air, water, mist and waste between the planets. One cycle took some weeks."
+            ],
+            [
+              "State",
+              "It stopped in position with a mouthful of green mist from Lukkum. It cannot speak or move."
+            ],
+            [
+              "Contact",
+              "A ship can go through it. The green mist in its cheeks hurts the lungs."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "7, 31-32, 52"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Empunatus",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "debris-belt",
+          "name": "Debris Belt",
+          "kind": "asteroid-field",
+          "parent": "myyn",
+          "element": "earth",
+          "orbit": {
+            "radius_mi": 16600,
+            "period_days": 1586,
+            "phase_deg": 0,
+            "incl_deg": 0,
+            "approx": true
+          },
+          "field": {
+            "count": 1400,
+            "spread": 0.1
+          },
+          "look": {
+            "color": "#c6a85a"
+          },
+          "summary": "A dense belt of rock and debris that circles the sun and the inner planets. Three gaps, each 2,000 miles wide, break it. Ships must go slowly through it.",
+          "facts": [
+            [
+              "Type",
+              "Belt of earth bodies of mixed dimensions"
+            ],
+            [
+              "Position",
+              "Between Kiffin and Wirrit. It is about 16,600 miles from the sun on the book's map."
+            ],
+            [
+              "Gaps",
+              "Three gaps, each 2,000 miles wide"
+            ],
+            [
+              "Speed",
+              "A ship in the belt can move only 500 yards in each round."
+            ],
+            [
+              "State",
+              "Frozen in position like the other bodies"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "50, 55"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Debris_Belt_(Shadowspace)",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "frozen-darkness",
+          "name": "Frozen Darkness",
+          "kind": "nebula",
+          "parent": "myyn",
+          "element": "other",
+          "shape": "irregular",
+          "fixed": {
+            "r_mi": 7900,
+            "lon_deg": 153,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "cloud": {
+            "colors": [
+              "#2a2f4d",
+              "#3d4570",
+              "#1c2038"
+            ],
+            "length_mi": 26000,
+            "shape": "cloud"
+          },
+          "look": {
+            "color": "#3d4570"
+          },
+          "summary": "A black cloud like the clouds around the shell. Before the sun changed, it moved through the sphere. It is frozen near the sun, and shadows live in it.",
+          "facts": [
+            [
+              "Type",
+              "Black cloud, the same as the clouds around the shell"
+            ],
+            [
+              "Place",
+              "Near the sun, in the area of the inner planets"
+            ],
+            [
+              "Size",
+              "On the book's map, about 13,000 miles wide and 26,000 miles long"
+            ],
+            [
+              "Danger",
+              "Shadows live in it. They can board a ship that enters."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "55"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Shadowspace#Frozen_darkness",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "torr",
+          "name": "Torr (The Despairing Dragon)",
+          "kind": "star",
+          "parent": "myyn",
+          "element": "other",
+          "fixed": {
+            "r_mi": 37800,
+            "lon_deg": 148,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "look": {
+            "color": "#e0453a",
+            "cluster": 29,
+            "light": false
+          },
+          "summary": "A constellation of scarlet stars that forms a dragon with open jaws. The stars sit in the wall of the crystal sphere. Its voice mourns the end of the multiverse.",
+          "facts": [
+            [
+              "Image",
+              "A dragon with open jaws, made of scarlet stars"
+            ],
+            [
+              "Stars",
+              "Each star is a pearl-like globe 300 feet across. It weighs about 200 pounds and has the density of balsa wood."
+            ],
+            [
+              "Place",
+              "The stars sit in holes in the wall of the crystal sphere. The constellation works while two or more stars stay in position."
+            ],
+            [
+              "Effect",
+              "A sentient being in its zone hears a voice that cries about the end of the multiverse. It does no damage."
+            ],
+            [
+              "Sight",
+              "A crew can see the stars from anywhere in Shadowspace."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "41-42"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Torr",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "rakk",
+          "name": "Rakk (The Healing Cup)",
+          "kind": "star",
+          "parent": "myyn",
+          "element": "other",
+          "fixed": {
+            "r_mi": 37800,
+            "lon_deg": 34,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "look": {
+            "color": "#d9dee8",
+            "cluster": 13,
+            "light": false
+          },
+          "summary": "A constellation of silver stars that forms a goblet. A being in its zone heals as if it drank a potion of healing. This works one time each week.",
+          "facts": [
+            [
+              "Image",
+              "A goblet made of silver stars"
+            ],
+            [
+              "Stars",
+              "Each star is a pearl-like globe 300 feet across. It weighs about 200 pounds and has the density of balsa wood."
+            ],
+            [
+              "Place",
+              "The stars sit in holes in the wall of the crystal sphere. The constellation works while two or more stars stay in position."
+            ],
+            [
+              "Effect",
+              "A being in its zone heals as if it drank a potion of healing. This works one time each week for each being."
+            ],
+            [
+              "Sight",
+              "A crew can see the stars from anywhere in Shadowspace."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "41-42"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Rakk",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "homm",
+          "name": "Homm (The Angry Skull)",
+          "kind": "star",
+          "parent": "myyn",
+          "element": "other",
+          "fixed": {
+            "r_mi": 37800,
+            "lon_deg": 341,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "look": {
+            "color": "#f3c64d",
+            "cluster": 12,
+            "light": false
+          },
+          "summary": "A constellation of golden stars that forms a human skull. A ship in its zone chills a random crew member, who sees a vision of their own death.",
+          "facts": [
+            [
+              "Image",
+              "A human skull made of golden stars"
+            ],
+            [
+              "Stars",
+              "Each star is a pearl-like globe 300 feet across. It weighs about 200 pounds and has the density of balsa wood."
+            ],
+            [
+              "Place",
+              "The stars sit in holes in the wall of the crystal sphere. The constellation works while two or more stars stay in position."
+            ],
+            [
+              "Effect",
+              "The crew feel cold. A random crew member falls unconscious and sees a vision of their own death, then wakes afraid."
+            ],
+            [
+              "Sight",
+              "A crew can see the stars from anywhere in Shadowspace."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "41-42"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Homm",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "diss",
+          "name": "Diss (The Observant Fish)",
+          "kind": "star",
+          "parent": "myyn",
+          "element": "other",
+          "fixed": {
+            "r_mi": 37800,
+            "lon_deg": 251,
+            "lat_deg": 0,
+            "approx": true
+          },
+          "look": {
+            "color": "#a67bff",
+            "cluster": 27,
+            "light": false
+          },
+          "summary": "A constellation of violet stars that forms a barracuda with one eye missing. Kiffin took the eye, and Diss asks all visitors for it.",
+          "facts": [
+            [
+              "Image",
+              "A barracuda with one eye missing, made of violet stars"
+            ],
+            [
+              "Stars",
+              "Each star is a pearl-like globe 300 feet across. It weighs about 200 pounds and has the density of balsa wood."
+            ],
+            [
+              "Place",
+              "The stars sit in holes in the wall of the crystal sphere. The constellation works while two or more stars stay in position."
+            ],
+            [
+              "Effect",
+              "A voice like a small child asks if the crew have seen its eye. If the crew put the eye back in Diss, Diss shows them an unusual view."
+            ],
+            [
+              "Sight",
+              "A crew can see the stars from anywhere in Shadowspace."
+            ]
+          ],
+          "sources": [
+            {
+              "title": "SJQ1 Heart of the Enemy",
+              "pages": "41-42"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Diss",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        }
+      ],
+      "shell_radius_mi": 38000,
+      "stars": 150
     },
     {
       "id": "dead-shell",
@@ -20285,7 +21860,7 @@
     {
       "id": "aebrynisspace",
       "name": "Aebrynisspace",
-      "charted": false,
+      "charted": true,
       "map": {
         "pos": [
           -4.78,
@@ -20298,17 +21873,33 @@
         "2e": "shell",
         "5e": "haze"
       },
-      "summary": "The sphere of Aebrynis, the world of the Birthright setting. Spacefarers think of it as a backwater.",
+      "summary": "The sphere of Aebrynis, the world of the Birthright setting. Spacefarers think of it as a backwater. Aebrynis has one moon, and each year it passes through a meteor belt.",
       "facts": [
         [
           "Setting",
           "Birthright"
+        ],
+        [
+          "World",
+          "Aebrynis, with the continent of Cerilia"
+        ],
+        [
+          "Year",
+          "388 days"
+        ],
+        [
+          "Calendar",
+          "The Anuirean Book of Days: 12 months of 4 weeks, 8 days to a week, and 4 festival days"
+        ],
+        [
+          "On the map",
+          "The books give no distances. The map shows estimates."
         ]
       ],
       "sources": [
         {
-          "title": "Birthright Campaign Setting",
-          "pages": "5-6"
+          "title": "Birthright Campaign Setting: Ruins of Empire",
+          "pages": "3, 5"
         }
       ],
       "wiki": "https://spelljammer.fandom.com/wiki/Aebrynisspace",
@@ -20316,7 +21907,236 @@
         "2e",
         "5e"
       ],
-      "bodies": []
+      "bodies": [
+        {
+          "id": "sun",
+          "name": "The Sun",
+          "kind": "star",
+          "parent": null,
+          "element": "fire",
+          "shape": "sphere",
+          "size_class": "H",
+          "look": {
+            "color": "#fff3e0"
+          },
+          "summary": "The sun of Aebrynisspace. The Khinasi of Cerilia track the passage of the years by its position.",
+          "facts": [
+            [
+              "Type",
+              "Fire body"
+            ],
+            [
+              "Calendar",
+              "The Khinasi measure years by the position of the sun"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "Birthright Campaign Setting: Ruins of Empire",
+              "pages": "5"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Aebrynisspace#The_Sun_(primary)",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "aebrynis",
+          "name": "Aebrynis",
+          "kind": "planet",
+          "parent": "sun",
+          "element": "earth",
+          "shape": "sphere",
+          "size_class": "E",
+          "orbit": {
+            "radius_mi": 97000000,
+            "period_days": 388,
+            "phase_deg": 70,
+            "incl_deg": 0,
+            "approx": true
+          },
+          "look": {
+            "color": "#6aa8e0",
+            "atmosphere": "#7db4ff",
+            "proc": {
+              "style": "terran",
+              "sea": 0.6,
+              "ice": 0.16,
+              "clouds": 0.4
+            }
+          },
+          "summary": "The world of the Birthright setting, with the continent of Cerilia. Its year has 388 days. Each summer solstice it passes through a meteor belt, and a shower of falling stars marks the Night of Fire.",
+          "facts": [
+            [
+              "Type",
+              "Spherical earth body"
+            ],
+            [
+              "Year",
+              "388 days"
+            ],
+            [
+              "Satellites",
+              "One moon"
+            ],
+            [
+              "Night of Fire",
+              "A shower of falling stars at the summer solstice, when Aebrynis passes through a meteor belt"
+            ],
+            [
+              "Calendar",
+              "12 months of 32 days, and 4 festival days at the solstices and equinoxes"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "Birthright Campaign Setting: Ruins of Empire",
+              "pages": "3, 5"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Aebrynis",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "the-moon",
+          "name": "The moon",
+          "kind": "moon",
+          "parent": "aebrynis",
+          "element": "earth",
+          "shape": "sphere",
+          "size_class": "D",
+          "orbit": {
+            "radius_mi": 240000,
+            "period_days": 32,
+            "phase_deg": 210,
+            "incl_deg": 5,
+            "approx": true
+          },
+          "look": {
+            "color": "#d9d9e4",
+            "texture": "assets/textures/2k_moon.jpg"
+          },
+          "summary": "The moon of Aebrynis. The Anuirean Book of Days bases its months on the moon's orbit, and an Anuirean month has 32 days.",
+          "facts": [
+            [
+              "Type",
+              "Moon"
+            ],
+            [
+              "Orbit",
+              "About 32 days, from the length of the Anuirean month"
+            ],
+            [
+              "Name",
+              "The book gives none"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "Birthright Campaign Setting: Ruins of Empire",
+              "pages": "5"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Aebrynis",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "meteor-belt",
+          "name": "The meteor belt",
+          "kind": "asteroid-field",
+          "parent": "sun",
+          "element": "earth",
+          "orbit": {
+            "radius_mi": 97000000,
+            "period_days": 388,
+            "phase_deg": 0,
+            "incl_deg": 18,
+            "node_deg": 70,
+            "approx": true
+          },
+          "field": {
+            "count": 900,
+            "spread": 0.025
+          },
+          "look": {
+            "color": "#ffd9a8"
+          },
+          "summary": "A belt of meteors that Aebrynis passes through once a year, at the summer solstice. The falling stars give the festival its name, the Night of Fire.",
+          "facts": [
+            [
+              "Type",
+              "Meteor belt"
+            ],
+            [
+              "Crossing",
+              "Each year at the summer solstice, the climax of Haelyn's Festival"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "Birthright Campaign Setting: Ruins of Empire",
+              "pages": "5"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Aebrynisspace",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        },
+        {
+          "id": "crown-of-glory",
+          "name": "The constellation of Haelyn",
+          "kind": "star",
+          "parent": "sun",
+          "element": "fire",
+          "fixed": {
+            "r_mi": 186000000,
+            "lon_deg": 250,
+            "lat_deg": -22,
+            "approx": true
+          },
+          "look": {
+            "color": "#e8eeff",
+            "light": false,
+            "cluster": 6
+          },
+          "summary": "Six stars in the shape of a warrior on guard, the protector god Haelyn. Anuirean astronomers use it to measure the months. When its last star, the Crown of Glory, falls below the horizon, the Eve of the Dead begins.",
+          "facts": [
+            [
+              "Type",
+              "Constellation of six stars"
+            ],
+            [
+              "Use",
+              "The Anuirean Book of Days measures the months by its movement"
+            ],
+            [
+              "Crown of Glory",
+              "The last star, Haelyn's head"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "Birthright Campaign Setting: Ruins of Empire",
+              "pages": "5"
+            }
+          ],
+          "wiki": "https://spelljammer.fandom.com/wiki/Aebrynisspace",
+          "editions": [
+            "2e",
+            "5e"
+          ]
+        }
+      ]
     },
     {
       "id": "pyrespace",

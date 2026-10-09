@@ -9,23 +9,19 @@ The plane list below follows the [Great Wheel cosmology](https://forgottenrealms
 - [x] Realmspace, charted from *Realmspace* (TSR, 1991): the sun, 8 planets, their moons and rings, the Tears of Selûne, the sargassos, Comet K'Thoutek, the Skull of the Void, Caer Windlauer and 2 nebulae
 - [x] Orbits on the Calendar of Harptos, with a time control
 - [x] The Dead Shell, from *SJA2 Skull & Crossbows*: its two voidworlds, the Outpost, and a ray-traced black hole with a lensed accretion disk
+- [x] Every other crystal sphere that a book describes, each body with its pages and a wiki link: Greyspace (*SJR6*), Krynnspace (*SJR7*), Herospace, Greatspace, Darkspace and Faeriespace (*SJA3*), Clusterspace (*The Astromundi Cluster*), the twelve spheres of the Vodoni Empire (*SJA4*), Steel Star and Redeyes (*SJR1*), Shadowspace (*SJQ1*), Moragspace (*SJS1*), Refuge (*Dragon* #159), Pirtelspace (*Dungeon* #36 and #45), Korvspace and Pyrespace (*Polyhedron* #81 and #151), Doomspace and Xaryxispace (*Light of Xaryxis*), the spheres of the Cloakmaster Cycle novels, and the spheres of Mystara, Athas, Aebrynis and Remichi
 - [x] The phlogiston: all 50 crystal spheres that published D&D material names, 32 currents with their travel times, and 3 groups (the Known Spheres, the Arcane Inner Flow and the Vodoni Empire)
 - [x] A switch between the 2e cosmology (crystal shells, the phlogiston) and the 5e one (wildspace systems in the Astral Sea)
 - [x] A source page and a wiki link for each item
 - [x] A local editor, a private overlay for DM notes and secret items, and edits on GitHub with an automatic check
+- [x] Painted worlds in eleven styles, made on the GPU, and the shapes the books need: flat and hemisphere worlds, crescents, ellipsoids, rock clusters, a world tree, and land on the inside of a shell
+- [x] A charting pipeline: text from a scan, a chart file per sphere, a check and a merge ([docs/CHARTING.md](docs/CHARTING.md))
 
-## 1. Chart more of the Prime Material Plane
+## 1. Fill in the Prime Material Plane
 
-- [ ] Greyspace, from *SJR6 Greyspace*
-- [ ] Krynnspace, from *SJR7 Krynnspace*
-- [ ] Clusterspace, from *The Astromundi Cluster*
-- [ ] Herospace, Greatspace, Darkspace and Faeriespace, from *SJA3 Crystal Spheres*
-- [ ] The 12 spheres of the Vodoni Empire, from *SJA4 Under the Dark Fist*
-- [ ] Moragspace and Shadowspace, from *SJQ1 Heart of the Enemy*
-- [ ] Steel Star and Redeyes, from *SJR1 Lost Ships*
-- [ ] Refuge, Pirtelspace and Darnannonspace, from *Dragon* #159 and *Dungeon* #36 and #45
-- [ ] Xaryxispace and Doomspace, from the 5e *Light of Xaryxis*
-- [ ] A stat-block importer: OCR text from a sourcebook in, draft bodies with page numbers out, for review in the editor
+- [ ] Spheres that the books name but do not describe: Darnannonspace, Golotspace, Kofuspace, Vergonspace, Zalanispace, the Glowrings sphere, Primespace, Chronos, Homespace, Theiaspace and Tuhgri. They have facts and sources but no bodies. Chart them when a source with detail turns up
+- [ ] Real positions: most orbits outside Realmspace, Greyspace and Krynnspace are estimates, marked in the data. Replace them where a source gives numbers (for example the poster map of *The Astromundi Cluster*, which the scan does not include)
+- [ ] Spheres from sources not read yet: other *Dragon*, *Dungeon* and *Polyhedron* articles, and the 3e to 5e era books
 
 ## 2. The Great Wheel: a view above the phlogiston
 

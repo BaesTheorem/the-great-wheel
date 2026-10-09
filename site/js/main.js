@@ -640,11 +640,13 @@ class App {
   renderReadout() {
     const el = $("#readout"), st = this.state;
     if (st.view !== "sphere" || !this.view?.R || !this.view.order.length) { el.classList.remove("on"); return; }
-    const r = this.camera.position.length();
+    const r = this.camera.position.length() / (this.view.distK || 1);
     const mi = st.scale === "true" ? r * 80e6 : Math.pow(r / 0.345, 1 / 0.55) * 1e6;
     const primary = st.atlas.primary(st.sphereId, st.edition);
     const out = r > this.view.R ? `<span class="out">outside the ${st.edition === "5e" ? "edge of wildspace" : "crystal shell"}</span>` : "";
-    el.innerHTML = `<span>You are</span><b>${miles(mi)}</b><span>from ${esc(primary?.name || "the center")}</span>${out}`;
+    // the distance is from the center: name the primary only when it sits there (not a sun on an orbit)
+    const center = primary && !primary.orbit && !primary.fixed ? primary.name : "the center";
+    el.innerHTML = `<span>You are</span><b>${miles(mi)}</b><span>from ${esc(center)}</span>${out}`;
     el.classList.add("on");
   }
 }

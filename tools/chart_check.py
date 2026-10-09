@@ -57,8 +57,10 @@ def check(path: Path, atlas: dict) -> tuple[list[str], list[str]]:
     bodies = chart.get("bodies") or []
     s["bodies"] = bodies
     errs += orrery.validate(d)
-    if bodies and len([b for b in bodies if not b.get("parent")]) != 1:
-        errs.append("exactly one body needs parent null (the primary)")
+    roots = [b for b in bodies if not b.get("parent")]
+    fixed_roots = [b for b in roots if not b.get("orbit") and b.get("kind") != "asteroid-field"]
+    if bodies and (not roots or len(fixed_roots) > 1):
+        errs.append("one body with parent null sits at the center (the primary); other parentless bodies must orbit the center")
     sp = chart.get("sphere") or {}
     prose("sphere summary", sp.get("summary", ""), errs, warns)
     for f in sp.get("facts", []):

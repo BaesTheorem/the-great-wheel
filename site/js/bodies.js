@@ -44,7 +44,13 @@ export async function buildBody(b, r, renderer, opts = {}) {
 
   if (b.kind === "star" && look.cluster > 1) return starCluster(node, b, r, color);
   if (b.kind === "star") {
-    const core = new THREE.Mesh(new THREE.SphereGeometry(r * 0.9, 64, 48), new THREE.MeshBasicMaterial({ color, toneMapped: false }));
+    // a pyramid sun (Shadowspace's Myyn) or a round one
+    // a flat sun (Moragspace's) is a disc with its lit face to the center of the sphere
+    const coreGeo = shape === "tetrahedron" ? new THREE.TetrahedronGeometry(r * 1.2, 0)
+      : shape === "disc" ? new THREE.CylinderGeometry(r * 1.1, r * 1.1, r * 0.12, 96, 1).rotateX(Math.PI / 2)
+      : new THREE.SphereGeometry(r * 0.9, 64, 48);
+    if (shape === "disc") node.faceCenter = true;
+    const core = new THREE.Mesh(coreGeo, new THREE.MeshBasicMaterial({ color, toneMapped: false }));
     pivot.add(core);
     // the photo of the Sun is orange: a star of another color gets the photo in gray, tinted
     const hex = (look.color || "#fff3e0").toLowerCase(), tinted = hex !== "#fff3e0";
