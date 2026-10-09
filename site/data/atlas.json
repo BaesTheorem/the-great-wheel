@@ -14473,7 +14473,7 @@
           },
           "look": {
             "color": "#a0624a",
-            "rock_color": "#6a4436"
+            "rock_color": "#9a6a54"
           },
           "summary": "The remains of ships and cities, and arcane weapons of war, fill this burned-out sphere. Nobody knows what happened to the people who lived here.",
           "facts": [
@@ -15940,7 +15940,7 @@
           "style": "terran",
           "sea": 0.35,
           "ice": 0.0,
-          "scale": 3.2,
+          "scale": 6.5,
           "palette": [
             "#1d4f7a",
             "#3f86b8",

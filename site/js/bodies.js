@@ -118,6 +118,7 @@ export async function buildBody(b, r, renderer, opts = {}) {
   }
 
   if (b.kind === "ring") return node; // the view attaches rings to the parent (see ringMesh)
+  if (b.kind === "asteroid-field") return node; // the view draws the rocks and dust (fieldPoints, fieldRocks)
 
   if (b.kind === "sargasso") {
     const mat = deadMagicMaterial();

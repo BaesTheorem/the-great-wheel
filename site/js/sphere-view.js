@@ -118,7 +118,8 @@ export class SphereView {
           const R1 = rng(hashStr(b.id + "dust")), R2 = rng(hashStr(b.id + "rocks"));
           node.points = fieldPoints(b, () => spot(R1), hashStr(b.id), fillIt ? 2 : 1.6);
           // real rocks too, or the dust reads as stars
-          node.group.add(fieldRocks(b, () => spot(R2), hashStr(b.id), this.R * (fillIt ? 0.012 : 0.008)));
+          const reach = this.mapRel(new THREE.Vector3(el.a || 1, 0, 0), parent, sat).length();
+          node.group.add(fieldRocks(b, () => spot(R2), hashStr(b.id), reach * (fillIt ? 0.02 : 0.004)));
         } else {
           node.points = fieldPoints(b, (d) => this.mapRel(O.positionAt({ ...el, M0: d * TAU * 7.31, P: 0 }, 0, V()), parent, sat), hashStr(b.id));
         }
@@ -146,8 +147,11 @@ export class SphereView {
       lights.slice(4).forEach((l) => l.parent.remove(l));
       this.ambient.intensity = 0.16 + 0.04 * Math.min(lights.length - 4, 10);
     }
-    // a sphere with no sun at all (Darkspace, Passarspace) gets enough ambient light to see its rocks
-    if (!lights.length) this.ambient.intensity = 0.55;
+    // a sphere with no sun at all (Darkspace, Passarspace) gets a soft sky light, so its rocks show
+    if (!lights.length) {
+      this.ambient.intensity = 0.45;
+      this.scene.add(new THREE.HemisphereLight(0xd6e4ff, 0x3a3028, 3.2));
+    }
     this.update(this.app.state.day, 0);
   }
 
