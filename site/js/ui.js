@@ -302,6 +302,7 @@ function wheelInfo(app, sel) {
   const emblem = p.emblem ? `<div class="emblem" style="--c:${esc(p.color || "#9db4ff")}"><img src="assets/emblems/${esc(p.emblem)}.svg" alt=""></div>` : "";
   return emblem + block({
     kind: GROUP_LABEL[p.group] || "Plane", dot: p.color || "#9db4ff", title: p.name, aka: p.aka, summary: p.summary, facts, layers: described ? p.layers : null,
+    layersPartial: !!(p.layers_count && p.layers_count > (p.layers?.length || 0)),
     sources: p.sources, wiki: wikiURL(p.wiki, p.name), wikiExact: !!p.wiki,
     related: mine.map((l) => ({ id: `link:${l.id}`, name: l.name, icon: (LINK_KIND[l.kind] || [0, "route"])[1] })),
     actions: [p.id === "prime" ? ["go-between", "bubble_chart", edition === "5e" ? "Open the Astral Sea" : "Open the phlogiston"] : null],
@@ -316,7 +317,7 @@ function block(o) {
     ${o.wiki ? `<a class="wiki" href="${esc(o.wiki)}" target="_blank" rel="noopener"><i>menu_book</i><span>${!o.wikiExact ? "Search the Forgotten Realms Wiki" : o.wiki.includes("spelljammer.fandom.com") ? "Spelljammer Wiki" : "Forgotten Realms Wiki"}</span><i class="ext">open_in_new</i></a>` : ""}</div>
   ${o.summary ? `<div class="blk"><h3>Description</h3><p>${esc(o.summary)}</p></div>` : ""}
   ${facts.length ? `<div class="blk"><h3>Facts</h3><dl class="facts">${facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></div>` : ""}
-  ${o.layers?.length ? `<div class="blk"><h3>Layers</h3><ol class="layers">${o.layers.map((l) => `<li><b>${esc(l.name)}</b>${l.summary ? `<span>${esc(l.summary)}</span>` : ""}</li>`).join("")}</ol></div>` : ""}
+  ${o.layers?.length ? `<div class="blk"><h3>${o.layersPartial ? "Best-known layers" : "Layers"}</h3><${o.layersPartial ? "ul" : "ol"} class="layers">${o.layers.map((l) => `<li><b>${esc(l.name)}</b>${l.summary ? `<span>${esc(l.summary)}</span>` : ""}</li>`).join("")}</${o.layersPartial ? "ul" : "ol"}></div>` : ""}
   ${o.dm || o.dmLinks?.length ? `<div class="blk dm"><h3><i>visibility_off</i>DM notes</h3>${o.dm ? `<p>${esc(o.dm)}</p>` : ""}${o.dmLinks?.length ? `<div class="chips" style="margin-top:10px">${o.dmLinks.map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener"><i>lock</i><span>${esc(l.label)}</span></a>`).join("")}</div>` : ""}</div>` : ""}
   ${o.related?.length ? `<div class="blk"><h3>${o.kind?.startsWith("Group") ? "Spheres" : "Related"}</h3><div class="chips">${o.related.map((r) => `<a data-act="${r.id.startsWith("sphere:") ? "select-sphere:" + esc(r.id.slice(7)) : r.id.startsWith("region:") ? "select-region:" + esc(r.id.slice(7)) : "select:" + esc(r.id)}"><i>${r.icon}</i><span>${esc(r.name)}</span></a>`).join("")}</div></div>` : ""}
   ${o.sources?.length ? `<div class="blk"><h3>Sources</h3><ul class="src">${o.sources.map((s) => `<li>${sourceText(s)}</li>`).join("")}</ul></div>` : ""}

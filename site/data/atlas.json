@@ -25355,25 +25355,32 @@
         "emblem": "mount-celestia",
         "layers": [
           {
-            "name": "Lunia"
+            "name": "Lunia, the Silver Heaven",
+            "summary": "A land of constant starry night at the foot of the mountain. Visitors arrive in the surf of the holy sea, near island citadels such as Heart's Faith."
           },
           {
-            "name": "Mercuria"
+            "name": "Mercuria, the Golden Heaven",
+            "summary": "Golden light bathes young, steep mountains. This layer holds Bahamut's palace and the armories and mustering grounds of the archon armies."
           },
           {
-            "name": "Venya"
+            "name": "Venya, the Pearly Heaven",
+            "summary": "A soft white glow lights old, rounded mountains with terraced fields. The halfling powers keep their realm, the Green Fields, here."
           },
           {
-            "name": "Solania"
+            "name": "Solania, the Electrum Heaven",
+            "summary": "The sky turns silver above deep canyons and loud rivers. Monasteries dot the slopes, and Moradin's Soul Forge lies in tunnels deep in the mountain."
           },
           {
-            "name": "Mertion"
+            "name": "Mertion, the Platinum Heaven",
+            "summary": "A bright silver sky burns undead. Great fortresses on the plateaus are mustering grounds for paladins, sword archons and other servants of good."
           },
           {
-            "name": "Jovar"
+            "name": "Jovar, the Glittering Heaven",
+            "summary": "The sky glitters like gems. The peak of the mountain carries Yetsirah, the Heavenly City, a seven-tiered ziggurat, and the way to the last layer goes through it."
           },
           {
-            "name": "Chronias"
+            "name": "Chronias, the Illuminated Heaven",
+            "summary": "Only uncertain tales describe this layer. Travelers who pass its sealed portal do not return, and the lawful good are said to merge with the plane."
           }
         ],
         "wiki": "Mount Celestia",
@@ -25382,7 +25389,9 @@
           "5e"
         ],
         "aka": [
-          "The Seven Heavens"
+          "The Seven Heavens",
+          "The Seven Mountains of Goodness and Law",
+          "The Seven Heavens of Mount Celestia"
         ],
         "gate_town": "Excelsior",
         "by_edition": {
@@ -25390,9 +25399,98 @@
             "pool": {
               "name": "Gold",
               "hex": "#ffd23f"
-            }
+            },
+            "summary": "The single sacred mountain of Mount Celestia rises from a shining Silver Sea, with seven plateaus that mark its seven heavenly layers. Angels and champions of good guard against evil, so travelers can let down their guard here. Countless creatures climb toward the highest peak, but only the purest souls reach it.",
+            "facts": [
+              [
+                "Full name",
+                "The Seven Heavens of Mount Celestia"
+              ],
+              [
+                "Optional rule: Blessed Beneficence",
+                "Good creatures gain the benefit of the bless spell while they stay on the plane. A long rest there gives a good creature the benefit of lesser restoration."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Lunia"
+              },
+              {
+                "name": "Mercuria"
+              },
+              {
+                "name": "Venya"
+              },
+              {
+                "name": "Solania"
+              },
+              {
+                "name": "Mertion"
+              },
+              {
+                "name": "Jovar"
+              },
+              {
+                "name": "Chronias"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58-59"
+              }
+            ]
           }
-        }
+        },
+        "summary": "A single sacred mountain rises from the Silver Sea, an endless ocean of holy water, to heights that a traveler can barely see. Its seven layers are seven heavens, one above the other on the slope. Archons guard the roads and gates, and spells of chaos and evil fail. It is one of the few places on the planes where a traveler can rest without fear.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Moradin, Jazirian, Tyr and Yondalla are the greater powers. Others are Paladine, Amaterasu, Brihaspati, Chung Kuel, Kuan Yin, Mitra, Surya, Berronar, Bahamut and Trishina."
+          ],
+          [
+            "Rulers",
+            "The Hebdomad, a council of seven tome archons, rules the layers: Barachiel, Domiel, Erathaol, Pistis Sophia, Raziel, Sealtiel and Zaphkiel."
+          ],
+          [
+            "Petitioners",
+            "Most petitioners become lantern archons when they arrive. Over the ages they rise through the hound, warden, sword and tome forms. Petitioners in the dwarf and halfling realms keep their old forms."
+          ],
+          [
+            "Natives",
+            "Archons, aasimon, noctrals and zoveri. Asuras, lammasu, shedu and buraq often visit."
+          ],
+          [
+            "Physical conditions",
+            "The Silver Sea is holy water and burns undead and fiends. Good and lawful neutral visitors gain the benefit of a bless spell. Each higher layer purifies more: it slows poison, neutralizes poison, removes curses and cures disease."
+          ],
+          [
+            "Magic conditions",
+            "Spells of chaos and evil fail, for example chaos, confusion and contagion. The farther a caster's alignment is from lawful good, the more often spells fail. All divinations give true answers."
+          ],
+          [
+            "Paths",
+            "Gates marked by twin carved pillars lead to the next layer, the Prime Material Plane, Sigil, Bytopia, Arcadia, Mechanus, Elysium and the Outlands."
+          ],
+          [
+            "Famous places",
+            "Heart's Faith, Bahamut's Palace, the Green Fields of the halfling powers, the Soul Forge of Moradin, and Yetsirah, the Heavenly City."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Law, Mount Celestia",
+            "pages": "2, 4-5, 9-10, 12-16, 22, 25"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "62"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Mount Celestia"
+          }
+        ]
       },
       {
         "id": "bytopia",
@@ -25404,10 +25502,12 @@
         "emblem": "bytopia",
         "layers": [
           {
-            "name": "Dothion"
+            "name": "Dothion",
+            "summary": "The Land of Pastoral Industry: woods, meadows and rivers, with farms, herds and the best woven cloth on the planes. The Golden Hills of the gnome powers lie here."
           },
           {
-            "name": "Shurrock"
+            "name": "Shurrock",
+            "summary": "The layer that faces Dothion, with mountains rich in ores and gems, cold rivers and dense forests. Its storms are fierce, and its towns live by crafts and mines."
           }
         ],
         "wiki": "Bytopia",
@@ -25416,7 +25516,8 @@
           "5e"
         ],
         "aka": [
-          "The Twin Paradises"
+          "The Twin Paradises",
+          "The Twin Paradises of Bytopia"
         ],
         "gate_town": "Tradegate",
         "by_edition": {
@@ -25424,9 +25525,71 @@
             "pool": {
               "name": "Amber",
               "hex": "#ffab1f"
-            }
+            },
+            "summary": "The two layers of the Twin Paradises of Bytopia are similar yet opposite: one is a tamed, pastoral landscape and the other an untamed wilderness. Both reflect the goodness of the plane and its acceptance of law when necessary. Bytopia is the heaven of productive work and of a job well done.",
+            "facts": [
+              [
+                "Full name",
+                "The Twin Paradises of Bytopia"
+              ],
+              [
+                "Optional rule: Pervasive Goodwill",
+                "After a long rest, a visitor that is not lawful good or neutral good must pass a DC 10 Wisdom save. On a failure, it turns lawful good or neutral good, and the change becomes permanent after 1d4 days."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Dothion"
+              },
+              {
+                "name": "Shurrock"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58-60"
+              }
+            ]
           }
-        }
+        },
+        "summary": "Two layers face each other across a glowing sky, so a traveler on one sees the fires of the other like stars overhead. Dothion is a pastoral land of farms, meadows and woods. Shurrock is a wild land of mountains, mines and fierce storms. Gnomes and other folk work their crafts here in harmony with nature.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Garl Glittergold, the only greater power, and the gnome powers Baervan Wildwanderer, Flandal Steelskin, Segojan Earthcaller and Callarduran Smoothhands. Others are Tefnut, Ama-Tsu-Mara, Inari, Ilmater and Kiri-Jolith."
+          ],
+          [
+            "Petitioners",
+            "Most are gnomes. Kiri-Jolith, Ilmater and Tefnut have smaller groups. The wild animals of the plane are not petitioners."
+          ],
+          [
+            "Inhabitants",
+            "Craftsfolk live in mountain cabins, woodland villages, mining towns and port towns. Treants grow in the woods of Dothion, and hollyphants serve the gnome powers."
+          ],
+          [
+            "Physical conditions",
+            "Every day has the same length, and both layers have four seasons. Pastures lie at the center of each layer, and the land rises to mountains toward the edges. No one dams whole rivers or plows whole meadows."
+          ],
+          [
+            "Magic conditions",
+            "Bytopia is said to be the least restrictive plane for casters. Elemental spells are enhanced on Shurrock. Spell keys are items made by the hands of Bytopians."
+          ],
+          [
+            "Famous places",
+            "Yeoman and its bazaar, the Golden Hills of the gnome powers, CenterSpire, the Lair of the Adamantite Dragon and the Ridiculous Tower."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Conflict, Liber Benevolentiae",
+            "pages": "28, 30, 32-35, 38-45"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Bytopia"
+          }
+        ]
       },
       {
         "id": "elysium",
@@ -25438,16 +25601,20 @@
         "emblem": "elysium",
         "layers": [
           {
-            "name": "Amoria"
+            "name": "Amoria",
+            "summary": "The first and most populous layer, an untroubled land of woods and meadows. Towns line the banks of the Oceanus like pearls on a string, and the Ciphers live here."
           },
           {
-            "name": "Eronia"
+            "name": "Eronia",
+            "summary": "A rocky, mountainous layer where great cascades and waterfalls break the flow of the Oceanus. River travel is dangerous without a guide."
           },
           {
-            "name": "Belierin"
+            "name": "Belierin",
+            "summary": "A marsh rich with wildlife but free of biting insects. It has no great civilizations, and the portals of Yggdrasil to it are closed."
           },
           {
-            "name": "Thalasia"
+            "name": "Thalasia",
+            "summary": "A sea of small islands, where the River Oceanus forms. Most of its life is under the water, and the Isles of the Blessed hold heroes who died for good."
           }
         ],
         "wiki": "Elysium",
@@ -25461,9 +25628,85 @@
             "pool": {
               "name": "Orange",
               "hex": "#ff8a1c"
-            }
+            },
+            "summary": "Elysium is home to creatures of unfettered kindness and compassion, and a welcome refuge for planar travelers who seek a safe haven. Its bucolic landscapes glimmer with life and beauty in their prime. It is the heaven of well-earned rest, where tears of joy glisten on many a cheek.",
+            "facts": [
+              [
+                "Full name",
+                "The Blessed Fields of Elysium"
+              ],
+              [
+                "Optional rule: Overwhelming Joy",
+                "After each long rest, a visitor must pass a DC 10 Wisdom save or be unwilling to leave before its next long rest. After three failures, it never leaves of its own will."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Amoria"
+              },
+              {
+                "name": "Eronia"
+              },
+              {
+                "name": "Belierin"
+              },
+              {
+                "name": "Thalasia"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 60"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Restful Plane",
+          "The Blessed Fields of Elysium"
+        ],
+        "summary": "A plane of pure goodness, with sweet rivers, forests, meadows and mountains of great beauty. The River Oceanus links its four layers, and the weather is never bad. Travelers who stop to do good deeds reach their goal quickly, while evil creatures wander lost. Undead burn up in its positive energy.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Greater powers include Hiatea, Chauntea, Lathander, Mishakal, Enlil and Ishtar. Many others live here, among them Isis, Belenus, Brigantia, Bragi, Majere, Savitri and Nanna-Sin."
+          ],
+          [
+            "Petitioners",
+            "Mortals who worked for good in life. Many former adventurers keep a trace of their old skills. Charm, hold and summoning spells do not affect them."
+          ],
+          [
+            "Natives",
+            "The guardinals, led by Prince Talisid of the leonals and his Five Companions. Moon dogs, phoenixes, per and solars also live here."
+          ],
+          [
+            "Physical conditions",
+            "Days are bright and nights cool and calm, and dew waters the plants. Undead take 2d6 points of damage each round from the positive energy of the plane."
+          ],
+          [
+            "Magic conditions",
+            "Summoning, charm and hold spells fail on natives. Spells that hide or falsify information fail. Harmful necromancy fails and can strike the caster."
+          ],
+          [
+            "Famous places",
+            "Release From Care, the City of the Star of Ishtar, Principality, Woodhaven of Hiatea, and the Isles of the Blessed on Thalasia."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Conflict, Liber Benevolentiae",
+            "pages": "6, 46, 48-52"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "57"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Elysium"
+          }
+        ]
       },
       {
         "id": "beastlands",
@@ -25475,13 +25718,16 @@
         "emblem": "beastlands",
         "layers": [
           {
-            "name": "Krigala"
+            "name": "Krigala",
+            "summary": "Selera's Empire, the layer of eternal noon under a burning sun. The River Oceanus flows through it from Elysium to Arborea."
           },
           {
-            "name": "Brux"
+            "name": "Brux",
+            "summary": "The Land of Twilight Eternal, where the sun Selera and the moon Noctos balance in a constant half-light."
           },
           {
-            "name": "Karasuthra"
+            "name": "Karasuthra",
+            "summary": "Noctos' Domain, the layer of endless night under a bright moon. Torches and campfires do not burn here."
           }
         ],
         "wiki": "Beastlands",
@@ -25490,7 +25736,8 @@
           "5e"
         ],
         "aka": [
-          "The Happy Hunting Grounds"
+          "The Happy Hunting Grounds",
+          "The Wilderness of the Beastlands"
         ],
         "gate_town": "Faunel",
         "by_edition": {
@@ -25498,9 +25745,82 @@
             "pool": {
               "name": "Emerald green",
               "hex": "#22cc6a"
-            }
+            },
+            "summary": "The Beastlands is a plane of nature unbound. Its forests range from moss-hung mangroves to snow-laden pines, its jungles let no light through, and its plains wave with grain and wildflowers. It embodies the wildness and beauty of nature and speaks to the animal within all living things.",
+            "facts": [
+              [
+                "Full name",
+                "The Wilderness of the Beastlands"
+              ],
+              [
+                "Optional rule: Hunter's Paradise",
+                "Visitors have advantage on Wisdom (Animal Handling), Wisdom (Perception) and Wisdom (Survival) checks."
+              ],
+              [
+                "Optional rule: Beast Transformation",
+                "A visitor that slays a native beast can turn into that kind of beast on a failed DC 10 Charisma save."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Krigala"
+              },
+              {
+                "name": "Brux"
+              },
+              {
+                "name": "Karasuthra"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 60"
+              }
+            ]
           }
-        }
+        },
+        "summary": "A plane of untamed nature, where animals are the masters and people are guests. Every kind of wild land is here, from jungles and swamps to plains and mountains, and the weather changes in moments. Its three layers lie under eternal noon, eternal twilight and eternal night. Most of the animals are petitioners.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Stronmaus is the only greater power. Puchan, Kura Okami, Habbakuk, Chislev and Zivilyn are intermediate powers. Remnis, Balador, Ferrix, Quorlinn, Skerrit, Deneir and Milil are lesser powers."
+          ],
+          [
+            "Petitioners",
+            "Animals. True animals come here when they die, and other petitioners take animal form. Centaurs, lycanthropes and swanmays keep the forms they had at the peak of their lives."
+          ],
+          [
+            "Natives",
+            "Animals of all kinds, many of giant size, and the animal lords with their warden beasts. Alaghi, bullywugs, centaurs, wemics, winged elves and lycanthropes also roam here."
+          ],
+          [
+            "Physical conditions",
+            "The plane makes visitors alert and full of life, and wilderness skills improve. Trained animals that arrive go wild and run off."
+          ],
+          [
+            "Magic conditions",
+            "Spells that control wind, air or weather fail because of the living clouds called mortai. Only creatures that fly by nature can leave the ground. Divinations that reach other planes fail."
+          ],
+          [
+            "Famous places",
+            "The Standing Stones and Skerrit's Glade on Krigala, the Cat Lord's Prowl and Ursis on Brux, and Zhan and Stormhold on Karasuthra."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Conflict, Liber Benevolentiae",
+            "pages": "6, 8, 10-14, 17, 24-26"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "53"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "The Beastlands"
+          }
+        ]
       },
       {
         "id": "arborea",
@@ -25512,13 +25832,16 @@
         "emblem": "arborea",
         "layers": [
           {
-            "name": "Olympus"
+            "name": "Olympus",
+            "summary": "Steep mountains, huge broadleaf trees and fields of wild wheat. The realms of Olympus and Arvandor lie hundreds of miles apart, each on the highest point of the layer."
           },
           {
-            "name": "Ossa"
+            "name": "Ossa",
+            "summary": "A vast, shallow sea scattered with islands, called Aquallor by the elves. The River Oceanus flows in, and maelstroms can pull a traveler to Elysium."
           },
           {
-            "name": "Pelion"
+            "name": "Pelion",
+            "summary": "A land of blowing white sand and snow, called Mithardir by the elves. Nothing grows here, and Nephythys keeps a palace of dun-colored stone."
           }
         ],
         "wiki": "Arborea",
@@ -25528,7 +25851,8 @@
         ],
         "aka": [
           "Olympus",
-          "Arvandor"
+          "Arvandor",
+          "The Olympian Glades of Arborea"
         ],
         "gate_town": "Sylvania",
         "by_edition": {
@@ -25536,9 +25860,82 @@
             "pool": {
               "name": "Sapphire blue",
               "hex": "#2260ff"
-            }
+            },
+            "summary": "Arborea is a place of violent moods and deep affections, of whim backed by steel, and of passions that blaze until they burn out. Its mountains and forests are extravagantly massive and beautiful, and nature spirits guard every glade and stream. Many elves and elven deities live here.",
+            "facts": [
+              [
+                "Full name",
+                "The Olympian Glades of Arborea"
+              ],
+              [
+                "Natives",
+                "Elves born on the plane have the celestial type and are wild at heart, ready to battle evil."
+              ],
+              [
+                "Optional rule: Intense Yearning",
+                "A visitor that leaves must make a Charisma save, with a DC of 5 plus 1 for each day on the plane. On a failure, it longs to return and has disadvantage on ability checks."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Olympus"
+              },
+              {
+                "name": "Ossa"
+              },
+              {
+                "name": "Pelion"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 60-61"
+              }
+            ]
           }
-        }
+        },
+        "summary": "A plane of huge passions, where every mountain is the highest and every forest the most lush. The settled lands hold vineyards, orchards and fields of wheat, but the wilds between the realms are almost impassable. Nature spirits guard every river, mountain and cloud and punish those who harm them. The Olympian and elven powers rule here.",
+        "facts": [
+          [
+            "Ruling powers",
+            "The Olympians, among them Zeus, Poseidon and Dionysus, and the elven powers led by Corellon Larethian. Iallanis, Nebelun, Chih-Nii, Nephythys, Sune, Tymora and Llira also live here."
+          ],
+          [
+            "Petitioners",
+            "Almost all the sylvan races, from centaurs, elves, gnomes and humans to satyrs, nixies and harpies. Some turn into bacchae, wild revelers who are a danger to travelers."
+          ],
+          [
+            "Natives",
+            "Creatures of Greek and elven legend: cyclopes, titans, sphinxes, pegasi, harpies and giant eagles. Balaena, buraq, lammasu, devas, einheriar and foo creatures also roam the plane."
+          ],
+          [
+            "Physical conditions",
+            "A nature spirit that is offended can move whole groves or make a river flow backward. Food is plentiful, and Arborea supplies much of the food of Sigil."
+          ],
+          [
+            "Magic conditions",
+            "Summoning spells call nature spirits, and an attempt to summon fiends brings the Furies. Divination needs props such as entrails or omens. Spell keys are offerings such as wine, milk, gold or olive oil."
+          ],
+          [
+            "Famous places",
+            "Olympus and Mount Olympus, Arvandor, the tree-town Grandfather Oak, Thrassos, the Gilded Hall of the Sensates, and Brightwater, the realm of Sune, Tymora and Llira."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "34, 36-41, 45"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "45-46, 50"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Arborea"
+          }
+        ]
       },
       {
         "id": "ysgard",
@@ -25550,13 +25947,16 @@
         "emblem": "ysgard",
         "layers": [
           {
-            "name": "Ysgard"
+            "name": "Ysgard",
+            "summary": "The best known layer, with huge halls, smoking battlefields and hills that fall to cold seas. At night, burning earthbergs fill the sky like rivers of lava."
           },
           {
-            "name": "Muspelheim"
+            "name": "Muspelheim",
+            "summary": "The Land of Fire. The earthbergs float with their burning sides up, and the fire giants of Surtr rule."
           },
           {
-            "name": "Nidavellir"
+            "name": "Nidavellir",
+            "summary": "The rivers of earth pack so close that the spaces between them are like huge glowing caverns. Dwarf and gnome petitioners and dark elves live here."
           }
         ],
         "wiki": "Ysgard",
@@ -25565,7 +25965,8 @@
           "5e"
         ],
         "aka": [
-          "Gladsheim"
+          "Gladsheim",
+          "The Heroic Domains of Ysgard"
         ],
         "gate_town": "Glorium",
         "by_edition": {
@@ -25573,9 +25974,82 @@
             "pool": {
               "name": "Indigo",
               "hex": "#5a3fd0"
-            }
+            },
+            "summary": "Ysgard is a rugged realm of soaring mountains, deep fjords and windswept battlefields, with long hot summers and cruel winters. Its continents float above oceans of volcanic rock, and icy caverns below hold whole kingdoms of giants, humans, dwarves and gnomes. Heroes come here to test their mettle.",
+            "facts": [
+              [
+                "Full name",
+                "The Heroic Domains of Ysgard"
+              ],
+              [
+                "Optional rule: Immortal Wrath",
+                "A creature that dies by an attack or a spell returns to life at dawn the next day with all its hit points. Constructs and undead are the exceptions."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Ysgard"
+              },
+              {
+                "name": "Muspelheim"
+              },
+              {
+                "name": "Nidavellir"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 61"
+              }
+            ]
           }
-        }
+        },
+        "summary": "Immense rivers of earth flow through the sky, in chunks from boulders to whole continents. Their burning undersides light the plane, and their grinding makes the land shake. Warriors fight every day here and rise again each morning. The Norse powers rule the first layer from great halls such as Valhalla.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Odin and the Aesir rule most of the first layer, and the Vanir have their own realm. Surtr and Thrym rule the giants. Selune, Bast and Aasterinian also have realms."
+          ],
+          [
+            "Petitioners",
+            "Rowdy warriors who rise again each morning, however they died the night before. Many of the fiercest become werebears or wereboars in time."
+          ],
+          [
+            "Natives",
+            "Einheriar, valkyries, giants, dwarves, foo creatures, hollyphants and planetars. Many planars here are members of the Fated."
+          ],
+          [
+            "Physical conditions",
+            "Earthbergs collide and cause earthquakes and new mountain ranges. Hot air rises from their edges and makes flight between them difficult. Longships carry travelers from one earthberg to the next."
+          ],
+          [
+            "Magic conditions",
+            "Wild magic is enhanced. The Norse powers govern magic: Thor guards weather spells, Odin mental spells and Heimdall warding spells. Elemental spells do not work."
+          ],
+          [
+            "Paths",
+            "Yggdrasil rises here, and the rainbow bridge Bifrost can link to any place on the Prime. The Infinite Staircase appears in the silver hall of Selune when the moon is full."
+          ],
+          [
+            "Famous places",
+            "Asgard with Valhalla and Gladsheim, Himinborg, Alfheim, Vanaheim, Jotunheim, the Gates of the Moon, Skeinheim, Steadfast, and Rowan's Hall of the Fated."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "103-104, 107-109, 116-117, 123, 125"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "64"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Ysgard"
+          }
+        ]
       },
       {
         "id": "limbo",
@@ -25598,9 +26072,82 @@
             "pool": {
               "name": "Jet black",
               "hex": "#1b1b26"
-            }
+            },
+            "summary": "Limbo is a plane of pure chaos, a roiling soup of matter and energy. Stone melts into water that freezes into metal, and bits of forest, meadow and ruined castles drift through the disorder. Slaadi swim through the chaos, and githzerai monks build whole monasteries with their minds.",
+            "facts": [
+              [
+                "Full name",
+                "The Ever-Changing Chaos of Limbo"
+              ],
+              [
+                "Gravity",
+                "Limbo has no gravity. A creature can move up to its walking speed in any direction by thought."
+              ],
+              [
+                "Optional rule: Power of the Mind",
+                "With an action and an Intelligence check, a creature can move or change an object, or stabilize the area around it for 24 hours."
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 61-62"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Ever-Changing Chaos of Limbo"
+        ],
+        "summary": "A churning soup of fire, water, earth and air with no gravity and no fixed shape. Chunks of land, and even whole meadows, drift past and dissolve again. A traveler must hold the chaos in shape by force of will, or drown in it. Slaadi swim through the soup, and githzerai hold whole cities steady with their minds.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Agni, Vayu, Indra, Shina-Tsu-Hiko, Susanoo, Fenmarel Mestarine and Tempus. Some tales name slaadi powers called Ssendam and Ygorl."
+          ],
+          [
+            "Petitioners",
+            "Living clumps of chaos matter that change from fire to wind to water to stone as their moods change. They love a good story and sometimes trade a service for one."
+          ],
+          [
+            "Natives",
+            "Slaadi, who have always lived here, and githzerai, who adopted the plane long ago. Humans, elves, dwarves and many other races also live here, and Xaositects come in great numbers."
+          ],
+          [
+            "Physical conditions",
+            "There is no natural gravity and no fixed up or down. A traveler can shape the chaos by will, and a higher Intelligence holds a larger area. When the concentration stops, the area dissolves."
+          ],
+          [
+            "Anarchs",
+            "Some beings, called anarchs, hold chaos in shape without conscious effort, so they can sleep, fight or cast spells at the same time."
+          ],
+          [
+            "Magic conditions",
+            "A wizard must pass an Intelligence check to cast a spell, or the spell is lost. A failed spell in the open soup always causes a wild surge."
+          ],
+          [
+            "Layers",
+            "Scholars name layers, but the barriers between regions are never constant. Most travelers treat Limbo as one vast layer."
+          ],
+          [
+            "Famous places",
+            "The githzerai towns Shra'kt'lor and the Floating City. The Spawning Stone of the slaadi, Pinwheel and the halfling town Barnstable. Fennimar, the realm of Fenmarel Mestarine."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "60, 64-66, 70, 74-76"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "60"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Limbo"
+          }
+        ]
       },
       {
         "id": "pandemonium",
@@ -25612,16 +26159,20 @@
         "emblem": "pandemonium",
         "layers": [
           {
-            "name": "Pandesmos"
+            "name": "Pandesmos",
+            "summary": "The first and most traveled layer, with the largest caverns, the calmest winds and most of the powers."
           },
           {
-            "name": "Cocytus"
+            "name": "Cocytus",
+            "summary": "Smaller tunnels and more piercing winds give it the name the layer of lamentation. Its tunnels show the marks of hand chisels from a forgotten age."
           },
           {
-            "name": "Phlegethon"
+            "name": "Phlegethon",
+            "summary": "A layer of deep darkness and dripping water. The rock absorbs light and heat, and huge stalactites and stalagmites grow."
           },
           {
-            "name": "Agathion"
+            "name": "Agathion",
+            "summary": "Isolated bubbles in endless rock, not tunnels. Powers use some sealed holes as vaults for things they want to hide."
           }
         ],
         "wiki": "Pandemonium",
@@ -25635,9 +26186,92 @@
             "pool": {
               "name": "Magenta",
               "hex": "#e23cc8"
-            }
+            },
+            "summary": "Pandemonium is a plane of madness, a great mass of rock riddled with tunnels carved by howling winds. It is cold, noisy and dark, with no natural light. Most of its inhabitants were banished here with no hope of escape, and many of them are mad.",
+            "facts": [
+              [
+                "Full name",
+                "The Windswept Depths of Pandemonium"
+              ],
+              [
+                "Wind",
+                "The wind puts out nonmagical open flames. Talk is possible only by yelling, to 10 feet at most. Ability checks that rely on hearing have disadvantage."
+              ],
+              [
+                "Optional rule: Mad Winds",
+                "Each hour among the winds, a visitor must pass a DC 10 Wisdom save or gain a level of exhaustion. At six levels it does not die but gains indefinite madness."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Pandesmos"
+              },
+              {
+                "name": "Cocytus"
+              },
+              {
+                "name": "Phlegethon"
+              },
+              {
+                "name": "Agathion"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 62"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Windswept Depths of Pandemonium"
+        ],
+        "summary": "An endless mass of solid rock riddled with tunnels and caverns, from narrow crawlways to bores hundreds of miles wide. It is always dark, and cold winds howl through every passage. The noise drives most inhabitants mad in time. Most of them came here as exiles and cannot leave.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Loki, Gorellik, Hruggek, Diirinka, Ho Masubi, the Queen of Air and Darkness, Auril and Talos."
+          ],
+          [
+            "Petitioners",
+            "All show some sign of madness. They give off no body heat, so infravision cannot find them, and they sense their way through the dark like bats."
+          ],
+          [
+            "Natives",
+            "There are no true natives. The Banished live here: goblinoid clans, drow, duergar and others who were exiled to the plane, and their descendants."
+          ],
+          [
+            "Physical conditions",
+            "The winds carry off loose items and put out torches. In most tunnels, gravity pulls toward the nearest wall. Foul streams run along most passages."
+          ],
+          [
+            "Madness",
+            "Long exposure to the howling winds drives visitors mad."
+          ],
+          [
+            "Magic conditions",
+            "The wind blows away material components and makes speech and gestures difficult. Wild magic is enhanced."
+          ],
+          [
+            "Famous places",
+            "The Madhouse, a citadel of the Bleak Cabal. Winter's Hall, the realm of Loki. Howlers' Crag, Hruggekolohk, Windglum and the Unseelie Court."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "80, 83-84, 90-92, 95, 97, 101"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "63"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Pandemonium"
+          }
+        ]
       },
       {
         "id": "abyss",
@@ -25647,7 +26281,48 @@
         "alignment": "chaotic evil",
         "color": "#ff2e6e",
         "emblem": "abyss",
-        "layers": [],
+        "layers": [
+          {
+            "name": "Plain of Infinite Portals",
+            "summary": "The top layer, a dim, barren plain under a bloated red sun. Holes lead to other layers, and iron fortresses of tanar'ri lords dot the land."
+          },
+          {
+            "name": "Realm of a Million Eyes",
+            "summary": "The sixth layer, home of the Great Mother of the beholders. Every kind of evil beholder lives here."
+          },
+          {
+            "name": "Iron Wastes",
+            "summary": "The 23rd layer, a bitterly cold plane of ice miles deep. Kostchtchie and his frost giants rule it."
+          },
+          {
+            "name": "Azzagrat",
+            "summary": "The Triple Realm of Graz'zt, layers 45 to 47, which overlap and move through one another. Its largest city, Zelatar, crosses all three."
+          },
+          {
+            "name": "Demonweb Pits",
+            "summary": "The 66th layer, realm of Lolth. It folds in on itself like a great web, and its tunnels hold gates to worlds where Lolth has worshipers."
+          },
+          {
+            "name": "Smaragd",
+            "summary": "The 74th layer, a radiant emerald jungle of heat, acid rain and poison. Merrshaulk of the yuan-ti and Ramenos of the bullywugs sleep here."
+          },
+          {
+            "name": "Gaping Maw",
+            "summary": "The 88th layer, briny water and rocky spires. Demogorgon rules its depths from a palace that is mostly under water."
+          },
+          {
+            "name": "Thanatos",
+            "summary": "The 113th layer, a frozen necropolis under a black, moonlit sky. Kiaransalee rules it after she took it from the former lord of the undead."
+          },
+          {
+            "name": "Shedaklah",
+            "summary": "The 222nd layer, called the Slime Pits: a bubbling morass of sludge and molds. Juiblex and Zuggtmoy share it."
+          },
+          {
+            "name": "Durao",
+            "summary": "The 274th layer, an open layer of rusting iron wharves on the Styx. Tanar'ri hordes board barges here for the Blood War."
+          }
+        ],
         "wiki": "Abyss",
         "editions": [
           "2e",
@@ -25661,9 +26336,108 @@
             "pool": {
               "name": "Amethyst",
               "hex": "#9a5cd8"
-            }
+            },
+            "summary": "The Abyss embodies all that is perverse, gruesome and chaotic. Its virtually endless layers spiral downward into ever more appalling forms, each a harsh and hostile place. Much of what a visitor sees or touches seems to decay, crumble or corrode.",
+            "facts": [
+              [
+                "Full name",
+                "The Infinite Layers of the Abyss"
+              ],
+              [
+                "Rulers",
+                "The demon lords who rule its layers define them."
+              ],
+              [
+                "Optional rule: Abyssal Corruption",
+                "A non-evil visitor that finishes a long rest can become corrupted on a failed DC 10 Charisma save. If it stays 1d4 + 2 more days, it turns chaotic evil."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "The Gaping Maw",
+                "summary": "The layer of Demogorgon: a jungle continent surrounded by ocean and brine flats. He rules from two serpentine towers that form the fortress of Abysm."
+              },
+              {
+                "name": "Thanatos",
+                "summary": "The layer of Orcus: bleak mountains, moors and ruined cities full of tombs and undead. He rules from Everlost, a palace of obsidian and bone."
+              },
+              {
+                "name": "The Demonweb",
+                "summary": "The layer of Lolth: a network of magical webbing with random portals. Lolth lives in the bottomless Demonweb Pits below."
+              },
+              {
+                "name": "The Endless Maze",
+                "summary": "The layer of Baphomet: a never-ending dungeon. His ziggurat palace stands at its center behind a mile-wide moat."
+              },
+              {
+                "name": "The Triple Realm",
+                "summary": "Azzagrat, three layers ruled by Graz'zt from the Argent Palace in the city of Zelatar."
+              },
+              {
+                "name": "Death Dells",
+                "summary": "The layer of Yeenoghu: ravines where creatures must hunt to survive and the plants bathe their roots in blood."
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 62-63"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Infinite Layers of the Abyss"
+        ],
+        "summary": "An endless stack of layers, each one a different nightmare of harsh land, poison and decay. The tanar'ri rule almost every layer and fight each other as well as the baatezu in the Blood War. Most visitors arrive on the Plain of Infinite Portals, a red waste full of holes that lead deeper. Only the quick survive here.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Abyssal lords such as Graz'zt, Kostchtchie, Pazrael, Sess'inek and Zuggtmoy. Baphomet, Demogorgon, Juiblex and Yeenoghu are lords who became powers. Lolth, Kali, Kiaransalee and Laogzed also hold layers."
+          ],
+          [
+            "Petitioners",
+            "The spirits of chaotic evil mortals. Most become manes, the lowest tanar'ri. The rest are killers, thugs, traitors and poisoners who trust no one."
+          ],
+          [
+            "Natives",
+            "Tanar'ri of every kind, from balors and mariliths to manes. Bebeliths, bodaks, fire shadows, quasits, retrievers and varrangoin also live here."
+          ],
+          [
+            "Physical conditions",
+            "Every layer is harsh: deserts of salt or rust, plains of ice, seas of acid, or air that is poison. Some layers steal memories, rot bodies or corrupt the alignment of visitors."
+          ],
+          [
+            "Magic conditions",
+            "Magic draws the attention of the Abyssal lords, who strike back at casters who threaten their servants. Alteration spells often warp. Illusions and wild magic are enhanced."
+          ],
+          [
+            "Number of layers",
+            "The Guvners of Sigil count 679 layers, and 141 of them are habitable by most travelers. No one knows if the number is infinite."
+          ],
+          [
+            "Paths",
+            "Paths between layers can be a river ford, a cliff or an archway. Portals from Sigil reach only the Plain of Infinite Portals and a small number of other layers."
+          ],
+          [
+            "Famous places",
+            "The Broken Reach, which holds the portal to Plague-Mort. Gallowsgate, the barracks town Styros and the Lakes of Molten Iron. Zelatar, the city of Graz'zt."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "12, 14-15, 18-24, 26-27, 29"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "48"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "The Abyss"
+          }
+        ]
       },
       {
         "id": "carceri",
@@ -25675,22 +26449,28 @@
         "emblem": "carceri",
         "layers": [
           {
-            "name": "Othrys"
+            "name": "Othrys",
+            "summary": "Titans' Home: the largest orbs, with bogs and quicksand fed by the Styx. Mount Othrys rises where the mountains of two orbs grow together."
           },
           {
-            "name": "Cathrys"
+            "name": "Cathrys",
+            "summary": "The Scarlet Jungle, whose trees ooze acid, and plains of razor-sharp grass. Barbaric petitioners and the hill giants of Grolantor roam here."
           },
           {
-            "name": "Minethys"
+            "name": "Minethys",
+            "summary": "The Blasted: sand driven by winds and tornadoes that strip flesh to the bone. Greedy petitioners shelter in pits dug by hand."
           },
           {
-            "name": "Colothys"
+            "name": "Colothys",
+            "summary": "Climbers' Doom: mountains hundreds of miles high, cut by deep canyons and crossed by rope bridges in shrieking winds."
           },
           {
-            "name": "Porphatys"
+            "name": "Porphatys",
+            "summary": "A cold, shallow ocean fed by black, acidic snow. Starving petitioners crowd its sandbar islands."
           },
           {
-            "name": "Agathys"
+            "name": "Agathys",
+            "summary": "The Ice-Bound: an orb of black ice, the coldest layer, where petitioners lie half frozen in the ice."
           }
         ],
         "wiki": "Carceri",
@@ -25699,7 +26479,9 @@
           "5e"
         ],
         "aka": [
-          "Tarterus"
+          "Tarterus",
+          "The Red Prison",
+          "The Tarterian Depths of Carceri"
         ],
         "gate_town": "Curst",
         "by_edition": {
@@ -25707,9 +26489,87 @@
             "pool": {
               "name": "Olive",
               "hex": "#8f8f2c"
-            }
+            },
+            "summary": "The model for all other prisons in existence, Carceri is a plane of desolation and despair. Its six layers hold vast bogs, fetid jungles, windswept deserts, jagged mountains, frigid oceans and black ice. They form a miserable home for the traitors and backstabbers trapped here.",
+            "facts": [
+              [
+                "Full name",
+                "The Tarterian Depths of Carceri"
+              ],
+              [
+                "Optional rule: Prison Plane",
+                "Spells other than wish fail to take a creature off the plane. Portals that open onto it become one-way. The secret ways out are hidden and guarded by traps and monsters."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Othrys"
+              },
+              {
+                "name": "Cathrys"
+              },
+              {
+                "name": "Minethys"
+              },
+              {
+                "name": "Colothys"
+              },
+              {
+                "name": "Porphatys"
+              },
+              {
+                "name": "Agathys"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 63"
+              }
+            ]
           }
-        }
+        },
+        "summary": "A plane of prisons, where each layer is a string of orbs that float in a red void, each layer inside the last. A dull red glow lights everything, but the air is cold and foul. Traitors, exiles and the overthrown plot here for a return that seldom comes. It is easy to enter and hard to leave.",
+        "facts": [
+          [
+            "Ruling powers",
+            "The Titans, led by Cronus, whom the Olympians cast down here. Others are Apomps, Faluzure, Grolantor, Karontor, Parrafaire, Vhaeraun, Raiden, Talona and Malar."
+          ],
+          [
+            "Petitioners",
+            "Traitors and liars, each sent to a layer by the kind of crime. Politicians and traitors go to Othrys, the greedy to Minethys, and liars and cheats to Colothys. None can speak the whole truth."
+          ],
+          [
+            "Natives",
+            "The gehreleths are the only true natives. Fiends of the Blood War use the plane as a staging area."
+          ],
+          [
+            "Getting out",
+            "The only ways out are the River Styx and the gates of Othrys, which appear only on every fifth orb. A gate taller than it is wide leads to the Gray Waste, and a wider one to the Abyss."
+          ],
+          [
+            "Magic conditions",
+            "Summoned creatures are not bound and must be bribed. A divination needs the blood of a sacrificed comrade. Healing spells work at half power."
+          ],
+          [
+            "Famous places",
+            "Mount Othrys of the Titans, the Bastion of Lost Hope, The Steading of Grolantor, the Land of the Hunt and The Vault."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Conflict, Liber Malevolentiae",
+            "pages": "6-8, 10-12, 14-23"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "56"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Carceri"
+          }
+        ]
       },
       {
         "id": "gray-waste",
@@ -25721,13 +26581,16 @@
         "emblem": "gray-waste",
         "layers": [
           {
-            "name": "Oinos"
+            "name": "Oinos",
+            "summary": "The Battle Plain: a land of disease and stunted trees, where much of the Blood War is fought. Khin-Oin, the Wasting Tower, stands here."
           },
           {
-            "name": "Niflheim"
+            "name": "Niflheim",
+            "summary": "Northmen's Despair: gray pine forests in thick mist, free of the wasting sickness. Hel rules here, and a root of Yggdrasil reaches the layer."
           },
           {
-            "name": "Pluton"
+            "name": "Pluton",
+            "summary": "Olympian's Gloom: rocks, bluffs, dying poplars and gray oceans. Hades rules the dead here, and the tunnels of Mount Olympus reach it."
           }
         ],
         "wiki": "Hades",
@@ -25736,7 +26599,9 @@
           "5e"
         ],
         "aka": [
-          "Hades"
+          "Hades",
+          "The Three Glooms",
+          "The Gray Waste of Hades"
         ],
         "by_edition": {
           "5e": {
@@ -25744,10 +26609,83 @@
             "pool": {
               "name": "Rust",
               "hex": "#b8582c"
-            }
+            },
+            "summary": "The layers of Hades are called the Three Glooms: places without joy, hope or passion. It is a gray land with an ashen sky and no sun, moon, stars or seasons. Many souls that no god or fiend claims become larvae here and spend eternity in the gloom.",
+            "facts": [
+              [
+                "Full name",
+                "The Gray Waste of Hades"
+              ],
+              [
+                "Optional rule: Vile Transformation",
+                "After each long rest, a visitor must pass a DC 10 Wisdom save or gain a level of exhaustion. It cannot lose this exhaustion on the plane, and at six levels it becomes a larva."
+              ],
+              [
+                "Larvae",
+                "Night hags, liches and rakshasas harvest larvae for vile rituals, and other fiends feed on them."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Oinos"
+              },
+              {
+                "name": "Niflheim"
+              },
+              {
+                "name": "Pluton"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 63"
+              }
+            ]
           }
         },
-        "gate_town": "Hopeless"
+        "gate_town": "Hopeless",
+        "summary": "A land of endless gray with no sun, moon, stars, day or night. All color fades from a visitor's goods within a week. The plane drains hope and dreams, and a traveler who stays too long loses the will to leave and becomes a larva. The Blood War rages across its first layer.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Hel, Hades and Arawn rule the dead. Others are Panzuriel, Yurtrus, Cegilune, Kuraulyek, Abbathor, Kelemvor, Shar and Mask."
+          ],
+          [
+            "Petitioners",
+            "Gray, emotionless ghosts without hope. They crowd around living visitors for the warmth of their emotions, and some become larvae."
+          ],
+          [
+            "Natives",
+            "Larvae, hordlings and night hags. Nightmares, diakka and fiends of every kind come and go."
+          ],
+          [
+            "Physical conditions",
+            "Each week, a visitor must resist the despair of the plane or begin to lose all sense of self. A traveler trapped by despair becomes a larva within months unless others rescue him."
+          ],
+          [
+            "Magic conditions",
+            "Magic based on color, such as prismatic sphere, does not work. No magic can overcome the despair of the plane."
+          ],
+          [
+            "Famous places",
+            "Khin-Oin, the Wasting Tower, and the Glitterhell on Oinos. Hel's realm, Annwn, the Palace of Loss and the Shadow Keep on Niflheim. Hades' realm and Aeaea on Pluton."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Conflict, Liber Malevolentiae",
+            "pages": "44, 46-50"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "59"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "The Gray Waste"
+          }
+        ]
       },
       {
         "id": "gehenna",
@@ -25759,16 +26697,20 @@
         "emblem": "gehenna",
         "layers": [
           {
-            "name": "Khalas"
+            "name": "Khalas",
+            "summary": "The First Mount, the kindest layer and the one that touches the Astral. Waterfalls streak its slopes, and the Styx plunges through its glowing caverns."
           },
           {
-            "name": "Chamada"
+            "name": "Chamada",
+            "summary": "The Second Mount, the most savage. Magma glows so bright that it blots out the sky, and rivers of lava pour down the slopes."
           },
           {
-            "name": "Mungoth"
+            "name": "Mungoth",
+            "summary": "The Third Mount, cold and dim under a rain of ash and acidic snow. Avalanches of cold mud threaten travelers."
           },
           {
-            "name": "Krangath"
+            "name": "Krangath",
+            "summary": "The Fourth Mount, a dead realm where all the fires are out and all is darkness and ice. The realm of Shargaas lies deep underground."
           }
         ],
         "wiki": "Gehenna",
@@ -25782,9 +26724,93 @@
             "pool": {
               "name": "Russet",
               "hex": "#94401f"
-            }
+            },
+            "summary": "Gehenna is the plane of suspicion and greed and the birthplace of the yugoloths. A volcanic mountain dominates each of its four layers, and lesser volcanic earthbergs drift in the air and smash into them. The fiends here are among the greediest and most selfish in the multiverse.",
+            "facts": [
+              [
+                "Full name",
+                "The Bleak Eternity of Gehenna"
+              ],
+              [
+                "Terrain",
+                "The ground slopes at least 45 degrees almost everywhere, with cliffs, canyons and volcanic fissures that vent fumes or flame."
+              ],
+              [
+                "Optional rule: Cruel Hindrance",
+                "A creature that casts a beneficial spell must first pass a DC 10 Charisma save, or the spell fails and the slot is spent."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Khalas"
+              },
+              {
+                "name": "Chamada"
+              },
+              {
+                "name": "Mungoth"
+              },
+              {
+                "name": "Krangath"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 63"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Fourfold Furnaces",
+          "The Bleak Eternity of Gehenna"
+        ],
+        "summary": "Four great volcanic mountains float in a void, one on each layer, with no level ground anywhere. A traveler who slips tumbles down the slopes or off the edge into the void. Lava, steam and choking gas fill the air. Nothing here is free: every guide, answer and favor has a price.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Sargonnas, Loviatar, Iyachtu Xvim, Math Mathonwy and Sung Chiang. Nonhuman powers include Gaknulak, Squerrik, Mellifleur, Memnor, Maanzecorian and Shargaas."
+          ],
+          [
+            "Petitioners",
+            "Greedy and suspicious. They do nothing without payment and travel freely between the layers in search of power."
+          ],
+          [
+            "Natives",
+            "The yugoloths now live here in the greatest numbers, though some say they first came from the Gray Waste."
+          ],
+          [
+            "Physical conditions",
+            "Slopes run from 5 to 80 degrees, with cliffs and overhangs. A fall does damage equal to half the distance rolled. Every layer except Krangath boils with volcanic furnaces."
+          ],
+          [
+            "Magic conditions",
+            "Summoning spells call only natives of the plane. Enchantment and charm spells are weaker, and those above 4th level fail. Invocation and evocation spells are stronger."
+          ],
+          [
+            "Paths",
+            "The River Styx flows only through Khalas, the first layer."
+          ],
+          [
+            "Famous places",
+            "The Teardrop Palace of Sung Chiang on Khalas, the Tower of the Arcanaloths on Chamada, and the towns Ondtland and Portent on Mungoth."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Conflict, Liber Malevolentiae",
+            "pages": "26-29, 33-41"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "58"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Gehenna"
+          }
+        ]
       },
       {
         "id": "nine-hells",
@@ -25796,31 +26822,40 @@
         "emblem": "nine-hells",
         "layers": [
           {
-            "name": "Avernus"
+            "name": "Avernus",
+            "summary": "A blasted, rocky waste under a blood-red sky, the battleground and staging area of the baatezu armies. The River Styx flows through it."
           },
           {
-            "name": "Dis"
+            "name": "Dis",
+            "summary": "The smoking iron city of Dis fills this layer. Its red-hot streets burn the petitioners who toil there without tools."
           },
           {
-            "name": "Minauros"
+            "name": "Minauros",
+            "summary": "A bog under foul rain, oily sleet and razor-sharp hail. Its city, Minauros the Sinking, slowly settles into the mire."
           },
           {
-            "name": "Phlegethos"
+            "name": "Phlegethos",
+            "summary": "A realm of volcanoes and rivers of liquid fire, almost the same as the Plane of Fire. The city of Abriymoch stands in a caldera."
           },
           {
-            "name": "Stygia"
+            "name": "Stygia",
+            "summary": "A great frozen sea, open only where the River Styx flows. The ice-crusted city of Tantlin stands on a floe."
           },
           {
-            "name": "Malbolge"
+            "name": "Malbolge",
+            "summary": "An immense rockfall of building-sized boulders under clouds of red steam. Copper-clad fortresses stand among the scree."
           },
           {
-            "name": "Maladomini"
+            "name": "Maladomini",
+            "summary": "A plain of ruins where petitioners quarry stone and build new cities for the archduke. Malagard, the newest city, stands above the older ruins."
           },
           {
-            "name": "Cania"
+            "name": "Cania",
+            "summary": "A layer of solid ice and glaciers, as cold as the Paraelemental Plane of Ice. Its ruler holds the citadel of Mephistar above the glacier Nargus."
           },
           {
-            "name": "Nessus"
+            "name": "Nessus",
+            "summary": "The deepest pit of Baator, a plain cut by rifts deeper than any ocean trench. The palace of the overlord of Baator stands at its lowest point."
           }
         ],
         "wiki": "Nine Hells",
@@ -25829,7 +26864,9 @@
           "5e"
         ],
         "aka": [
-          "Baator"
+          "Baator",
+          "The Nine Hells of Baator",
+          "The Pit"
         ],
         "by_edition": {
           "2e": {
@@ -25839,10 +26876,122 @@
             "pool": {
               "name": "Ruby",
               "hex": "#d8143e"
-            }
+            },
+            "summary": "The Nine Hells of Baator is the ultimate plane of law and evil and the epitome of premeditated cruelty. Its devils obey the laws of their superiors but plot against each other inside their castes. Asmodeus stands at the top of the hierarchy, and any creature that defeats him takes his place.",
+            "facts": [
+              [
+                "Full name",
+                "The Nine Hells of Baator"
+              ],
+              [
+                "Rulers",
+                "Asmodeus, the Archduke of Nessus, rules from the citadel-spire of Malsheem. Archdevils who answer to him rule the first eight layers."
+              ],
+              [
+                "Getting in",
+                "By order of Asmodeus, no portals lead directly to the lower layers. A traveler arrives on Avernus and must descend through every layer in order. The River Styx is the fastest route down."
+              ],
+              [
+                "Optional rule: Pervasive Evil",
+                "After a long rest, a visitor that is not evil can turn lawful evil on a failed DC 10 Wisdom save."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Avernus",
+                "summary": "A rocky wasteland with rivers of blood, clouds of biting flies and falling fiery comets. Zariel rules it, and Tiamat is a prisoner here."
+              },
+              {
+                "name": "Dis",
+                "summary": "A labyrinth of canyons rich with iron ore, ruled by Dispater from the Iron City of Dis, the largest city in the Nine Hells."
+              },
+              {
+                "name": "Minauros",
+                "summary": "A stench-ridden bog under acidic rain. Mammon rules from the great city of Minauros."
+              },
+              {
+                "name": "Phlegethos",
+                "summary": "A fiery land of magma seas. Belial and his daughter Fierna rule together from the obsidian city of Abriymoch."
+              },
+              {
+                "name": "Stygia",
+                "summary": "A freezing realm of ice and cold flames around a frozen sea. Levistus rules it from inside the ice, and Geryon also lives here."
+              },
+              {
+                "name": "Malbolge",
+                "summary": "An endless slope where avalanches of stone crash down. Glasya, the daughter of Asmodeus, rules from a citadel on the verge of collapse."
+              },
+              {
+                "name": "Maladomini",
+                "summary": "A ruin-covered wasteland of dead cities and swarms of flies, ruled by Baalzebul, the Lord of Flies."
+              },
+              {
+                "name": "Cania",
+                "summary": "An icy hellscape of flesh-tearing ice storms. Mephistopheles rules from the ice citadel of Mephistar."
+              },
+              {
+                "name": "Nessus",
+                "summary": "A realm of dark pits with fortresses in their walls. Asmodeus rules from Malsheem, a citadel-spire that rises from a rift of unknown depth."
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 64-66"
+              }
+            ]
           }
         },
-        "gate_town": "Ribcage"
+        "gate_town": "Ribcage",
+        "summary": "Baator is the plane of law and evil, shaped like a mountain turned upside down. Its nine layers descend from the broad wastes of Avernus to the bottom tip, Nessus. The baatezu rule it in a strict chain of command and trap visitors with cunning deals. Each layer is a different torment of fire, ice, bog or ruin.",
+        "facts": [
+          [
+            "Rulers",
+            "The Lords of the Nine rule the layers. The Dark Eight, eight pit fiends who meet four times a year, direct the Blood War."
+          ],
+          [
+            "Ruling powers",
+            "Bargrivyek, Kurtulmak, Sekolah, Set, Hecate and Takhisis. Tiamat guards a lair on Avernus."
+          ],
+          [
+            "Petitioners",
+            "Most become lemures, the infantry of the baatezu armies. Others serve their powers in their realms, in the form that each power favors."
+          ],
+          [
+            "Natives",
+            "Baatezu, hellcats, hell hounds, hordlings, imps and larvae."
+          ],
+          [
+            "Getting in",
+            "The Cursed Gate in Ribcage opens onto Avernus. A traveler needs a written invitation from one of the Lords of the Nine. The gate guards sell worthless copies."
+          ],
+          [
+            "Physical conditions",
+            "Fireballs drift through the air of Avernus and explode at random. Each lower layer has its own extreme, from the fire of Phlegethos to the ice of Cania."
+          ],
+          [
+            "Magic conditions",
+            "Wild magic is diminished."
+          ],
+          [
+            "Famous places",
+            "Dis, the Iron City. Minauros the Sinking and Jangling Hiter, City of Chains. Abriymoch, Tantlin, Malagard and Mephistar. Malsheem, the fortress of Nessus."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Law, Baator",
+            "pages": "2, 4-5, 8, 10, 12, 14, 24"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "52"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Baator"
+          }
+        ]
       },
       {
         "id": "acheron",
@@ -25854,16 +27003,20 @@
         "emblem": "acheron",
         "layers": [
           {
-            "name": "Avalas"
+            "name": "Avalas",
+            "summary": "The Battleplains: the top layer, with the most cubes and the most inhabitants. Its cubes collide approximately once a week."
           },
           {
-            "name": "Thuldanin"
+            "name": "Thuldanin",
+            "summary": "An enormous planar scrapyard. Its hollow cubes hold broken engines of war that slowly turn into iron-like stone."
           },
           {
-            "name": "Tintibulus"
+            "name": "Tintibulus",
+            "summary": "A layer of perfect geometry and law so absolute that almost nothing survives. Gritty stone solids collide and break into smaller solids."
           },
           {
-            "name": "Ocanthus"
+            "name": "Ocanthus",
+            "summary": "A dark void of razor-thin plates that slice through the darkness and destroy almost everything they touch."
           }
         ],
         "wiki": "Acheron",
@@ -25877,9 +27030,84 @@
             "pool": {
               "name": "Flame red",
               "hex": "#ff4d1c"
-            }
+            },
+            "summary": "Acheron has four layers, each made of enormous iron cubes that float in an airy void and sometimes collide. Echoes of past collisions mingle with the sounds of armies at war. Spirits of fallen soldiers battle orcs of Gruumsh, goblinoids of Maglubiyet and the legions of other gods of war.",
+            "facts": [
+              [
+                "Full name",
+                "The Infinite Battlefield of Acheron"
+              ],
+              [
+                "Optional rule: Bloodlust",
+                "A creature that reduces a hostile creature to 0 hit points gains temporary hit points equal to half its hit point maximum."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Avalas"
+              },
+              {
+                "name": "Thuldanin"
+              },
+              {
+                "name": "Tintibulus"
+              },
+              {
+                "name": "Ocanthus"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 66"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Infinite Battlefield of Acheron"
+        ],
+        "summary": "Huge black iron cubes, the size of cities or kingdoms, drift through an airy void and crash together with deafening blows. Armies drill and fight on their faces in an endless war for conformity. Gravity pulls toward the center of each cube, so armies fight on all six sides. Nothing grows here, not even weeds.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Maglubiyet of the goblins and Gruumsh of the orcs fight an endless war on the first layer. Lei Kung, Laduguer and Amatsu-Mikaboshi also have realms."
+          ],
+          [
+            "Petitioners",
+            "Mostly orcs, goblins and hobgoblins, who stay in their powers' realms on the first layer. Duergar petitioners toil in Laduguer's realm on the second layer."
+          ],
+          [
+            "Natives",
+            "Only yugoloths and rakshasas are true natives. Baatezu, imps, achaierai, modrons and rust monsters come to recruit or to feed."
+          ],
+          [
+            "Physical conditions",
+            "A collision crushes everything between two cubes. Travelers can see an approaching cube a day or two before it hits. The air of the void supports life and flight."
+          ],
+          [
+            "Magic conditions",
+            "Wild magic is diminished."
+          ],
+          [
+            "Famous places",
+            "Clangor and Nishrek, the goblin and orc realms. The towns Vorkehan and Mesk. Hammergrim, the realm of Laduguer. Zoronor, City of Shadows."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Law, Acheron",
+            "pages": "2-3, 8-9, 12"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "49"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Acheron"
+          }
+        ]
       },
       {
         "id": "mechanus",
@@ -25897,7 +27125,9 @@
         ],
         "layers_count": 1,
         "aka": [
-          "Nirvana"
+          "Nirvana",
+          "The Clockwork Universe",
+          "The Clockwork Nirvana of Mechanus"
         ],
         "gate_town": "Automata",
         "by_edition": {
@@ -25905,9 +27135,79 @@
             "pool": {
               "name": "Diamond blue",
               "hex": "#a6dcff"
-            }
+            },
+            "summary": "On Mechanus, law takes the form of clockwork gears that interlock and turn according to their measure. The cogs seem to work on a calculation so vast that no deity can fathom its purpose. Modrons are the main inhabitants, and their creator, the godlike Primus, also lives here.",
+            "facts": [
+              [
+                "Full name",
+                "The Clockwork Nirvana of Mechanus"
+              ],
+              [
+                "Optional rule: Law of Averages",
+                "Creatures always deal the average damage for attacks and spells."
+              ],
+              [
+                "Optional rule: Imposing Order",
+                "After a long rest, a visitor that is not lawful neutral can become lawful neutral on a failed DC 10 Wisdom save."
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 66"
+              }
+            ]
           }
-        }
+        },
+        "summary": "An infinite dark void full of giant gears and cogs that turn together without stop. There is no sun, moon or stars, only the gears. The modrons keep the machinery in perfect order under their ruler, Primus. Law is worth more than life here, and patrols take lawbreakers to court in Regulus.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Primus, ruler of the modrons. Helm and Mystra share a realm. Anu, Shang-ti, Nai No Kami, Rudra, Varuna, Yama and Psilofyr also live here."
+          ],
+          [
+            "Petitioners",
+            "Honest and literal: they do exactly what they are told, because to interpret is to invite chaos. They keep their own shapes and do not become modrons."
+          ],
+          [
+            "Natives",
+            "Modrons of all castes, maruts and einheriar. Gear spirits protect the gears, and two-dimensional moignos wander the plane."
+          ],
+          [
+            "Physical conditions",
+            "Gravity pulls toward the face of each gear, so travelers can walk on both sides. The air is breathable, even for creatures that breathe water."
+          ],
+          [
+            "Magic conditions",
+            "Illusions, phantasms and wild magic fail. Elemental spells need a small act first, for example a breath across the components for air."
+          ],
+          [
+            "Law and language",
+            "Everyone on the plane understands the same language. Lawbreakers face trial in Regulus, and the court often sentences them to death."
+          ],
+          [
+            "Paths",
+            "The Labyrinthine Portal, a maze of portals and conduits, links the great cogs. Only modrons use it with total certainty."
+          ],
+          [
+            "Famous places",
+            "Regulus and its Modron Cathedral, the Fortress of Disciplined Enlightenment, the palace of Anu, the Jade Palace of Shang-ti, and Mycelia. Nemausus, the lost layer of Arcadia, is a cog here."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Law, Mechanus",
+            "pages": "2, 4-5, 7, 9-11, 13, 22-23"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "61"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Mechanus"
+          }
+        ]
       },
       {
         "id": "arcadia",
@@ -25919,13 +27219,16 @@
         "emblem": "arcadia",
         "layers": [
           {
-            "name": "Abellio"
+            "name": "Abellio",
+            "summary": "The best known layer and the only one open to travelers: plains and woods in perfect rows below the Orb of Day and Night."
           },
           {
-            "name": "Buxenus"
+            "name": "Buxenus",
+            "summary": "Rolling hills and plains in straight lines. It is a guarded mustering ground, and the Harmonium keeps its training camps here."
           },
           {
-            "name": "Menausus"
+            "name": "Nemausus",
+            "summary": "The former third layer. It slipped away from Arcadia and is now a forested cog of Mechanus, watched over by Guvners and modrons."
           }
         ],
         "wiki": "Arcadia",
@@ -25939,9 +27242,94 @@
             "pool": {
               "name": "Saffron",
               "hex": "#f4c430"
-            }
+            },
+            "summary": "Orchards of perfectly lined trees, ruler-straight streams, orderly fields and cities in pleasing shapes cover Arcadia. An orb above the highest peak makes day with one half and night with the other. Four Storm Kings govern the weather, and dwarven kingdoms lie hidden below the mountains.",
+            "facts": [
+              [
+                "Full name",
+                "The Peaceable Kingdoms of Arcadia"
+              ],
+              [
+                "Natives",
+                "Dwarves born on the plane have the celestial type and are always brave and kindhearted."
+              ],
+              [
+                "Optional rule: Planar Vitality",
+                "Creatures on the plane cannot be frightened or poisoned, and they are immune to disease and poison."
+              ]
+            ],
+            "layers": [
+              {
+                "name": "Abellio"
+              },
+              {
+                "name": "Buxenus"
+              },
+              {
+                "name": "Menausus"
+              }
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "58, 66-67"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Land of Perfect Good",
+          "The Peaceable Kingdoms of Arcadia"
+        ],
+        "summary": "A land of rolling fields, orchards in perfect rows and towns laid out in neat squares. The Orb of Day and Night turns on the tallest peak and makes day and night with no dawn or dusk. The inhabitants work for the greatest good of the greatest number. They question every stranger and attack evil on sight.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Izanagi and Izanami, Lu Hsing, Ra, Osiris, Isis, Horus, Azuth, Clangeddin Silverbeard, Reorx, Meriadar and Marduk."
+          ],
+          [
+            "Petitioners",
+            "They look as they did in life, but healthier. All can know alignment at will, and they patrol the plane for chaotic and evil outsiders."
+          ],
+          [
+            "Natives",
+            "Devas, einheriar militia, hollyphants, t'uen-rin and giant forms of normal animals. The Harmonium has many members here."
+          ],
+          [
+            "Weather",
+            "Four Storm Kings control the weather: the Cloud King, the Wind King, the Rain King and the Lightning King. A storm covers the whole plane and never lasts more than 24 hours."
+          ],
+          [
+            "Physical conditions",
+            "Roads join every important place. Rune-carved plinths 40 to 50 feet tall, wreathed in mist, mark the ways between the layers."
+          ],
+          [
+            "Magic conditions",
+            "All spells take twice as long to cast. A spell for a selfish purpose can fail. Natives are immune to illusions, and illusions always show some sign that they are false."
+          ],
+          [
+            "Famous places",
+            "The city of Marduk, Mount Clangeddin, the formian city Mandible, Heliopolis, Mage's Rest in the realm of Azuth, and Melodia, a Harmonium town."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape: Planes of Law, Arcadia",
+            "pages": "2, 4, 6, 8-9, 12-19, 22"
+          },
+          {
+            "title": "Planescape: Planes of Law, Mechanus",
+            "pages": "22"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "51"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "Arcadia"
+          }
+        ]
       },
       {
         "id": "outlands",
@@ -25951,7 +27339,8 @@
         "color": "#d6cfbd",
         "emblem": "outlands",
         "aka": [
-          "The Concordant Domain of the Outlands"
+          "The Concordant Domain of the Outlands",
+          "The Plane of Concordant Opposition"
         ],
         "wiki": "Outlands",
         "editions": [
@@ -25964,9 +27353,75 @@
             "pool": {
               "name": "Leather brown",
               "hex": "#93602f"
-            }
+            },
+            "summary": "The Outlands is the plane of neutrality between the Outer Planes. It holds a little of everything in a paradoxical balance, with prairies, mountains and shallow rivers. It is circular, like a great disk, and sixteen gate-towns stand at even spaces around its edge. A traveler can ride a horse from a heaven to a hell.",
+            "facts": [
+              [
+                "Shape",
+                "Those who picture the Outer Planes as a wheel point to the round Outlands as a microcosm of the planes."
+              ],
+              [
+                "Gate-towns",
+                "Each gate-town shares many traits of the plane its gate leads to. Planar emissaries often meet in them, so a celestial and a fiend can share a bottle of wine in a tavern."
+              ],
+              [
+                "Center",
+                "The Spire, a needle-shaped mountain, rises at the center, and the city of Sigil floats above its peak."
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "67-68"
+              }
+            ]
           }
-        }
+        },
+        "summary": "The plane of balance at the hub of the Great Ring. Sixteen gate-towns stand near its edge, each beside a portal to an Outer Plane, and each takes on the character of its plane. Most of the land between the realms is dry plains, neither lush nor desert. At the center the Spire rises out of sight, and the closer a traveler comes to it, the weaker magic becomes.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Thirteen known realms lie mostly near the outer edge. Their powers include Ilsensine, Gzemnid, Thoth, Tvashtri, Yen-Wang-Yeh, Annam, Chronepsis, Sheela Peryroyl, Semuanya and the gods of Tir na Og."
+          ],
+          [
+            "Visiting powers",
+            "Any power can come and go on the Outlands. Visitors respect the realms of the native powers and usually need permission to enter them."
+          ],
+          [
+            "Petitioners",
+            "Few, because few mortals are truly neutral. A petitioner balances every good, evil, lawful or chaotic act with an equal act on the opposite side."
+          ],
+          [
+            "Rings of magic",
+            "The plane has 10 layers like the skins of an onion. In the second ring from the edge, 9th-level spells fail, in the third 8th-level spells, and so on. At the base of the Spire, no magic or divine power works."
+          ],
+          [
+            "Magic conditions",
+            "Spells that use an ethereal pathway need keys. Summoning spells can call creatures from any Outer Plane or the Astral. Inside the seventh ring, all Astral connections are cut."
+          ],
+          [
+            "Gate-towns",
+            "A gate-town that grows too much like its plane slides into that plane, and the gate moves on to the next town."
+          ],
+          [
+            "Famous places",
+            "The Spire, with Sigil above it. Gate-towns such as Automata, Bedlam, Curst, Glorium, Plague-Mort, Ribcage and Xaos. Tir na Og, the Caverns of Thought and the Palace of Judgment."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: Sigil and Beyond",
+            "pages": "14-23, 28-52"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "23"
+          },
+          {
+            "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
+            "pages": "The Outlands"
+          }
+        ]
       },
       {
         "id": "sigil",
@@ -25982,7 +27437,69 @@
         "editions": [
           "2e",
           "5e"
-        ]
+        ],
+        "summary": "A ring-shaped city with its streets on the inside of the ring. A traveler who looks up sees the far side of the city overhead. It floats above the Spire at the center of the Outlands, and nothing lies beyond its edge. Portals in its doors and arches lead to every plane, but no power can enter. The Lady of Pain rules it and keeps the peace.",
+        "facts": [
+          [
+            "Ruler",
+            "The Lady of Pain. She blocks the doors of Sigil to all powers and punishes threats to the city. She traps the worst offenders in the Mazes, small demiplanes in the Deep Ethereal."
+          ],
+          [
+            "Inhabitants",
+            "Planars, primes, fiends and celestials of every kind. The dabus, servants of the Lady, repair the city and cut back the razorvine. Fifteen factions compete for power in the city."
+          ],
+          [
+            "Getting in",
+            "Portals are the only way in or out. The gate spell and astral travel cannot reach the city, but spells that need an astral link still work."
+          ],
+          [
+            "Physical conditions",
+            "There is no sun, moon or stars. The sky brightens and fades to make day and night. Rain and smog are common, and the rain has a brown tinge."
+          ],
+          [
+            "Magic conditions",
+            "Spells work as on the outermost ring of the Outlands."
+          ],
+          [
+            "Wards",
+            "The Lady's Ward, the Lower Ward, the Hive Ward, the Clerk's Ward, the Guildhall Ward and the Market Ward."
+          ],
+          [
+            "Famous places",
+            "The City Barracks, the Court, the Prison and the Armory. The Mortuary, the Shattered Temple, the Hall of Records, the Hall of Speakers, the Civic Festhall and the Great Bazaar."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: Sigil and Beyond",
+            "pages": "15, 22, 54, 58-67, 78-90"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "47"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "summary": "The ring-shaped city of Sigil floats above the narrow peak of the Spire, at the center of the Outlands. Its buildings stand on the inner rim of the ring. From its streets, a traveler sees the city curve up overhead and its far side directly above. Its countless portals to other planes and worlds make it a trader's paradise.",
+            "facts": [
+              [
+                "Ruler",
+                "The inscrutable Lady of Pain, a being as old as gods, with purposes that even the sages of her city do not know."
+              ],
+              [
+                "Trade",
+                "Goods and information come here from across the planes. Portal keys of all kinds are bought and sold."
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "68"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "prime",
@@ -26017,9 +27534,83 @@
         ],
         "by_edition": {
           "5e": {
-            "name": "The Astral Sea"
+            "name": "The Astral Sea",
+            "summary": "The Astral Plane is the realm of thought and dream. It is a great silvery sea, the same above and below, with wisps of white and gray among motes of light. Visitors travel through it as disembodied souls to reach the Outer Planes. Most of it is empty, but dead gods and color pools drift in the void.",
+            "facts": [
+              [
+                "Aging",
+                "Creatures on the Astral Plane do not age or suffer from hunger or thirst. The githyanki keep outposts on other planes so their children can grow up."
+              ],
+              [
+                "Movement",
+                "A traveler moves by thought. In combat, a creature's walking speed in feet is 3 times its Intelligence score."
+              ],
+              [
+                "Astral projection",
+                "A traveler who projects there trails a silver cord. Only the loss of the cord, most often to a psychic wind or a githyanki silver sword, causes true death."
+              ],
+              [
+                "Natives",
+                "The githyanki sail astral ships and raid travelers. Their city, Tu'narath, floats on the body of a dead god."
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "43, 46-48"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Silver Void",
+          "The Astral Sea"
+        ],
+        "summary": "A silver void of thought with no gravity, no air and no up or down, lit by scattered points of light. Travelers move by thought and need no air or food. Conduits twist through the void, color pools open onto other planes, and the stony bodies of dead gods drift past. The githyanki raid the travelers they find.",
+        "facts": [
+          [
+            "Nature",
+            "The Astral is a realm of the mind, the void between all true spaces. Matter that enters it is translated into a form of mental energy."
+          ],
+          [
+            "Physical conditions",
+            "Visitors move by thought, and a higher Intelligence gives more speed. In a fight, Intelligence takes the place of Strength. Missile ranges double."
+          ],
+          [
+            "Time",
+            "No time passes for a visitor, who does not age or grow hungry. When the visitor leaves, all the missed time catches up at once."
+          ],
+          [
+            "Magic conditions",
+            "The Astral has no link to the Ethereal and no extradimensional spaces. Everything radiates magic, so detect magic is useless."
+          ],
+          [
+            "Natives",
+            "The githyanki are the most infamous. Astral dreadnoughts, astral whales, streakers, astral searchers and foo creatures also live here."
+          ],
+          [
+            "Hazards",
+            "Psychic winds, storms of thought and emotion, can blow travelers off course or harm their minds."
+          ],
+          [
+            "Paths",
+            "Conduits link the Prime Material Plane to the Outer Planes. Color pools open onto the top layer of every Outer Plane and onto prime-material worlds."
+          ],
+          [
+            "Famous places",
+            "The drifting bodies of dead gods, the Swallowed City, the Living Sea and the prison Pitiless."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "A Guide to the Astral Plane",
+            "pages": "5-11, 30-33, 40-43"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "21, 25"
+          }
+        ]
       },
       {
         "id": "ethereal",
@@ -26037,9 +27628,63 @@
             "pool": {
               "name": "Spiraling white",
               "hex": "#f2f5ff"
-            }
+            },
+            "summary": "The Ethereal Plane is a misty, fog-bound dimension. Its shores, the Border Ethereal, overlap the Material Plane and the Inner Planes, so every place there has a matching place in the Ethereal. Its depths, the Deep Ethereal, are swirling mist with curtains of vaporous color.",
+            "facts": [
+              [
+                "Border Ethereal",
+                "Visibility is 60 feet. A traveler sees the overlapped plane as muted and blurred, and cannot see more than 30 feet into it. To those on the other plane, the traveler is invisible and silent."
+              ],
+              [
+                "Deep Ethereal",
+                "Visibility is 30 feet. A trip from one plane to another takes 1d10 x 10 hours, whatever the start and end points."
+              ],
+              [
+                "Curtains",
+                "Turquoise for the Material Plane, dusky gray for the Shadowfell, opalescent white for the Feywild. Pale blue for Air, reddish-brown for Earth, orange for Fire, green for Water, and a swirl for the Elemental Chaos."
+              ],
+              [
+                "Ether cyclones",
+                "Serpentine columns that extend journeys, throw travelers to the Border Ethereal of a random plane, or hurl them into the Astral Plane."
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "43, 48-49"
+              }
+            ]
           }
-        }
+        },
+        "summary": "A misty plane that wraps the Prime Material and the Inner Planes like a fog-bound sea. Its shallows, the Border Ethereal, touch every point of those planes, so a traveler there can see into them as a ghost. A shimmering wall of color, like northern lights, marks the edge of the Deep Ethereal, a bottomless sea of mist with drifting demiplanes.",
+        "facts": [
+          [
+            "Border Ethereal",
+            "A traveler sees the shadowy outline of the touching plane and walks on its shadowy ground. The traveler cannot touch or speak to anything there, is invisible, and walks through most solid objects."
+          ],
+          [
+            "Deep Ethereal",
+            "The ground vanishes, and travelers move by thought. Distance has no meaning, and a clearer goal means a shorter trip."
+          ],
+          [
+            "Demiplanes",
+            "Islands of matter drift in the deep mist. Wizards make new ones all the time. The Demiplane of Shadow is the largest, and the Demiplane of Dread is lost in the deepest mists."
+          ],
+          [
+            "Magic conditions",
+            "Most spells work, but spells that reach the Astral and Outer Planes are restricted. Illusions last without concentration, and 5 percent take on a life of their own."
+          ],
+          [
+            "Natives",
+            "Chronolily, foo creatures, gingwatzim, phase spiders, terithrans and thought eaters. Ether cyclones can throw travelers to random planes."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "23-25"
+          }
+        ]
       },
       {
         "id": "shadow",
@@ -26293,37 +27938,81 @@
       {
         "id": "feywild",
         "name": "The Feywild",
-        "aka": "The Plane of Faerie",
+        "aka": [
+          "The Plane of Faerie"
+        ],
         "group": "echo",
         "color": "#8fe8a8",
         "editions": [
           "5e"
         ],
         "wiki": "Feywild",
-        "summary": "An echo of the Material Plane, a land of soft lights and wonder. Where a mountain stands on the Material Plane, a mountain stands on the Feywild too, but more vivid and more magical.",
+        "summary": "The Feywild is a land of soft lights and wonder, a place of music and death, in a twilight that never ends. It echoes the Material Plane, but its features take spectacular forms. Where a volcano stands on the Material Plane, a mountain of glowing crystals rises here. Seelie fey settle its gentle lands, and unseelie fey hunt in its brambles and fens.",
         "sources": [
           {
             "title": "Dungeon Master's Guide (2014)",
-            "pages": "49-50"
+            "pages": "43, 49-50"
           }
+        ],
+        "facts": [
+          [
+            "Rulers",
+            "Queen Titania and her Summer Court lead the seelie fey. The Queen of Air and Darkness, ruler of the Gloaming Court, leads the unseelie fey."
+          ],
+          [
+            "Natives",
+            "Elves, dryads, satyrs, pixies, sprites, centaurs, blink dogs, faerie dragons, treants and unicorns. Hags, blights, goblins, ogres and giants live in the darker regions."
+          ],
+          [
+            "Fey crossings",
+            "Places of beauty on the Material Plane with a near-perfect mirror in the Feywild form portals between the two. Most open only at certain times."
+          ],
+          [
+            "Optional rule: Memory Loss",
+            "A creature that leaves must pass a DC 10 Wisdom save or forget its time there. Fey and creatures with the Fey Ancestry trait succeed automatically."
+          ],
+          [
+            "Optional rule: Time Warp",
+            "After a day or more on the plane, a traveler can find that minutes, or years, passed in the rest of the multiverse."
+          ]
         ]
       },
       {
         "id": "shadowfell",
         "name": "The Shadowfell",
-        "aka": "The Plane of Shadow",
+        "aka": [
+          "The Plane of Shadow"
+        ],
         "group": "echo",
         "color": "#6e6a8c",
         "editions": [
           "5e"
         ],
         "wiki": "Shadowfell",
-        "summary": "A dark echo of the Material Plane, a gray place of despair where colors fade. Where a mountain stands on the Material Plane, a mountain stands on the Shadowfell too, but twisted and gloomy.",
+        "summary": "The Shadowfell is a dimension of black, gray and white, where most color has drained away. Its sky is a black vault with no sun or stars. It overlaps the Material Plane, but its landmarks are twisted reflections: a mountain becomes a jagged outcrop like a skull. Shadow dragons, undead, cloakers and darkmantles haunt it.",
         "sources": [
           {
             "title": "Dungeon Master's Guide (2014)",
-            "pages": "51-52"
+            "pages": "43, 51-52"
           }
+        ],
+        "facts": [
+          [
+            "Shadow crossings",
+            "In gloomy places such as battlefields, graveyards and tombs, the veil is so thin that creatures can walk between the planes. A crossing closes when light touches it."
+          ],
+          [
+            "Domains of Dread",
+            "Remote corners hold demiplanes ruled by accursed beings, such as the valley of Barovia under Strahd von Zarovich. The Dark Powers made these domains as prisons."
+          ],
+          [
+            "Evernight",
+            "A dark reflection of the city of Neverwinter on Toril, full of undead and ruled by flesh-eating ghouls."
+          ],
+          [
+            "Optional rule: Shadowfell Despair",
+            "A visitor that fails a DC 10 Wisdom save falls into apathy, dread or madness."
+          ]
         ]
       }
     ],
@@ -26374,6 +28063,14 @@
           {
             "title": "Planescape Campaign Setting: the key to the poster map",
             "pages": "The Outlands"
+          },
+          {
+            "title": "Planescape Campaign Setting: Sigil and Beyond",
+            "pages": "15, 20"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "6-7"
           }
         ],
         "by_edition": {
@@ -26384,9 +28081,20 @@
                 "title": "Dungeon Master's Guide (2014)",
                 "pages": "67"
               }
-            ]
+            ],
+            "facts": []
           }
-        }
+        },
+        "facts": [
+          [
+            "Drift",
+            "When a gate-town grows too much like its plane, it slides into that plane. The gate then appears at another town of the Outlands, and the process starts again."
+          ],
+          [
+            "Magic",
+            "In some gate-towns, a little of the magic of the nearby plane leaks through and enhances or weakens one school of magic."
+          ]
+        ]
       },
       {
         "id": "river-oceanus",
@@ -26412,12 +28120,28 @@
           [
             "Ends",
             "Ossa, Arborea"
+          ],
+          [
+            "Water",
+            "Sweet and safe to drink. The river has the dangers of any large river, but no supernatural boatmen."
+          ],
+          [
+            "Course",
+            "It flows in and out of existence without a break in its flow. Passage from one plane to the next can be slow or instant."
+          ],
+          [
+            "Ysgard",
+            "Selune's realm in Ysgard is said to connect to the river, but the link is uncertain."
           ]
         ],
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "43-44"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "7"
           }
         ],
         "by_edition": {
@@ -26431,6 +28155,16 @@
                 "title": "Dungeon Master's Guide (2014)",
                 "pages": "43"
               }
+            ],
+            "facts": [
+              [
+                "Rises",
+                "Thalasia, Elysium"
+              ],
+              [
+                "Ends",
+                "Ossa, Arborea"
+              ]
             ]
           }
         }
@@ -26459,17 +28193,33 @@
         "facts": [
           [
             "Water",
-            "Causes total amnesia"
+            "One taste or touch erases all memory of a past life, with class, alignment and spells. A creature that resists still forgets the last moments before the touch."
+          ],
+          [
+            "Course",
+            "It has no known source or mouth and does not flow in a line. Boatmen have gone from Acheron to the Abyss in a few hours."
+          ],
+          [
+            "Branches",
+            "Side channels reach Stygia, the fifth layer of Baator, and many deeper layers of the Abyss."
+          ],
+          [
+            "Hazards",
+            "Its currents are swift. Half of the creatures and boats that fall in are dragged to another plane before they reach the shore."
           ],
           [
             "Boatmen",
-            "Marraenoloths, who carry passengers for a price"
+            "Marraenoloths carry passengers for a price, anywhere on the river and also to the Astral, Ethereal or Prime Material Plane. A trip takes 1 to 20 hours."
           ]
         ],
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "43-45"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "7"
           }
         ],
         "by_edition": {
@@ -26535,8 +28285,30 @@
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
-            "pages": "43, 45"
+            "pages": "43, 45, 59"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "104"
           }
+        ],
+        "facts": [
+          [
+            "Niflheim",
+            "A root reaches Niflheim, the second layer of the Gray Waste. The dragon Nidhogg gnaws at it, and the dog Garm guards the road to Hel's realm."
+          ],
+          [
+            "Other branches",
+            "Branches also reach the Norns in the Outlands, Loki's Winter's Hall in Pandemonium and the Gnarl in Arvandor, on Arborea."
+          ],
+          [
+            "Crossings",
+            "At each planar crossing, the tree passes through a portal of shimmering color, like a color pool. A traveler must climb through the branches or roots."
+          ],
+          [
+            "Inside Ysgard",
+            "Branches reach Rowan's Hall of the Fated, the Well of Mimir in Jotunheim and Vanaheim. Hundreds of lesser branches are hidden or private."
+          ]
         ]
       },
       {
@@ -26571,8 +28343,26 @@
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
-            "pages": "43, 45"
+            "pages": "43, 45, 59"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "45"
           }
+        ],
+        "facts": [
+          [
+            "Origin",
+            "The Olympian powers made it as one continuous conduit from their realm through the Astral Plane into the Gray Waste. On the way it touches every prime world that knows them."
+          ],
+          [
+            "Caverns",
+            "Beneath the mountain, a traveler must choose the right cavern among false trails and dead ends."
+          ],
+          [
+            "Slopes",
+            "On the slopes, a traveler searches the rocks and woods for the shimmering curtains that mark doorways to other planes."
+          ]
         ]
       },
       {
@@ -26592,12 +28382,32 @@
           [
             "Site",
             "Gates of the Moon, Ysgard"
+          ],
+          [
+            "Entrance",
+            "It appears inside the silver hall of Selune when the moon is full and fog creeps up from the shore."
+          ],
+          [
+            "Landings",
+            "The stairs lead in all directions, and gravity changes from landing to landing. Each landing has a door to a different city, anywhere in the planes."
+          ],
+          [
+            "Heart's desire",
+            "A traveler who climbs alone reaches the city of her heart's desire. The staircase gives each traveler this chance only once."
           ]
         ],
         "sources": [
           {
             "title": "Planescape Campaign Setting: the key to the poster map",
             "pages": "Ysgard"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, The Book of Chaos",
+            "pages": "116-117"
+          },
+          {
+            "title": "Planescape: Planes of Chaos, Travelogue",
+            "pages": "48"
           }
         ],
         "by_edition": {
@@ -26692,6 +28502,10 @@
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "25"
+          },
+          {
+            "title": "A Guide to the Astral Plane",
+            "pages": "30-33"
           }
         ],
         "by_edition": {
@@ -26702,9 +28516,33 @@
                 "title": "Dungeon Master's Guide (2014)",
                 "pages": "47"
               }
+            ],
+            "facts": [
+              [
+                "Colors",
+                "The color of a pool shows the plane it leads to, from indigo for Ysgard to silver for the Material Plane."
+              ]
             ]
           }
-        }
+        },
+        "facts": [
+          [
+            "Destinations",
+            "Pools lead to the top layer of every Outer Plane and to prime-material worlds. A traveler can seek a pool to a chosen plane, but not to a chosen place on that plane."
+          ],
+          [
+            "Direction",
+            "Most pools are one-way, from the Astral to another plane. Two-way pools are rare, and trading towns stand around some of them."
+          ],
+          [
+            "Colors",
+            "The colors are not a code for the destination."
+          ],
+          [
+            "Scrying",
+            "A traveler who concentrates on a pool sees its destination and can move the view with effort. No spell passes through."
+          ]
+        ]
       },
       {
         "id": "sigil-portals",
@@ -26722,6 +28560,10 @@
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "22"
+          },
+          {
+            "title": "Planescape Campaign Setting: Sigil and Beyond",
+            "pages": "54-56"
           }
         ],
         "by_edition": {
@@ -26732,9 +28574,28 @@
                 "title": "Dungeon Master's Guide (2014)",
                 "pages": "68"
               }
-            ]
+            ],
+            "facts": []
           }
-        }
+        },
+        "facts": [
+          [
+            "Anchors",
+            "In Sigil, portals anchor on doors, arches, windows and other openings. Out on the planes, a portal always ends in an arch of some kind."
+          ],
+          [
+            "Kinds",
+            "Permanent portals stay in place. Temporary portals work once or twice and vanish. Shifting portals move between places in a fixed pattern."
+          ],
+          [
+            "Finding them",
+            "Portals do not glow, and detect magic shows one only while it works. True seeing shows a portal but not where it leads."
+          ],
+          [
+            "Surelock",
+            "The rich pay for the surelock spell, which keeps portals out of an area. Thus most random portals open in poor districts such as the Hive."
+          ]
+        ]
       }
     ],
     "draft": true
