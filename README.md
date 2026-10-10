@@ -55,7 +55,7 @@ Each item has DM notes, DM links and a Secret switch. They do not go into the pu
 
 Every item has `sources` (the book and the pages) and `wiki` (a Forgotten Realms Wiki title such as `"Glyth"` or `"Glyth#Haven"`, or a full URL). A field in `by_edition` replaces the base field in one edition, for example `"by_edition": {"5e": {"summary": "..."}}`.
 
-The planes are in the `wheel` key of the same file: `planes` (each with a `group`, its place on the wheel and its facts) and `links`, the paths between planes. A path of kind `river` names the planes it flows `through`. A `tree` or `mountain` has a `home` plane and the planes it `reaches`, each by `root`, `branch`, `cavern` or `slope`. The local editor does not edit the wheel yet, so edit it on GitHub or in a text editor. `tools/wheel_merge.py` checks a chart of planes from the books and merges it.
+The planes are in the `wheel` key of the same file: `planes` (each with a `group`, its place on the wheel and its facts) and `links`, the paths between planes. A path of kind `river` names the planes it flows `through`. A `tree` or `mountain` has a `home` plane and the planes it `reaches`, each by `root`, `branch`, `cavern` or `slope`. The local editor does not edit the wheel yet, so edit it on GitHub or in a text editor. `tools/wheel_merge.py` checks a chart of planes from the books and merges it. [docs/PLANES.md](docs/PLANES.md) records which book gave each plane and where the books disagree.
 
 Sphere positions on the phlogiston map come from `tools/layout.py`, a 3D force layout that follows the known currents and groups. The books give no positions in the phlogiston, so the distances between spheres are not to scale. A sphere with `"pinned": true` in its `map` keeps its position.
 

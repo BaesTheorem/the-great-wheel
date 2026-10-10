@@ -37,42 +37,42 @@ A new top level. The Prime Material Plane sits at the center, and the planes of 
 
 - [ ] The Ethereal Plane: the Border Ethereal, which touches the Prime and the Inner Planes at every point, and the Deep Ethereal, with the color curtain of each plane
 - [ ] The Astral Plane: the silver void, the color pools to the Outer Planes, the astral conduits, and islands such as the githyanki city of Tu'narath and the bodies of dead gods
-- [ ] The Plane of Shadow (2e and 3e)
+- [x] The Plane of Shadow (2e and 3e)
 
 ### The Inner Planes
 
-- [ ] The four Elemental Planes: Air, Earth, Fire and Water
-- [ ] The two Energy Planes: Positive Energy and Negative Energy
-- [ ] The four Para-Elemental Planes: Smoke, Ice, Ooze and Magma
-- [ ] The eight Quasi-Elemental Planes: Lightning, Steam, Radiance and Minerals on the positive side, and Vacuum, Salt, Ash and Dust on the negative side
-- [ ] The Elemental Chaos, the outer edge of the Inner Planes in the revised (5e era) model
+- [x] The four Elemental Planes: Air, Earth, Fire and Water
+- [x] The two Energy Planes: Positive Energy and Negative Energy
+- [x] The four Para-Elemental Planes: Smoke, Ice, Ooze and Magma
+- [x] The eight Quasi-Elemental Planes: Lightning, Steam, Radiance and Minerals on the positive side, and Vacuum, Salt, Ash and Dust on the negative side
+- [x] The Elemental Chaos, the outer edge of the Inner Planes in the revised (5e era) model
 - [x] The layout from the books: a sphere with Positive Energy at one pole, Negative Energy at the other, and the four elements around the middle
 
 ### The Outer Planes
 
 The sixteen planes of the wheel, arranged by alignment around the Outlands. The names in parentheses are the older names.
 
-- [ ] Mount Celestia (the Seven Heavens), with its seven layers
-- [ ] Bytopia (the Twin Paradises)
-- [ ] Elysium
-- [ ] The Beastlands (the Happy Hunting Grounds)
-- [ ] Arborea (Olympus), with Arvandor
-- [ ] Ysgard (Gladsheim)
-- [ ] Limbo
-- [ ] Pandemonium
-- [ ] The Abyss, with its best-known layers
-- [ ] Carceri (Tarterus)
-- [ ] The Gray Waste (Hades)
-- [ ] Gehenna
-- [ ] The Nine Hells (Baator), with its nine layers
-- [ ] Acheron
-- [ ] Mechanus (Nirvana)
-- [ ] Arcadia
-- [ ] The Outlands, with the Spire, the gate-towns and Sigil, the City of Doors
+- [x] Mount Celestia (the Seven Heavens), with its seven layers
+- [x] Bytopia (the Twin Paradises)
+- [x] Elysium
+- [x] The Beastlands (the Happy Hunting Grounds)
+- [x] Arborea (Olympus), with Arvandor
+- [x] Ysgard (Gladsheim)
+- [x] Limbo
+- [x] Pandemonium
+- [x] The Abyss, with its best-known layers
+- [x] Carceri (Tarterus)
+- [x] The Gray Waste (Hades)
+- [x] Gehenna
+- [x] The Nine Hells (Baator), with its nine layers
+- [x] Acheron
+- [x] Mechanus (Nirvana)
+- [x] Arcadia
+- [x] The Outlands, with the Spire, the gate-towns and Sigil, the City of Doors
 - [ ] The realms of the Faerûnian gods on their planes, for example Helm's Everwatch on Mechanus
 - [x] The links between planes: the River Styx, the River Oceanus, the color pools and the portals of Sigil
-- [ ] A summary, sources and layers for each plane, from the planar books (*Planes of Chaos*, *Planes of Law*, *Planes of Conflict*, the *Manual of the Planes* and the 5e *Dungeon Master's Guide*)
-- [ ] The 5e paths and names: check each path and each Inner Plane against the 5e *Dungeon Master's Guide*
+- [x] A summary, facts, layers and sources for each plane, from the planar books (*Planes of Chaos*, *Planes of Law*, *Planes of Conflict*, *The Inner Planes*, the guides to the Astral and Ethereal planes, the *Manual of the Planes* and the 5e *Dungeon Master's Guide*). [docs/PLANES.md](docs/PLANES.md) records where the books disagree
+- [x] The 5e paths and names: each path and each Inner Plane checked against the 5e *Dungeon Master's Guide*, with its four border regions
 
 ### Echoes, demiplanes and beyond
 

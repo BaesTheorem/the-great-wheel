@@ -25489,6 +25489,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "Mount Celestia"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -25588,6 +25592,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "Bytopia"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -25819,6 +25827,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "The Beastlands"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -25934,6 +25946,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "Arborea"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -26048,6 +26064,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "Ysgard"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -26568,6 +26588,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "Carceri"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -26684,6 +26708,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "The Gray Waste"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -27206,6 +27234,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "Mechanus"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -27266,7 +27298,7 @@
                 "name": "Buxenus"
               },
               {
-                "name": "Menausus"
+                "name": "Nemausus"
               }
             ],
             "sources": [
@@ -27347,7 +27379,7 @@
           "2e",
           "5e"
         ],
-        "layers_note": "Nine rings around the Spire",
+        "layers_note": "10 layers in rings around the Spire, like the skins of an onion",
         "by_edition": {
           "5e": {
             "pool": {
@@ -27420,6 +27452,10 @@
           {
             "title": "Planescape: Planes of Law, updated cosmographical tables (poster)",
             "pages": "The Outlands"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "73"
           }
         ]
       },
@@ -27517,9 +27553,55 @@
             "pool": {
               "name": "Silver",
               "hex": "#cdd6e4"
-            }
+            },
+            "summary": "The Material Plane is the nexus where the philosophical and elemental forces of the planes collide in the jumbled existence of mortal life and matter. The worlds of D&D exist within it, and the rest of the multiverse is defined in relation to it. The Feywild and the Shadowfell are its echoes.",
+            "facts": [
+              [
+                "Known worlds",
+                "The best known worlds are Toril, Oerth, Krynn, Athas, Eberron, Aebrynis and Mystara."
+              ],
+              [
+                "Ethereal curtain",
+                "Bright turquoise"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "43, 49, 68"
+              }
+            ]
           }
-        }
+        },
+        "aka": [
+          "The Prime",
+          "The Material Plane"
+        ],
+        "summary": "The plane of the countless worlds of mortals, each held in a vast crystal sphere. It is the only plane where the Astral and the Ethereal meet, so it is a crossroads of the multiverse. Yet its natives, the primes, have no natural power to cross between planes and need spells, magic items, vortices or conduits to leave.",
+        "facts": [
+          [
+            "Ways out",
+            "The astral spell and plane shift are the most common ways off the Prime. A few vortices and conduits exist, and some portals of Sigil open onto prime worlds."
+          ],
+          [
+            "Crystal spheres",
+            "The Prime is divided into countless worlds in vast crystal spheres. The Border Ethereal touches every part of every sphere."
+          ],
+          [
+            "Ethereal curtain",
+            "Turquoise"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "20"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "6, 20"
+          }
+        ]
       },
       {
         "id": "astral",
@@ -27677,12 +27759,32 @@
           [
             "Natives",
             "Chronolily, foo creatures, gingwatzim, phase spiders, terithrans and thought eaters. Ether cyclones can throw travelers to random planes."
+          ],
+          [
+            "Reach",
+            "The Ethereal touches the Prime and the Inner Planes but not the Astral or the Outer Planes. A traveler must pass through the Prime to reach those."
+          ],
+          [
+            "Wall of Color",
+            "Each area of the curtain of color in the Deep leads to the Border of one plane or demiplane. Some say its colors show which: turquoise for the Prime, blue for Air, silver for Shadow."
+          ],
+          [
+            "Deep features",
+            "Ether cyclones, ether gaps, drifting protomatter and vortex fronts. Protomatter is the stuff of future demiplanes."
+          ],
+          [
+            "Known demiplanes",
+            "The Demiplane of Shadow, the Demiplane of Dread, the Demiplane of Time, the Demiplane of Nightmares, the Black Abyss and the Mazes of Sigil."
           ]
         ],
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "23-25"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "5-6, 20, 22-29, 42-56"
           }
         ]
       },
@@ -27695,6 +27797,51 @@
         "wiki": "Plane of Shadow",
         "editions": [
           "2e"
+        ],
+        "aka": [
+          "The Demiplane of Shadow",
+          "The Demi-Plane of Shadow"
+        ],
+        "summary": "The largest of the demiplanes, a vast realm of shifting darkness in the Deep Ethereal. Every shadow cast on the planes ends here, so it is full of the shadows of forests, mountains and creatures. Light is dim, and torches burn like candles. Its essence reaches into other planes, and some sages say it is close to becoming an Inner Plane.",
+        "facts": [
+          [
+            "Shadowstuff",
+            "The matter of the plane works normally there but fades in bright light elsewhere. Some sages call it a mix of positive and negative energy."
+          ],
+          [
+            "Inhabitants",
+            "Shadows that came loose from their owners, and empires of shadowborn beings. Outsiders such as the rakshasa Loliadac and the sorcerer-fiend Gwydion with his shadow-elf thralls also live here."
+          ],
+          [
+            "Reach",
+            "Its essence feeds creatures such as the slow shadow and the shadow dragon on other planes."
+          ],
+          [
+            "Physical conditions",
+            "The air is breathable and only a little cold. Magical light shines at 75 percent of its strength, and natives do not show on infravision."
+          ],
+          [
+            "Shadow walk",
+            "Skilled beings can travel between places on other planes along the paths of falling shadows, as with the spell shadow walk."
+          ],
+          [
+            "Ethereal curtain",
+            "Silver"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "23"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20, 47-49"
+          },
+          {
+            "title": "Manual of the Planes (1987)",
+            "pages": "21"
+          }
         ]
       },
       {
@@ -27708,7 +27855,84 @@
         "editions": [
           "2e",
           "5e"
-        ]
+        ],
+        "aka": [
+          "The Boundless Blue"
+        ],
+        "summary": "An infinite expanse of clear blue sky, with drifting clouds and floating islands of rock. It is the safest and most visited of the Inner Planes, because a traveler can breathe here. There is no gravity: a visitor who decides that one direction is down falls that way, with no ground to stop the fall. Winds and storms are the main danger.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Akadi, Queen of the Air Elementals, a greater power. The archomentals Chan and Yan-C-Bin and the god Shu also live here."
+          ],
+          [
+            "Natives",
+            "Air elementals, aerial servants, air mephits, djinn, sylphs, invisible stalkers and wind walkers. Aarakocra, cloud giants and storm giants also live here."
+          ],
+          [
+            "Djinn",
+            "The Great Caliph of the djinn rules from the Citadel of Ice and Steel. Djinn nobles keep estates on floating islands of earth."
+          ],
+          [
+            "Physical conditions",
+            "Vision reaches twice as far as normal. A traveler who falls takes the eternal plunge at 1,000 feet per round and is hurt only if he hits something."
+          ],
+          [
+            "Getting there",
+            "Floating vortices hang high in clear skies, and whirling vortices lie at the heart of tornadoes. Portals are said to lie atop Yggdrasil and in the ziggurat of Jovar on Mount Celestia."
+          ],
+          [
+            "Famous places",
+            "Borealis, the Citadel of Ice and Steel, Taifun, the Palace of Tempests, the Waterspout and the Great Funnel of Akadi."
+          ],
+          [
+            "Ethereal curtain",
+            "Blue"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "6, 20-27"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "28"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "summary": "The Plane of Air is an open expanse with constant winds of varying strength. Chunks of earth drift in the openness, the remnants of failed invasions by the Plane of Earth. Creatures of elemental air make their homes on these motes. Cloud banks infused with magic grow solid enough to hold towns and castles.",
+            "facts": [
+              [
+                "Labyrinth Winds",
+                "Most of the plane is a web of air streams, currents and winds. Some hidden realms can be reached only by following a particular sequence of winds."
+              ],
+              [
+                "Aaqa",
+                "A shining domain of silver spires and gardens on a fertile earth mote. Its Wind Dukes serve law and good, with aarakocra and vaati."
+              ],
+              [
+                "Borders",
+                "The Sirocco Straits lie near the Great Conflagration, and the frigid Mistral Reach lies near the Frostfell."
+              ],
+              [
+                "Ethereal curtain",
+                "Pale blue"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "49, 52-54"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "fire",
@@ -27721,7 +27945,80 @@
         "editions": [
           "2e",
           "5e"
-        ]
+        ],
+        "aka": [
+          "The Crematorium"
+        ],
+        "summary": "A blazing ocean of fire that consumes everything it touches. Its air is a thin mix of flammable, toxic gases. Unprotected wood, cloth and paper burst into flame on arrival, so no one survives here without protection from heat. The efreet rule from the City of Brass.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Kossuth, lord of the fire elementals, and Imix, Prince of Evil Fire Creatures. Imix recently won a great war against his foe Zaaman Rul."
+          ],
+          [
+            "Natives",
+            "Fire elementals, efreet, salamanders, azers, fire mephits, fire snakes, hell hounds and harginn."
+          ],
+          [
+            "Hazards",
+            "Unprotected flammable things burst into flame and burn away within a round. A visitor who wears them takes 1d10 points of damage."
+          ],
+          [
+            "Getting there",
+            "Vortices are more common than portals. The heart of a great blaze, such as a vast forest fire, sometimes opens one."
+          ],
+          [
+            "Famous places",
+            "The City of Brass and the Charcoal Palace of the efreet sultan, the Crimson Pillar, the Crucible and the Plain of Burnt Dreams."
+          ],
+          [
+            "Ethereal curtain",
+            "Red"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "8, 40-48"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "30"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "summary": "A blazing sun hangs at the zenith of a golden sky above the Plane of Fire and waxes and wanes on a 24-hour cycle. The heat is like a hot desert, and cinder storms blow constantly. The plane is dominated by the Cinder Wastes, a great expanse of black cinders crossed by rivers of lava.",
+            "facts": [
+              [
+                "City of Brass",
+                "The fabled city of the efreet stands on the shore of the Sea of Fire. Its sultan rules from the Charcoal Palace, and its bazaars can sell almost any magic item."
+              ],
+              [
+                "Fountains of Creation",
+                "A range of volcanic mountains, home of the azers, that curls from the edge of the Plane of Earth. At the edge of the plane, the range is also called the Plane of Magma."
+              ],
+              [
+                "Sea of Fire",
+                "A great lava sea sailed by efreet and azers in brass ships, with islands of obsidian and basalt."
+              ],
+              [
+                "Ethereal curtain",
+                "Orange"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "49, 52, 55-56"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "earth",
@@ -27734,7 +28031,80 @@
         "editions": [
           "2e",
           "5e"
-        ]
+        ],
+        "aka": [
+          "The Anvil"
+        ],
+        "summary": "An endless mass of stone and soil laced with veins of ore and pockets of gems. A traveler arrives inside solid rock and must tunnel, or follow the passages of others, to move. The plane presses in on intruders and tries to crush them, and air is scarce.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Geb of the Egyptian pantheon keeps his realm here. The elemental lords Grumbar, Sunnis and Ogremoch struggle for supremacy."
+          ],
+          [
+            "Natives",
+            "Earth elementals, dao, earth mephits, galeb duhr, pech, xaren, xorn and shad. The Great Khan rules the dao."
+          ],
+          [
+            "Hazards",
+            "The plane fills in any open space and crushes those trapped in it, for 1d2 points of damage each turn. Breathing is difficult without magic."
+          ],
+          [
+            "Getting there",
+            "Vortices open at the heart of mountains and deep underground. The most common ones lie in places prone to earthquakes, and each quake moves them."
+          ],
+          [
+            "Famous places",
+            "The Aviary, the Caverns Under the Stars of Geb, and the Great Dismal Delve of the dao."
+          ],
+          [
+            "Ethereal curtain",
+            "Brown"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "6, 30-38"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "29"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "summary": "The Plane of Earth is a chain of mountains higher than any on the Material Plane. It has no sun of its own, and no air surrounds the peaks of its highest mountains. Most visitors arrive by the caves and caverns that honeycomb the mountains.",
+            "facts": [
+              [
+                "City of Jewels",
+                "The capital of the dao lies in the Great Dismal Delve, also called the Sevenfold Mazework. Every building is made of precious stones and metals, and theft is punished by death."
+              ],
+              [
+                "The Furnaces",
+                "Mountains near the Fountains of Creation, where lava seeps through the caverns and the dao smelt their ores."
+              ],
+              [
+                "Mud Hills",
+                "The region nearest the Swamp of Oblivion, where landslides pour earth into the bottomless swamp."
+              ],
+              [
+                "Ethereal curtain",
+                "Reddish-brown"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "49, 52, 54"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "water",
@@ -27747,7 +28117,80 @@
         "editions": [
           "2e",
           "5e"
-        ]
+        ],
+        "aka": [
+          "The Bottomless Deep"
+        ],
+        "summary": "An endless mass of water, neither warm nor cold, with none of the crushing pressure of a deep ocean. A soft blue-green light shimmers through it all. Visitors need magic to breathe, and sudden riptides are the main danger. A tremendous number and variety of creatures live here.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Ahto, King of the Seas, is a greater power. Istishia, Ben-Hadar, Olhydra, Persana, Blibdoolpoolp and Eadro also live here. More powers live here than on the other Inner Planes."
+          ],
+          [
+            "Natives",
+            "Water elementals, marids, nereids, tritons, water mephits and water weirds. The marids keep the Citadel of Ten Thousand Pearls."
+          ],
+          [
+            "Hazards",
+            "Visitors must hold their breath or use magic such as water breathing. Riptides can drag a traveler away without warning."
+          ],
+          [
+            "Getting there",
+            "Vortices open in the storm surges driven before great storms and in whirlpools."
+          ],
+          [
+            "Famous places",
+            "The Curling Wave of Ahto, the Citadel of Ten Thousand Pearls, the City of Glass and the Avenger."
+          ],
+          [
+            "Ethereal curtain",
+            "Green"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "8, 50-58"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "31-32"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "summary": "The Plane of Water is an endless sea, the Sea of Worlds, dotted with atolls and islands on huge coral reefs. Life flourishes in its sunlit upper reaches, the Sea of Light, while krakens rule the lightless Darkened Depths. Storms sometimes open portals that draw ships in from the Material Plane.",
+            "facts": [
+              [
+                "Marids",
+                "The marids are the distant stewards of the Sea of Light. Their nominal emperor lives in the Citadel of Ten Thousand Pearls, a palace of coral and pearls."
+              ],
+              [
+                "Isle of Dread",
+                "One of the few true islands, linked to the Material Plane by a regular storm."
+              ],
+              [
+                "Borders",
+                "The Silt Flats lie near the Swamp of Oblivion. The Sea of Ice, choked with icebergs, borders the Frostfell."
+              ],
+              [
+                "Ethereal curtain",
+                "Green"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "49, 52, 56-57"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "positive",
@@ -27763,9 +28206,50 @@
         ],
         "by_edition": {
           "5e": {
-            "name": "The Positive Plane"
+            "name": "The Positive Plane",
+            "summary": "The Positive Plane is one of two planes that enfold the rest of the cosmology. With the Negative Plane, it provides the raw forces of life and death that underlie the rest of existence in the multiverse.",
+            "facts": [],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "43"
+              }
+            ]
           }
-        }
+        },
+        "summary": "The plane of life, an infinite mass of bright energy with no ground, water or sky. It gives the spark of life to every living thing in the multiverse. Its energy heals at first, but too much of it overloads a body until it bursts apart. Matter that enters is blasted into tiny particles.",
+        "facts": [
+          [
+            "Natives",
+            "The xag-ya are the only known beings. No power lives here, because even gods cannot bear the energy."
+          ],
+          [
+            "Physical conditions",
+            "There is no gravity and nothing to orient a traveler. Survival, not movement, is the main concern."
+          ],
+          [
+            "Getting there",
+            "Almost no portals lead here. A traveler needs a spell such as plane shift or a long trip through a positive quasiplane."
+          ],
+          [
+            "Ethereal curtain",
+            "Inviolate white"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "8, 60-62"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "39"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ]
       },
       {
         "id": "negative",
@@ -27781,9 +28265,54 @@
         ],
         "by_edition": {
           "5e": {
-            "name": "The Negative Plane"
+            "name": "The Negative Plane",
+            "summary": "The Negative Plane is one of two planes that enfold the rest of the cosmology. With the Positive Plane, it provides the raw forces of life and death that underlie the rest of existence in the multiverse.",
+            "facts": [],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "43"
+              }
+            ]
           }
-        }
+        },
+        "summary": "The plane of death, a limitless void of annihilating energy and the opposite of the Positive Energy Plane. It gives power to the undead and is deadly to everything else. A living visitor shines like a beacon in the dark, and the plane drains the life from him.",
+        "facts": [
+          [
+            "Ruling powers",
+            "Siva, the force of destruction, is the only power who lives here."
+          ],
+          [
+            "Natives",
+            "Xeg-yi, slow shadows, spectres, wights and wraiths. Liches and other undead can also lurk here."
+          ],
+          [
+            "Hazards",
+            "There is no matter and no air. Each round, the plane drains the life of a living visitor."
+          ],
+          [
+            "Famous places",
+            "Deathheart of the Void and the Fortress of the Soul. The Doomguard love this plane."
+          ],
+          [
+            "Ethereal curtain",
+            "Absolute black"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "8, 64-67"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "39"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ]
       },
       {
         "id": "smoke",
@@ -27793,8 +28322,63 @@
         "color": "#a6a6b4",
         "wiki": "Para-elemental Plane of Smoke",
         "editions": [
-          "2e"
-        ]
+          "2e",
+          "5e"
+        ],
+        "summary": "Where Air meets Fire lies an endless realm of hot, choking vapors, foul and sometimes toxic. Like Air, it has no gravity, and solid ground is rare, often only a giant floating cinder. Djinn and efreet often fight their battles here.",
+        "facts": [
+          [
+            "Natives",
+            "Smoke mephits are the main natives. Ehkahk, the Smoldering Duke, rules them from the Choking Palace."
+          ],
+          [
+            "Regions",
+            "Toward Fire lies Scald, a region as hot as the plane of Fire."
+          ],
+          [
+            "Famous places",
+            "The Choking Palace, Cinderwood, the Hidden City, Reinsong's Ashen Fortress and the Valley of Blinding Mist."
+          ],
+          [
+            "Ethereal curtain",
+            "Pearl"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 86-91"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "32"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "name": "The Great Conflagration",
+            "aka": [
+              "The Plane of Ash"
+            ],
+            "summary": "A towering firestorm between the Sea of Fire and the Sirocco Straits of the Plane of Air. Winds from the Plane of Air mix with the cinder storms of the Plane of Fire into an endless wall of flames, smoke and ash. Ash clusters into floating realms where outlaws and fugitives take shelter.",
+            "facts": [
+              [
+                "Kind",
+                "A border region between two Elemental Planes"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "53"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "magma",
@@ -27804,8 +28388,67 @@
         "color": "#ff4a2a",
         "wiki": "Para-elemental Plane of Magma",
         "editions": [
-          "2e"
-        ]
+          "2e",
+          "5e"
+        ],
+        "summary": "Where Earth nears Fire, the stone heats, glows and runs like water. This paraplane is a vast sea of boiling rock, with an air of molten fog and deadly fumes. A few islands of basalt and obsidian resist its heat. It is as deadly as the plane of Fire.",
+        "facts": [
+          [
+            "Natives",
+            "Magmen, magma mephits and lava paraelementals. Dao and efreet also come here."
+          ],
+          [
+            "Hazards",
+            "Sudden bursts of lava throw molten stone 10 feet around. The ground crust often breaks under a traveler."
+          ],
+          [
+            "Getting there",
+            "Vortices to Magma are fairly common, for an Inner Plane."
+          ],
+          [
+            "Famous places",
+            "The Fields of Nevermore, the Monolith, Oolan's Laboratory and Targath's Tower."
+          ],
+          [
+            "Ethereal curtain",
+            "Maroon"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 74-79"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "33"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "name": "The Fountains of Creation",
+            "aka": [
+              "The Plane of Magma"
+            ],
+            "summary": "A great range of volcanic mountains, home to azers. Its peaks curl from the edge of the Plane of Earth around the Cinder Wastes toward the fiery heart of the Plane of Fire. In the mountains nearest it, lava seeps through the caverns and the dao keep great forges.",
+            "facts": [
+              [
+                "Kind",
+                "A border region between two Elemental Planes"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "54-55"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "ooze",
@@ -27815,8 +28458,63 @@
         "color": "#7a9a52",
         "wiki": "Para-elemental Plane of Ooze",
         "editions": [
-          "2e"
-        ]
+          "2e",
+          "5e"
+        ],
+        "summary": "Where Water meets Earth lies a noisome mass of slime, from clear goo to putrid green sludge, full of worms and insects. The smell alone can make a visitor sick. Disease is everywhere, and even those who are normally immune catch fevers here.",
+        "facts": [
+          [
+            "Natives",
+            "Ooze mephits are almost the only intelligent natives. Marids hunt here, dao come to bathe, and a baron called Bwimb is said to rule."
+          ],
+          [
+            "Getting there",
+            "A gate lies in Shedaklah, the realm of Juiblex in the Abyss. Vortices are rare, on young worlds where life has not yet emerged or in vast heaps of filth."
+          ],
+          [
+            "Famous places",
+            "The Cysts, Gnome's Home and the Trash Heap."
+          ],
+          [
+            "Ethereal curtain",
+            "Chocolate"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 80-85"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "33"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "name": "The Swamp of Oblivion",
+            "aka": [
+              "The Plane of Ooze"
+            ],
+            "summary": "The border region between the Plane of Water and the Plane of Earth: a horrid swamp of twisted trees, stinging vines, muck and slime. Stagnant lakes hold weeds and swarms of mosquitoes. No solid earth lies under the mud, so houses on poles slowly sink.",
+            "facts": [
+              [
+                "Kind",
+                "A border region between two Elemental Planes"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "54"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "ice",
@@ -27826,8 +28524,70 @@
         "color": "#bfe8ff",
         "wiki": "Para-elemental Plane of Ice",
         "editions": [
-          "2e"
-        ]
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "The Floating Plane"
+        ],
+        "summary": "The paraplane where the cold winds of Air sweep across Water. It is a frozen mass like a giant glacier that floats on the Bottomless Deep under the open sky of Air. It is so cold that flesh, blood and even spoken words freeze. Travelers on its surface trudge through blizzards in a dim, blue-white twilight.",
+        "facts": [
+          [
+            "Regions",
+            "The Precipice is the snowy upper surface below the plane of Air. Deep below the ice lies the Sea of Frozen Lives, an ocean of suspended ice chunks."
+          ],
+          [
+            "Natives",
+            "Ice mephits are the main natives. Marids from Water hunt here."
+          ],
+          [
+            "Hazards",
+            "Raging blizzards that stop movement for a long time are the greatest natural hazard."
+          ],
+          [
+            "Famous places",
+            "Arcolantha, the Chiseled Estate and the Mountain of Ultimate Winter."
+          ],
+          [
+            "Ethereal curtain",
+            "Aquamarine"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 68-73"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "34"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
+        ],
+        "by_edition": {
+          "5e": {
+            "name": "The Frostfell",
+            "aka": [
+              "The Plane of Ice"
+            ],
+            "summary": "The plane of ice that borders the Plane of Water. The Sea of Ice at its edge is choked with icebergs and sheet ice, home to creatures that love the cold. The frigid winds of the Mistral Reach drive snowstorms into it from the Plane of Air.",
+            "facts": [
+              [
+                "Kind",
+                "A border region between two Elemental Planes"
+              ]
+            ],
+            "sources": [
+              {
+                "title": "Dungeon Master's Guide (2014)",
+                "pages": "53, 57"
+              }
+            ]
+          }
+        }
       },
       {
         "id": "lightning",
@@ -27838,6 +28598,39 @@
         "wiki": "Quasi-elemental Plane of Lightning",
         "editions": [
           "2e"
+        ],
+        "aka": [
+          "The Plane of Storms",
+          "The Vengeful Land"
+        ],
+        "summary": "Air infused with positive energy: an endless sky of storm clouds, churning winds, brilliant bolts and deafening thunder. A traveler can breathe here, but a bolt can fry him in an instant. Its storms grow lighter near the plane of Air.",
+        "facts": [
+          [
+            "Natives",
+            "Lightning quasielementals, lightning mephits and shockers. Djinn sometimes hunt here."
+          ],
+          [
+            "Famous places",
+            "The Eye and the Tower of Storms."
+          ],
+          [
+            "Ethereal curtain",
+            "Violet"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 92-95"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "34"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27849,6 +28642,35 @@
         "wiki": "Quasi-elemental Plane of Radiance",
         "editions": [
           "2e"
+        ],
+        "summary": "Where Fire meets positive energy lies a place of incredible light. It is one of the most beautiful sights in the multiverse, but the glare dazes careless visitors and in time blinds them. So few can see here that no one knows which tales of its wonders are true.",
+        "facts": [
+          [
+            "Natives",
+            "Radiance quasielementals, beings of pure light, which are normally solitary."
+          ],
+          [
+            "Famous places",
+            "The Kingdom of the Blind, the Refuge of Color and the Heart of Light."
+          ],
+          [
+            "Ethereal curtain",
+            "Rainbow, shifting"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 100-103"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "35"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27860,6 +28682,43 @@
         "wiki": "Quasi-elemental Plane of Minerals",
         "editions": [
           "2e"
+        ],
+        "aka": [
+          "The Quasielemental Plane of Mineral",
+          "The Treasure Trove of the Multiverse"
+        ],
+        "summary": "Where Earth meets positive energy lies the treasure trove of the multiverse, full of gems, crystals, gold, silver and every valuable stone. Many come to strike it rich. The natives guard their home and hate the claim-jumpers who try to carry it off.",
+        "facts": [
+          [
+            "Natives",
+            "Dao, mineral mephits, pech, xaren and xorn, who all see themselves as guardians of the treasure."
+          ],
+          [
+            "Hazards",
+            "Once a day, a traveler must resist fossilization or turn to stone, or even to gems."
+          ],
+          [
+            "Famous places",
+            "The Gemfield, Sparklemire and the Tower of Lead."
+          ],
+          [
+            "Ethereal curtain",
+            "Creamy pink"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 96-99"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "36"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27871,6 +28730,35 @@
         "wiki": "Quasi-elemental Plane of Steam",
         "editions": [
           "2e"
+        ],
+        "summary": "Where Water meets positive energy lies a realm of rolling white mists, the stuff of clouds and fog. The vapor is safe to breathe and feels refreshing on the skin. The danger is what hides behind the next bank of cloud.",
+        "facts": [
+          [
+            "Natives",
+            "Marids, mist mephits and steam mephits. No powers are known to live here."
+          ],
+          [
+            "Famous places",
+            "Adrift, the Straits of Varrigon and the Tower of Ice."
+          ],
+          [
+            "Ethereal curtain",
+            "Ivory"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 104-107"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "36"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27882,6 +28770,38 @@
         "wiki": "Quasi-elemental Plane of Vacuum",
         "editions": [
           "2e"
+        ],
+        "aka": [
+          "The Empty Reach"
+        ],
+        "summary": "Where Air meets negative energy lies a region of utter nothingness, with no light and almost no matter. Few creatures can endure it. The Doomguard see in it the end of all things, when the multiverse decays into nothing.",
+        "facts": [
+          [
+            "Natives",
+            "Sages say that beings without body or form, possibly creatures of pure thought, can live here."
+          ],
+          [
+            "Famous places",
+            "Citadel Exhalus."
+          ],
+          [
+            "Ethereal curtain",
+            "Black with white specks"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 122-125"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "37"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27893,6 +28813,35 @@
         "wiki": "Quasi-elemental Plane of Ash",
         "editions": [
           "2e"
+        ],
+        "summary": "Where Fire meets negative energy lies an accumulation of burnt matter pressed into a solid mass, mostly like hard-packed soil. It is a cold and inhospitable place, because it drains the heat from all things, living and unliving.",
+        "facts": [
+          [
+            "Natives",
+            "The ash mephit is the only known native."
+          ],
+          [
+            "Famous places",
+            "The Citadel of Former Flame and the Crumbling Citadel. The citadel Cavitius holds prisoners of Vecna."
+          ],
+          [
+            "Ethereal curtain",
+            "Dark gray"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 108-113"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "37"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27904,6 +28853,39 @@
         "wiki": "Quasi-elemental Plane of Dust",
         "editions": [
           "2e"
+        ],
+        "summary": "Where Earth meets negative energy, matter breaks down into an expanse of darkness full of drifting particles on faint winds. The negative energy makes all matter decay, and in the end even the strongest visitor falls apart. The effect reaches even the portals and gates that lead here.",
+        "facts": [
+          [
+            "Natives",
+            "Dune stalkers, dust mephits, sandlings and sandmen. Many of them hunger for solid forms, and that makes them deadly."
+          ],
+          [
+            "Regions",
+            "Toward Earth lie the Tumbling Rocks, where masses of stone crash together. Toward Salt lies the Consumption, where all fluids turn to granules."
+          ],
+          [
+            "Famous places",
+            "Citadel Alluvius."
+          ],
+          [
+            "Ethereal curtain",
+            "Brownish gray"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 114-117"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "38"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27915,6 +28897,39 @@
         "wiki": "Quasi-elemental Plane of Salt",
         "editions": [
           "2e"
+        ],
+        "summary": "Where Water meets negative energy lies an endless world of crystals. The plane draws the moisture out of a visitor's body, and thirst comes soon. In the end the salt consumes the traveler and leaves a withered corpse that looks a thousand years old.",
+        "facts": [
+          [
+            "Natives",
+            "Salt mephits are the only known creatures."
+          ],
+          [
+            "Hazards",
+            "Water becomes undrinkable as soon as it touches anything from the plane. Creatures of water lose 1 Hit Die each round."
+          ],
+          [
+            "Famous places",
+            "Citadel Sealt and the Mines."
+          ],
+          [
+            "Ethereal curtain",
+            "Tan"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "The Inner Planes",
+            "pages": "9, 118-121"
+          },
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "38"
+          },
+          {
+            "title": "A Guide to the Ethereal Plane",
+            "pages": "20"
+          }
         ]
       },
       {
@@ -27931,8 +28946,22 @@
         "sources": [
           {
             "title": "Dungeon Master's Guide (2014)",
-            "pages": "43, 52-53"
+            "pages": "43, 49, 52-57"
           }
+        ],
+        "facts": [
+          [
+            "Natives",
+            "Elementals visit but seldom stay long. Weird hybrid elementals are said to be native, but they are seldom seen on other planes."
+          ],
+          [
+            "Border regions",
+            "The regions between the Elemental Planes are sometimes described as planes of their own. They include the Great Conflagration or Plane of Ash, the Frostfell, the Swamp of Oblivion and the Fountains of Creation."
+          ],
+          [
+            "Ethereal curtain",
+            "A swirling mix of colors marks the curtain to the Elemental Chaos in the Deep Ethereal."
+          ]
         ]
       },
       {
@@ -28035,12 +29064,20 @@
           [
             "Gate key",
             "Not needed"
+          ],
+          [
+            "Commerce",
+            "Towns and military camps grow up around the gates. Some local lords claim a gate and build walls around it."
           ]
         ],
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "22-23"
+          },
+          {
+            "title": "The Planewalker's Handbook",
+            "pages": "38"
           }
         ]
       },
@@ -28132,6 +29169,10 @@
           [
             "Ysgard",
             "Selune's realm in Ysgard is said to connect to the river, but the link is uncertain."
+          ],
+          [
+            "Song",
+            "Some say that creatures in the river sing a mystical song. It can drive a listener mad or reveal a secret of the multiverse."
           ]
         ],
         "sources": [
@@ -28142,6 +29183,10 @@
           {
             "title": "Planescape: Planes of Chaos, The Book of Chaos",
             "pages": "7"
+          },
+          {
+            "title": "The Planewalker's Handbook",
+            "pages": "12"
           }
         ],
         "by_edition": {
@@ -28279,9 +29324,17 @@
           {
             "id": "prime",
             "by": "branch"
+          },
+          {
+            "id": "outlands",
+            "by": "branch"
+          },
+          {
+            "id": "arborea",
+            "by": "branch"
           }
         ],
-        "summary": "The World Ash rises on the first layer of Ysgard. Its roots reach Niflheim on the Gray Waste, and Pandemonium. Its branches reach Elysium, the Beastlands and Limbo, and cross the Astral Plane to the Prime Material. At each crossing, the tree passes through a portal of shimmering color.",
+        "summary": "The World Ash rises on the first layer of Ysgard. Its roots reach Niflheim on the Gray Waste, and Pandemonium. Its branches reach Elysium, the Beastlands, Limbo, Arborea and the Outlands, and cross the Astral Plane to the Prime Material. At each crossing, the tree passes through a portal of shimmering color.",
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
@@ -28377,7 +29430,7 @@
         "wiki": "Infinite Staircase",
         "home": "ysgard",
         "site": "Gates of the Moon",
-        "summary": "A staircase between the planes. The poster key of the Planescape Campaign Setting puts it in the Gates of the Moon, the realm of Selûne on the first layer of Ysgard.",
+        "summary": "A staircase between the planes, with a door to a different city on each landing. Gravity changes from landing to landing. The stairs appear in the silver hall of Selûne, in the Gates of the Moon on the first layer of Ysgard.",
         "facts": [
           [
             "Site",
@@ -28459,24 +29512,52 @@
           {
             "id": "earth",
             "by": "vortex"
+          },
+          {
+            "id": "magma",
+            "by": "vortex"
+          },
+          {
+            "id": "ooze",
+            "by": "vortex"
           }
         ],
-        "summary": "Vortices are direct openings between the Prime Material Plane and one of the four Elemental Planes. They open at the heart of a great mass of an element, for example a volcanic caldera, an ocean trench, a high mountain peak or a deep mine. They seldom move.",
+        "summary": "Vortices are direct openings between the Prime Material Plane and an Elemental Plane. They open at the heart of a great mass of an element. Examples are a volcanic caldera, an ocean trench, a high mountain peak or a deep mine. A small number lead to Magma or Ooze.",
         "facts": [
           [
+            "Air",
+            "Floating vortices hang high in clear skies, and whirling vortices lie at the heart of tornadoes."
+          ],
+          [
+            "Earth",
+            "Vortices open at the heart of mountains and deep underground. The most common ones move with each earthquake."
+          ],
+          [
+            "Fire",
+            "The heart of a great blaze, such as a vast forest fire, sometimes opens a vortex."
+          ],
+          [
+            "Water",
+            "Storm surges before great storms and whirlpools open vortices."
+          ],
+          [
             "Para- and Quasielemental",
-            "None mapped. Any that exist are temporary."
+            "Vortices to Magma are fairly common. Vortices to Ooze are rare and open on young worlds or in vast heaps of filth."
           ]
         ],
         "sources": [
           {
             "title": "Planescape Campaign Setting: A DM Guide to the Planes",
             "pages": "20"
+          },
+          {
+            "title": "The Inner Planes",
+            "pages": "21-22, 31-32, 42, 51-52, 75, 81"
           }
         ],
         "by_edition": {
           "5e": {
-            "summary": "Some portals are vortices. A vortex joins an Elemental Plane with a very similar place on the Material Plane, for example the heart of a volcano (to the Plane of Fire) or the depths of the ocean (to the Plane of Water).",
+            "summary": "Some portals are vortices. A vortex joins an Elemental Plane to a similar place on the Material Plane. The heart of a volcano leads to the Plane of Fire, and the depths of the ocean to the Plane of Water.",
             "sources": [
               {
                 "title": "Dungeon Master's Guide (2014)",

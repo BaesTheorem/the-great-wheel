@@ -730,14 +730,16 @@ export class WheelView {
         const tint = p.pool?.hex || p.color;
         const disc = new THREE.Mesh(new THREE.CircleGeometry(1.45, 48).rotateX(-Math.PI / 2), new THREE.ShaderMaterial({
           transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide,
-          uniforms: { color: { value: new THREE.Color(tint) }, time: { value: 0 }, level: { value: 1 }, seed: { value: (hashStr(p.id) % 100) / 10 } },
+          uniforms: { color: { value: new THREE.Color(tint) }, time: { value: 0 }, level: { value: 1 }, seed: { value: (hashStr(p.id) % 100) / 10 }, prism: { value: p.pool ? 0 : 1 } },
           vertexShader: `varying vec2 vXZ; void main() { vXZ = position.xz; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-          fragmentShader: `uniform vec3 color; uniform float time, level, seed; varying vec2 vXZ; ${NOISE}
+          fragmentShader: `uniform vec3 color; uniform float time, level, seed, prism; varying vec2 vXZ; ${NOISE}
             void main() {
               float r = length(vXZ) / 1.45, a = atan(vXZ.y, vXZ.x);
               float swirl = fbm(vec2(a * 1.5 + r * 3.0 - time * 0.4 + seed, r * 4.0 - time * 0.2));
               float rim = smoothstep(0.78, 0.94, r) * (1.0 - smoothstep(0.94, 1.0, r));
-              vec3 c = color * (0.35 + 0.9 * swirl) * (1.0 - r * 0.5) + mix(color, vec3(1.0), 0.6) * rim * 1.3;
+              // 2e: prismatic, like oil on water; 5e: the color of the pool's plane
+              vec3 hue = prism > 0.5 ? 0.55 + 0.45 * cos(6.2832 * (vec3(0.0, 0.33, 0.67) + swirl * 1.6 + r * 0.8 + seed * 0.1)) : color;
+              vec3 c = hue * (0.35 + 0.9 * swirl) * (1.0 - r * 0.5) + mix(hue, vec3(1.0), 0.6) * rim * 1.3;
               gl_FragColor = vec4(c * level * (1.0 - smoothstep(0.97, 1.0, r)), 1.0);
             }`,
         }));
@@ -872,7 +874,11 @@ export class WheelView {
       const p = this.planes.get(r.id);
       if (!p) return;
       let pts;
-      if (p.group === "outer") {
+      if (p.id === "outlands") {
+        const end = at(ringAngle(home.order), HUB * 0.86, 0.15), from = leaders[i % leaders.length];
+        pts = bezier(from, from.clone().add(V(0, 6, 0)).lerp(end, 0.2), end.clone().add(V(0, 12, 0)), end, 80);
+        this.part(flowLines([{ pts, color: col, width: 2.2, gain: 1 }, this.portalRing(end, p.color || "#d6cfbd")], { speed: 4, gap: 8, fade: 1.5 }), l.id, [home.id, r.id]);
+      } else if (p.group === "outer") {
         const end = this.reachPoint(r.id, 44);
         const from = leaders[i % leaders.length];
         pts = bezier(from, from.clone().add(V(0, 7, 0)).lerp(end, 0.25), end.clone().add(V(0, 11, 0)), end, 70);
