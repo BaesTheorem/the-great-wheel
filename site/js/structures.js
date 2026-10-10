@@ -548,7 +548,42 @@ function mothCitadel(node, b, r) {
   node.noSpin = true;
 }
 
+// Black spheres that give no light (Greyspace's dark stars, the Lich's Tear): pure black, seen as
+// a disc against what lies behind them, with a faint rim so the map can show where they are.
+// look.count draws several; look.hostile adds the Lich's Tear's flickering violet light.
+function voidSpheres(node, b, r) {
+  const n = b.look?.count || 1, R = rng(hashStr(b.id)), mats = [];
+  const black = new THREE.MeshBasicMaterial({ color: 0x000000 });
+  const tint = new THREE.Color(b.look?.hostile ? "#b26bff" : "#6f6a9a");
+  for (let i = 0; i < n; i++) {
+    const at = n === 1 ? V() : V(Math.cos(i / n * TAU + R()) * r * 1.8, (R() - 0.5) * r * 0.8, Math.sin(i / n * TAU + R()) * r * 1.8);
+    const k = n === 1 ? 1 : 0.6 + 0.4 * R();
+    const core = new THREE.Mesh(new THREE.SphereGeometry(r * k, 48, 32), black);
+    core.position.copy(at);
+    const rim = new THREE.Mesh(new THREE.SphereGeometry(r * k * 1.04, 48, 32), new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, uniforms: { color: { value: tint }, gain: { value: b.look?.hostile ? 0.9 : 0.25 } },
+      vertexShader: `varying vec3 vN; varying vec3 vV; void main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
+      fragmentShader: `uniform vec3 color; uniform float gain; varying vec3 vN; varying vec3 vV; void main() { float f = pow(1.0 - abs(dot(vN, vV)), 4.0); gl_FragColor = vec4(color * f * gain, 1.0); }`,
+    }));
+    rim.position.copy(at);
+    mats.push(rim.material);
+    node.pivot.add(core, rim);
+  }
+  if (b.look?.hostile) {
+    const halo = sprite(radialTex([[0, "rgba(0,0,0,0)"], [0.42, "rgba(0,0,0,0)"], [0.5, "rgba(190,120,255,.55)"], [0.62, "rgba(120,255,170,.12)"], [1, "rgba(0,0,0,0)"]]), r * 4.2, 0.9);
+    node.group.add(halo);
+    node.update = ({ t }) => {
+      const k = 0.75 + 0.25 * Math.sin(t * 2.3) * Math.sin(t * 0.7 + 1.3);
+      halo.material.opacity = 0.6 + 0.35 * k;
+      for (const m of mats) m.uniforms.gain.value = 0.7 + 0.5 * k;
+    };
+  }
+  node.noSpin = true;
+  node.extent = n > 1 ? r * 3 : r * 1.4;
+}
+
 export const BUILDERS = {
+  "void-spheres": voidSpheres,
   habitat, "mushroom-city": mushroomCity, "flame-tower": flameTower, "disc-town": discTown, "rock-castle": rockCastle,
   "rock-ruin": rockRuin, "rock-port": rockPort, "rock-hideout": rockHideout, "shell-base": shellBase, "floating-base": floatingBase,
   "moth-citadel": mothCitadel,

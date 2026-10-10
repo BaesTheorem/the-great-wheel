@@ -225,6 +225,7 @@ export function infoHTML(app, sel) {
     if (b.orbit?.period_days) facts.push(["Year", `${b.orbit.period_days} days`]);
   }
   if (b.orbit?.approx || b.fixed?.approx) facts.push(["Map position", "Approximate"]);
+  if (b.look_approx) facts.push(["Surface", "Not described in the books. The map shows a guess."]);
   const kids = sel.sphere ? atlas.children(sel.sphere, b.id).filter((c) => !c.secret || edit) : [];
   const related = [];
   if (b.parent && sel.sphere) { const p = atlas.body(sel.sphere, b.parent); if (p) related.push(p); }

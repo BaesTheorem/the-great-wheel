@@ -2850,7 +2850,9 @@
             "approx": true
           },
           "look": {
-            "color": "#4a4a63"
+            "color": "#4a4a63",
+            "build": "void-spheres",
+            "count": 3
           },
           "summary": "Three or more black spheres, each some miles wide, in the gulf between the Spectre and the shell. They are totally black and give no light. Tales say that one touch destroys an object.",
           "facts": [
@@ -12913,7 +12915,9 @@
             "lat_deg": 0
           },
           "look": {
-            "color": "#4a3a78"
+            "color": "#4a3a78",
+            "build": "void-spheres",
+            "hostile": true
           },
           "summary": "A black sphere, hundreds of yards across, in the heart of the Sea of Sorrow. It causes the sargasso. An object that touches it is destroyed or sent away.",
           "facts": [
@@ -15745,7 +15749,12 @@
             "approx": true
           },
           "look": {
-            "color": "#b8a98c"
+            "color": "#b8a98c",
+            "proc": {
+              "style": "terran",
+              "sea": 0.6,
+              "clouds": 0.4
+            }
           },
           "summary": "The next world out from Crescent. It has a large harbor where ships can buy almost anything. A tavern there draws sages and philosophers.",
           "facts": [
@@ -15776,7 +15785,8 @@
           "editions": [
             "2e",
             "5e"
-          ]
+          ],
+          "look_approx": true
         },
         {
           "id": "loom",
@@ -16823,7 +16833,15 @@
           "parent": null,
           "shape": "sphere",
           "look": {
-            "color": "#9fb0c8"
+            "color": "#9fb0c8",
+            "proc": {
+              "style": "rock",
+              "palette": [
+                "#8a8274",
+                "#5f594f",
+                "#b6ad9c"
+              ]
+            }
           },
           "summary": "A planet in Pathspace. The gnome Horvath names it as the first stop of the Unquenchable. The text gives no other information.",
           "facts": [
@@ -16850,7 +16868,8 @@
           "editions": [
             "2e",
             "5e"
-          ]
+          ],
+          "look_approx": true
         }
       ]
     },
@@ -17607,7 +17626,13 @@
             "approx": true
           },
           "look": {
-            "color": "#9fb0c8"
+            "color": "#9fb0c8",
+            "proc": {
+              "style": "terran",
+              "sea": 0.55,
+              "ice": 0.3,
+              "clouds": 0.45
+            }
           },
           "summary": "A world in the same sphere as Radole, with a small spelljamming harbor named Remagin. Teldin lands there before he sails to Heartspace. The text gives no other information.",
           "facts": [
@@ -17634,7 +17659,8 @@
           "editions": [
             "2e",
             "5e"
-          ]
+          ],
+          "look_approx": true
         }
       ]
     },
@@ -20319,7 +20345,17 @@
             "approx": true
           },
           "look": {
-            "color": "#a9a9b8"
+            "color": "#a9a9b8",
+            "proc": {
+              "style": "desert",
+              "palette": [
+                "#b8946a",
+                "#d8bb8c",
+                "#7f5a3f",
+                "#9c7652",
+                "#efe4cf"
+              ]
+            }
           },
           "summary": "The fourth planet from Tezcat. The article names it on the system map and gives no other detail.",
           "facts": [
@@ -20342,7 +20378,8 @@
           "editions": [
             "2e",
             "5e"
-          ]
+          ],
+          "look_approx": true
         },
         {
           "id": "ilthurk",
@@ -20357,7 +20394,19 @@
             "approx": true
           },
           "look": {
-            "color": "#b0a9a0"
+            "color": "#b0a9a0",
+            "proc": {
+              "style": "gas",
+              "bands": 9,
+              "palette": [
+                "#c8b89a",
+                "#9a8466",
+                "#e6dccb",
+                "#7d6a52",
+                "#b0603c",
+                "#f0dcc0"
+              ]
+            }
           },
           "summary": "The fifth planet from Tezcat. The article names it on the system map and gives no other detail.",
           "facts": [
@@ -20380,7 +20429,8 @@
           "editions": [
             "2e",
             "5e"
-          ]
+          ],
+          "look_approx": true
         },
         {
           "id": "glayse",
@@ -20454,7 +20504,10 @@
             "approx": true
           },
           "look": {
-            "color": "#9fa3b5"
+            "color": "#9fa3b5",
+            "proc": {
+              "style": "ice"
+            }
           },
           "summary": "The seventh and outermost planet from Tezcat. The article names it on the system map and gives no other detail.",
           "facts": [
@@ -20477,7 +20530,8 @@
           "editions": [
             "2e",
             "5e"
-          ]
+          ],
+          "look_approx": true
         },
         {
           "id": "uncharted-sargasso",
