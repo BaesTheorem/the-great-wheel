@@ -25,11 +25,6 @@ jobs:
       - name: Open each view and fail on a page error
         env:
           ORRERY_NO_PULL: "1"
-        run: python3 tools/smoke.py --shots shots
-      - name: Keep the screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-shots
-          path: shots
-          retention-days: 7
+        # no screenshots here: the runner has no GPU, and the ray-traced black hole takes longer
+        # than a screenshot may wait to draw one frame in software
+        run: python3 tools/smoke.py
