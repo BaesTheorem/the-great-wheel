@@ -16,6 +16,7 @@ The plane list below follows the [Great Wheel cosmology](https://forgottenrealms
 - [x] A local editor, a private overlay for DM notes and secret items, and edits on GitHub with an automatic check
 - [x] Painted worlds in eleven styles, made on the GPU, and the shapes the books need: flat and hemisphere worlds, crescents, ellipsoids, rock clusters, a world tree, and land on the inside of a shell
 - [x] A charting pipeline: text from a scan, a chart file per sphere, a check and a merge ([docs/CHARTING.md](docs/CHARTING.md))
+- [x] The Great Wheel view, first version: the sixteen Outer Planes as a rose window around the Outlands, the Spire and Sigil, and the Prime in the Ethereal inside an armillary sphere of the Inner Planes. The paths between planes come from the *Planescape Campaign Setting*: the Great Road, the gate-towns, the color pools, the portals of Sigil, the River Oceanus, the River Styx, Yggdrasil, Mount Olympus, the Infinite Staircase and the elemental vortices
 
 ## 1. Fill in the Prime Material Plane
 
@@ -40,7 +41,7 @@ A new top level. The Prime Material Plane sits at the center, and the planes of 
 - [ ] The four Para-Elemental Planes: Smoke, Ice, Ooze and Magma
 - [ ] The eight Quasi-Elemental Planes: Lightning, Steam, Radiance and Minerals on the positive side, and Vacuum, Salt, Ash and Dust on the negative side
 - [ ] The Elemental Chaos, the outer edge of the Inner Planes in the revised (5e era) model
-- [ ] The layout from the books: a sphere with Positive Energy at one pole, Negative Energy at the other, and the four elements around the middle
+- [x] The layout from the books: a sphere with Positive Energy at one pole, Negative Energy at the other, and the four elements around the middle
 
 ### The Outer Planes
 
@@ -64,7 +65,9 @@ The sixteen planes of the wheel, arranged by alignment around the Outlands. The 
 - [ ] Arcadia
 - [ ] The Outlands, with the Spire, the gate-towns and Sigil, the City of Doors
 - [ ] The realms of the Faerûnian gods on their planes, for example Helm's Everwatch on Mechanus
-- [ ] The links between planes: the River Styx, the River Oceanus, the color pools and the portals of Sigil
+- [x] The links between planes: the River Styx, the River Oceanus, the color pools and the portals of Sigil
+- [ ] A summary, sources and layers for each plane, from the planar books (*Planes of Chaos*, *Planes of Law*, *Planes of Conflict*, the *Manual of the Planes* and the 5e *Dungeon Master's Guide*)
+- [ ] The 5e paths and names: check each path and each Inner Plane against the 5e *Dungeon Master's Guide*
 
 ### Echoes, demiplanes and beyond
 

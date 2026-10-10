@@ -37,6 +37,10 @@ a { cursor: pointer; }
 .lab.regionlab.sel .t { color: #fff; }
 .lab.flowlab.sel .t { color: var(--t1); }
 .lab.pin { pointer-events: auto; }
+.lab.callout .cdot { position: absolute; width: 5px; height: 5px; left: -2.5px; top: -2.5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+.lab.callout .lead { position: absolute; left: 0; top: 0; height: 1px; transform-origin: 0 0; background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, .35)); opacity: .7; }
+.lab.callout .t { font-size: 10.5px; }
+.lab.callout.notext .lead, .lab.callout.notext .cdot { display: none; }
 .lab.pin .pindot { position: absolute; width: 10px; height: 10px; left: -5px; top: -5px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 2px #fff, 0 0 16px 5px rgba(157, 180, 255, .55); }
 .lab.pin .lead { position: absolute; left: 7px; top: 0; width: 34px; height: 1px; background: rgba(255, 255, 255, .6); }
 .lab.pin .t { left: 46px; transform: translateY(-50%); }
@@ -258,7 +262,7 @@ body.embed #editbtn { display: none !important; }
   .hero h1 { font-size: 38px; }
   .timearc { display: none !important; }
   .pdate { display: inline-flex; align-items: center; gap: 10px; left: 50%; transform: translateX(-50%); bottom: 108px; padding: 9px 14px 9px 16px; border-radius: 999px; font: 500 13px var(--font); letter-spacing: .04em; color: var(--t1); white-space: nowrap; text-transform: uppercase; }
-  body.view-between .pdate { display: none; }
+  body.view-between .pdate, body.view-wheel .pdate { display: none; }
   body.panel-open .pdate { bottom: calc(46vh + 12px); }
   .tiles { right: 50%; transform: translateX(50%); bottom: 14px; padding-top: 0; }
   .tiles .cap { display: none; }
@@ -269,3 +273,8 @@ body.embed #editbtn { display: none !important; }
   .toast { bottom: 90px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ---------- the Great Wheel ---------- */
+.panel .emblem { display: flex; justify-content: center; padding: 22px 0 0; }
+.panel .emblem img { width: 112px; height: 112px; filter: drop-shadow(0 0 10px var(--c)) drop-shadow(0 0 2px var(--c)); opacity: .95; }
+.tiles a[data-v="wheel"] i { transform: rotate(-90deg); }

@@ -1,7 +1,7 @@
 // Everything drawn in HTML over the canvas: scene labels, the top bar, the info panel and its
 // tabs, the time control, the view switch, the title and distance readout, and toasts.
 import * as THREE from "three";
-import { KINDS, SIZE_HELP } from "./atlas.js";
+import { resolve, linkPlanes, KINDS, SIZE_HELP } from "./atlas.js";
 import * as H from "./harptos.js";
 
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -40,10 +40,29 @@ export class Labels {
       let pr = 0;
       if (it.r) { w.copy(it.world).addScaledVector(right, it.r).project(camera); pr = Math.hypot(((w.x + 1) / 2 * W) - x, ((1 - w.y) / 2 * H_) - y); }
       const rr = Math.max(8, pr + 6);
+      // a label around a ring of things (outFrom: the ring's center) puts its text on the outer side
+      let left = false, co = null;
+      if (it.outFrom) {
+        w.copy(it.outFrom).project(camera);
+        const cx = (w.x + 1) / 2 * W, cy = (1 - w.y) / 2 * H_;
+        left = x < cx;
+        // a callout: a leader line out from the ring's center, up and to the side, then the text
+        if (it.callout) {
+          const dx = x - cx, dy = y - cy, L = Math.hypot(dx, dy) || 1;
+          // a fixed angle (degrees, for the right side of the ring; mirrored on the left) or one away from the center
+          if (it.calloutAngle != null) { const a = it.calloutAngle * Math.PI / 180; co = { x: Math.cos(a) * it.callout * (left ? -1 : 1), y: Math.sin(a) * it.callout }; }
+          else co = { x: dx / L * it.callout * 0.75 + (left ? -1 : 1) * it.callout * 0.35, y: Math.min(0, dy / L) * it.callout * 0.5 - it.callout * 0.55 };
+        }
+      }
       // the label's text box, from its length (11 px caps with wide tracking: about 10 px a letter)
       const tw = (it.text?.length || 0) * (it.region ? 9.5 : it.dim ? 8.6 : 10) + 4, th = it.sub ? 30 : 16;
-      const box = it.below ? { x: x - tw / 2, y: y + rr + 6, w: tw, h: th } : it.flowLabel || it.region ? { x: x - tw / 2, y: y - th / 2, w: tw, h: th } : it.pin ? { x: x + 40, y: y - 8, w: tw, h: 16 } : { x: x + rr + 6, y: y - th / 2, w: tw, h: th };
-      const showText = it.sel || !hits(box);
+      if (co && !left && x + co.x + 6 + tw > W - 12) { left = true; co.x = -Math.abs(co.x); }
+      if (co && left && x + co.x - 6 - tw < 12) { left = false; co.x = Math.abs(co.x); }
+      const box = co ? { x: left ? x + co.x - 6 - tw : x + co.x + 6, y: y + co.y - th / 2, w: tw, h: th }
+        : it.below ? { x: x - tw / 2, y: y + rr + 6, w: tw, h: th } : it.flowLabel || it.region ? { x: x - tw / 2, y: y - th / 2, w: tw, h: th } : it.pin ? { x: x + 40, y: y - 8, w: tw, h: 16 }
+        : left ? { x: x - rr - 6 - tw, y: y - th / 2, w: tw, h: th } : { x: x + rr + 6, y: y - th / 2, w: tw, h: th };
+      const off = box.x < 2 || box.x + box.w > W - 2 || box.y < 2 || box.y + box.h > H_ - 2;
+      const showText = it.sel || (!hits(box) && !off);
       if (showText) placed.push(box);
       if (!showText && !it.ring && !it.pin) continue;
       seen.add(it.key);
@@ -58,9 +77,15 @@ export class Labels {
       const ring = el.firstChild;
       if (ring?.classList?.contains("ring")) { ring.style.width = ring.style.height = `${2 * rr}px`; }
       const txt = el.querySelector(".t");
-      if (txt) {
+      if (co) {
+        const lead = el.querySelector(".lead");
+        lead.style.width = `${Math.hypot(co.x, co.y).toFixed(1)}px`;
+        lead.style.transform = `rotate(${Math.atan2(co.y, co.x).toFixed(4)}rad)`;
+        txt.style.transform = left ? `translate(calc(-100% + ${(co.x - 6).toFixed(1)}px), calc(-50% + ${co.y.toFixed(1)}px))` : `translate(${(co.x + 6).toFixed(1)}px, calc(-50% + ${co.y.toFixed(1)}px))`;
+      } else if (txt) {
         if (it.below) txt.style.transform = `translate(-50%, ${rr + 14}px)`;
         else if (it.flowLabel || it.region) txt.style.transform = "translate(-50%, -50%)";
+        else if (left) txt.style.transform = `translate(calc(-100% - ${rr + 7}px), -50%)`;
         else if (!it.pin) txt.style.transform = `translate(${rr + 7}px, -50%)`;
       }
     }
@@ -69,7 +94,12 @@ export class Labels {
 
   make(it) {
     const el = document.createElement("div");
-    el.className = "lab" + (it.pin ? " pin" : "") + (it.flowLabel ? " flowlab" : "") + (it.region ? " regionlab" : "");
+    el.className = "lab" + (it.pin ? " pin" : "") + (it.flowLabel ? " flowlab" : "") + (it.region ? " regionlab" : "") + (it.callout ? " callout" : "");
+    if (it.callout) {
+      el.innerHTML = `<span class="cdot"></span><span class="lead"></span><span class="t">${esc(it.text)}</span>`;
+      if (it.tint) { el.style.color = it.tint; el.querySelector(".t").style.color = it.tint; }
+      return el;
+    }
     if (it.pin) {
       el.innerHTML = `<span class="pindot"></span><span class="lead"></span><a class="t" ${it.link ? `href="${esc(it.link)}"` : ""}>${esc(it.text)}</a>`;
       return el;
@@ -83,6 +113,7 @@ export class Labels {
     const t = document.createElement("span");
     t.className = "t" + (it.below ? " below" : "");
     t.innerHTML = esc(it.text) + (it.sub ? `<small>${esc(it.sub)}</small>` : "");
+    if (it.tint) t.style.color = it.tint;
     el.appendChild(t);
     return el;
   }
@@ -91,7 +122,7 @@ export class Labels {
   hit(x, y) {
     let best = null, bd = Infinity;
     for (const el of this.els.values()) {
-      if (el.classList.contains("regionlab")) {
+      if (el.classList.contains("regionlab") || el.classList.contains("callout") || (el.classList.contains("flowlab") && el._item?.clickable)) {
         const b = el._box;
         if (b && x >= b.x - 6 && x <= b.x + b.w + 6 && y >= b.y - 6 && y <= b.y + b.h + 6) return el._item;
         continue;
@@ -136,6 +167,7 @@ export function kindLine(b, atlas, sphereId) {
 export function infoHTML(app, sel) {
   const { atlas, edition, edit } = app.state;
   if (!sel) return emptyInfo(app);
+  if (sel.type === "plane" || sel.type === "link") return wheelInfo(app, sel);
   if (sel.type === "sphere") {
     const s = atlas.spheres(edition, true).find((x) => x.id === sel.id);
     if (!s) return emptyInfo(app);
@@ -220,6 +252,59 @@ function emptyInfo(app) {
   return block({ kind: "Between the spheres", dot: "#e6f0ff", title: between.name?.[edition] || "Between the spheres", summary: between.summary?.[edition], sources: between.sources, wiki: wikiURL(between.wiki?.[edition], between.name?.[edition]), wikiExact: !!between.wiki?.[edition], actions: [] });
 }
 
+// ---------- the Great Wheel: a plane or a link between planes ----------
+const GROUP_LABEL = { outer: "Outer Plane", inner: "Inner Plane", transitive: "Transitive Plane", hub: "Outer Plane at the center of the wheel", city: "City at the top of the Spire", prime: "The material world" };
+const LINK_KIND = {
+  road: ["Portals between neighboring planes", "door_front"], gates: ["Portals to the Outlands", "location_city"], pools: ["Gateways in the Astral Plane", "radio_button_checked"],
+  portals: ["Doors of Sigil", "door_open"], vortices: ["Openings to the Elemental Planes", "cyclone"], river: ["A river between planes", "water"],
+  tree: ["A tree that grows through planes", "park"], mountain: ["A mountain on several planes", "landscape"], stair: ["A staircase between planes", "stairs"],
+};
+const BY = { root: "Roots", branch: "Branches", cavern: "Caverns", slope: "Slopes", vortex: "Vortices" };
+
+function wheelInfo(app, sel) {
+  const { atlas, edition } = app.state;
+  const W = atlas.data.wheel || {};
+  const inEd = (x) => !x.editions || x.editions.includes(edition);
+  const planes = (W.planes || []).map((x) => resolve(x, edition)).filter(inEd);
+  const links = (W.links || []).map((x) => resolve(x, edition)).filter(inEd);
+  const outer = planes.filter((x) => x.group === "outer").sort((a, b) => a.order - b.order);
+  const name = (id) => planes.find((x) => x.id === id)?.name || id;
+  const chip = (x) => ({ id: `plane:${x.id}`, name: x.name, icon: x.group === "outer" ? "donut_large" : x.group === "inner" ? "lens" : "blur_on" });
+  if (sel.type === "link") {
+    const l = links.find((x) => x.id === sel.id);
+    if (!l) return emptyInfo(app);
+    const facts = [...(l.facts || [])];
+    if (l.kind === "river" && l.through?.length) facts.unshift(["Course", l.through.map(name).join(" → ")]);
+    if (l.home && ["tree", "mountain", "stair"].includes(l.kind)) facts.unshift(["Rises on", name(l.home)]);
+    for (const [by, label] of Object.entries(BY)) {
+      const r = (l.reaches || []).filter((x) => x.by === by);
+      if (r.length && l.kind !== "vortices") facts.push([label, r.map((x) => name(x.id) + (x.layer ? ` (${x.layer})` : "")).join(", ")]);
+    }
+    if (l.kind === "gates") for (const p of outer) if (p.gate_town) facts.push([p.gate_town, `to ${p.name.replace(/^The /, "the ")}`]);
+    const touched = linkPlanes(l, outer.map((p) => p.id));
+    const rel = l.kind === "road" || l.kind === "gates" || l.kind === "pools" ? [] : planes.filter((x) => touched.has(x.id)).map(chip);
+    return block({
+      kind: (LINK_KIND[l.kind] || ["Path between planes"])[0], dot: l.color || "#cfd8ea",
+      title: l.name, aka: l.aka, summary: l.summary, facts, sources: l.sources, wiki: wikiURL(l.wiki, l.name), wikiExact: !!l.wiki, related: rel,
+    });
+  }
+  const p = planes.find((x) => x.id === sel.id);
+  if (!p) return emptyInfo(app);
+  const facts = [...(p.facts || [])];
+  if (p.alignment && !facts.some((f) => /alignment/i.test(f[0]))) facts.unshift(["Alignment", p.alignment]);
+  const layers = p.layers?.length ? p.layers.map((l) => l.name).join(" · ") : p.layers_note || "";
+  if (layers && !facts.some((f) => /layers/i.test(f[0]))) facts.push([p.layers?.length > 1 ? `Layers (${p.layers.length})` : "Layers", layers]);
+  if (p.gate_town) facts.push(["Gate-town", `${p.gate_town}, on the Outlands`]);
+  const mine = links.filter((l) => linkPlanes(l, outer.map((x) => x.id)).has(p.id));
+  const emblem = p.emblem ? `<div class="emblem" style="--c:${esc(p.color || "#9db4ff")}"><img src="assets/emblems/${esc(p.emblem)}.svg" alt=""></div>` : "";
+  return emblem + block({
+    kind: GROUP_LABEL[p.group] || "Plane", dot: p.color || "#9db4ff", title: p.name, aka: p.aka, summary: p.summary, facts,
+    sources: p.sources, wiki: wikiURL(p.wiki, p.name), wikiExact: !!p.wiki,
+    related: mine.map((l) => ({ id: `link:${l.id}`, name: l.name, icon: (LINK_KIND[l.kind] || [0, "route"])[1] })),
+    actions: [p.id === "prime" ? ["go-between", "bubble_chart", edition === "5e" ? "Open the Astral Sea" : "Open the phlogiston"] : null],
+  });
+}
+
 function block(o) {
   const facts = (o.facts || []).filter((f) => f && f[1]);
   return `
@@ -239,6 +324,7 @@ function block(o) {
 export function bodiesHTML(app) {
   const { atlas, edition, edit, view, sphereId, selected } = app.state;
   const isSel = (type, id) => selected?.type === type && selected.id === id;
+  if (view === "wheel") return wheelIndexHTML(app, isSel);
   if (view === "sphere") {
     const list = atlas.bodies(sphereId, edition, edit);
     if (!list.length) return `<div class="blk"><p>No bodies yet.${edit ? " Use Add body in the edit bar." : ""}</p></div>`;
@@ -263,10 +349,39 @@ export function bodiesHTML(app) {
   </div>`;
 }
 
+// The Planes tab on the wheel: every plane, in its ring, and every known path between planes.
+function wheelIndexHTML(app, isSel) {
+  const { atlas, edition } = app.state;
+  const W = atlas.data.wheel || {}, inEd = (x) => !x.editions || x.editions.includes(edition);
+  const planes = (W.planes || []).filter(inEd).map((x) => resolve(x, edition));
+  const links = (W.links || []).filter(inEd).map((x) => resolve(x, edition));
+  const row = (type, x, sub) => `<a class="row${isSel(type, x.id) ? " on" : ""}" data-act="select:${type}:${esc(x.id)}"><span class="dot" style="background:${esc(x.color || "#cfd8ea")}"></span><span>${esc(x.name)}</span><small>${esc(sub || "")}</small></a>`;
+  const sec = (title, list) => list.length ? `<div class="sec">${title}</div>${list.join("")}` : "";
+  return `<div class="tree">
+    ${sec("The Outer Planes", planes.filter((x) => x.group === "outer").sort((a, b) => a.order - b.order).map((x) => row("plane", x, x.alignment ? x.alignment[0].toUpperCase() + x.alignment.slice(1) : "")))}
+    ${sec("The center", planes.filter((x) => x.group === "hub" || x.group === "city").map((x) => row("plane", x, x.group === "city" ? "On the Spire" : "Around the Spire")))}
+    ${sec("Between the planes", planes.filter((x) => x.group === "transitive").map((x) => row("plane", x, "Transitive")))}
+    ${sec("The Prime Material", planes.filter((x) => x.group === "prime").map((x) => row("plane", x, "")))}
+    ${sec("The Inner Planes", planes.filter((x) => x.group === "inner").map((x) => row("plane", x, "")))}
+    ${sec("Paths between planes", links.map((l) => row("link", l, (LINK_KIND[l.kind] || [""])[0])))}
+  </div>`;
+}
+
 // ---------- the Layers tab ----------
 export function layersHTML(app) {
   const { layers, scale, edition } = app.state;
   const sw = (key, label, help) => `<label class="lrow"><span><b>${label}</b>${help ? `<small>${help}</small>` : ""}</span><span class="switch"><input type="checkbox" data-layer="${key}" ${layers[key] ? "checked" : ""}><span></span></span></label>`;
+  if (app.state.view === "wheel") {
+    return `<div class="blk"><h3>Show</h3>${sw("labels", "Labels")}${sw("stars", "Stars")}</div>
+      <div class="blk"><h3>Edition</h3>
+        <div class="seg wide"><a data-act="edition:2e" class="${edition === "2e" ? "on" : ""}">2e: Planescape</a><a data-act="edition:5e" class="${edition === "5e" ? "on" : ""}">5e</a></div>
+        <p class="hint">The map shows the planes and paths that the books of each edition describe.</p>
+      </div>
+      <div class="blk credits"><h3>Credits</h3>
+        <p>Facts: the <em>Planescape Campaign Setting</em> (TSR, 1994) and the other books named on each item. The emblems are drawings made for this map. Planescape and the planes belong to Wizards of the Coast.</p>
+        <p>Made with three.js, Beer CSS, Inter and Material Symbols. Source code and roadmap: <a href="https://github.com/BaesTheorem/the-great-wheel" target="_blank" rel="noopener">github.com/BaesTheorem/the-great-wheel</a>.</p>
+      </div>`;
+  }
   return `<div class="blk"><h3>Show</h3>
       ${sw("orbits", "Orbits")}${sw("shadows", "Shadows", "The night side of each world. Off when you center a world, so all of it shows")}${sw("labels", "Labels")}${sw("minor", "Moons and minor bodies", "Shown when the camera is near their planet")}${sw("boundary", edition === "5e" ? "Edge of wildspace" : "Crystal shell")}${sw("stars", "Stars")}
     </div>

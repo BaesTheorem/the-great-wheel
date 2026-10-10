@@ -14,10 +14,13 @@ Most books give no distances or years, so most orbits outside Realmspace, Greysp
 
 A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston) to 5e (wildspace systems in the silver Astral Sea). Each item gives the book and the pages for its facts. Each item also links to its page on the Forgotten Realms Wiki or the Spelljammer Wiki.
 
+The Wheel view shows the planes of existence as the *Planescape Campaign Setting* (TSR, 1994) describes them. The sixteen Outer Planes are a ring of glass panes around the Outlands, each in the color of its alignment, with the Spire and Sigil at the center. Below the ring, the Prime Material Plane sits in the Ethereal, inside a sphere of the eighteen Inner Planes. Each path between planes that the boxed set names shows as a line of light on the route that the book gives: the Great Road and its arches, the gate-towns, the color pools, the portals of Sigil, the River Oceanus, the River Styx, the World Ash Yggdrasil, Mount Olympus, the Infinite Staircase and the elemental vortices.
+
 ## Use the map
 
 - Drag to turn the view. Scroll or pinch to zoom. Click a sphere, body, current or group to see its information.
-- The View tiles: World flies to the selected world, Sphere shows the full sphere, and Phlogiston (Astral Sea in 5e) shows the map between the spheres. On that map, double-click a sphere to go into it.
+- The View tiles: World flies to the selected world, Sphere shows the full sphere, Phlogiston (Astral Sea in 5e) shows the map between the spheres, and Wheel shows the planes of the Great Wheel. On the phlogiston map, double-click a sphere to go into it.
+- On the Wheel, click a plane or a path to see its information. Move the pointer over one: the paths that touch it become brighter and the others dim. The Planes tab of the panel lists every plane and path.
 - The time bar moves the orbits forward or back. Campaign date returns to the date in Settings.
 - Inside a sphere, the orbit button on the right (or the O key) turns the orbit lines off and on. The shadows button (or the S key) turns the night side of the worlds off and on. When you center a world, shadows go off, so all of its face shows.
 - Share copies a link to the current view, date and edition.

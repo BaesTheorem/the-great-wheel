@@ -48,6 +48,17 @@ export function resolve(obj, edition) {
 
 export const inEdition = (obj, edition) => !obj.editions || obj.editions.length === 0 || obj.editions.includes(edition);
 
+// The planes that a path between planes touches. The Great Road, the gate-towns and the color pools
+// touch every Outer Plane; the portals of Sigil can go anywhere, so they count only for Sigil.
+export function linkPlanes(l, outerIds = []) {
+  const s = new Set([...(l.through || []), ...(l.home ? [l.home] : []), ...(l.reaches || []).map((r) => r.id)]);
+  if (["road", "gates", "pools"].includes(l.kind)) outerIds.forEach((id) => s.add(id));
+  if (l.kind === "gates") s.add("outlands");
+  if (l.kind === "pools") s.add("astral");
+  if (l.kind === "portals") s.add("sigil");
+  return s;
+}
+
 export function slugify(s) {
   return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
     .replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "item";

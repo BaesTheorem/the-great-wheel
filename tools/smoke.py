@@ -28,6 +28,10 @@ VIEWS = [
     ("phone", "#/realmspace/toril", 390, 844, 2),
     ("black-hole", "#/dead-shell/black-hole", 1280, 800, 1),
     ("link-pin", "?embed&pin=toril:0.5:0.42:Test#/realmspace/toril", 1280, 800, 1),
+    ("wheel", "#/wheel", 1440, 900, 1),
+    ("wheel-5e", "#/wheel?e=5e", 1440, 900, 1),
+    ("wheel-path", "#/wheel/link:yggdrasil", 1440, 900, 1),
+    ("wheel-phone", "#/wheel/abyss", 390, 844, 2),
 ]
 
 

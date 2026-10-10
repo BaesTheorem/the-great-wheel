@@ -2,9 +2,10 @@
 // ui.js draws the HTML, editor.js changes the atlas.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { Atlas, KINDS } from "./atlas.js";
+import { Atlas, KINDS, resolve } from "./atlas.js";
 import { SphereView } from "./sphere-view.js";
 import { BetweenView } from "./between-view.js";
+import { WheelView } from "./wheel-view.js";
 import { Labels, infoHTML, bodiesHTML, layersHTML, renderTime, RATES, toast, esc, miles } from "./ui.js";
 import { Editor } from "./editor.js";
 import * as H from "./harptos.js";
@@ -100,7 +101,11 @@ class App {
     if (params.get("e") && ["2e", "5e"].includes(params.get("e")) && params.get("e") !== st.edition) { st.edition = params.get("e"); this.viewDirty = true; }
     if (params.get("d") && !isNaN(Number(params.get("d")))) st.day = Number(params.get("d"));
     if (!parts.length && first && (EMBED || st.atlas.data.campaign?.start === "home")) parts.push(...(st.atlas.data.campaign?.home || "realmspace/toril").split("/"));
-    if (parts[0] === "@flow") { await this.showBetween(); this.select({ type: "flow", id: parts[1] }, { fly: !first, noHash: true }); }
+    if (parts[0] === "wheel") {
+      await this.showWheel();
+      if (parts[1]) this.select({ type: parts[1].startsWith("link:") ? "link" : "plane", id: parts[1].replace(/^link:/, "") }, { fly: true, instant: first, noHash: true });
+      else { st.selected = null; this.renderPanel(); }
+    } else if (parts[0] === "@flow") { await this.showBetween(); this.select({ type: "flow", id: parts[1] }, { fly: !first, noHash: true }); }
     else if (parts[0] === "@region") { await this.showBetween(); this.select({ type: "region", id: parts[1] }, { fly: true, instant: first, noHash: true }); }
     else if (parts[0] === "@body") { await this.showBetween(); this.select({ type: "body", id: parts[1] }, { fly: !first, noHash: true }); }
     else if (parts[0] && st.atlas.sphere(parts[0])) {
@@ -114,7 +119,8 @@ class App {
   writeHash() {
     const st = this.state, sel = st.selected;
     let path = "#/";
-    if (st.view === "sphere") path += encodeURIComponent(st.sphereId) + (sel?.type === "body" ? `/${encodeURIComponent(sel.id)}` : "");
+    if (st.view === "wheel") path += "wheel" + (sel ? `/${sel.type === "link" ? "link:" : ""}${encodeURIComponent(sel.id)}` : "");
+    else if (st.view === "sphere") path += encodeURIComponent(st.sphereId) + (sel?.type === "body" ? `/${encodeURIComponent(sel.id)}` : "");
     else if (sel?.type === "flow") path += `@flow/${encodeURIComponent(sel.id)}`;
     else if (sel?.type === "region") path += `@region/${encodeURIComponent(sel.id)}`;
     else if (sel?.type === "body") path += `@body/${encodeURIComponent(sel.id)}`;
@@ -167,6 +173,24 @@ class App {
     this.renderChrome();
   }
 
+  async showWheel() {
+    const st = this.state;
+    if (st.view === "wheel" && this.view && !this.viewDirty) return;
+    $("#loading").classList.add("on");
+    st.view = "wheel"; st.sphereId = null; st.selected = null;
+    if (!this.wheelView) this.wheelView = new WheelView(this);
+    this.view = this.wheelView;
+    await this.wheelView.build();
+    if (st.view !== "wheel") return;
+    this.viewDirty = false;
+    this.labels.clear();
+    this.applyLayers();
+    this.frame(true);
+    $("#loading").classList.remove("on");
+    this.renderChrome();
+    this.renderPanel();
+  }
+
   async showBetween() {
     const st = this.state;
     if (st.view === "between" && this.view && !this.viewDirty) return;
@@ -187,6 +211,7 @@ class App {
     const st = this.state;
     this.viewDirty = true;
     if (st.view === "sphere" && st.atlas.sphere(st.sphereId)) await this.showSphere(st.sphereId);
+    else if (st.view === "wheel") { await this.wheelView.build(); this.viewDirty = false; this.labels.clear(); this.applyLayers(); }
     else await this.showBetween();
     this.keepCamera = false;
     this.renderChrome();
@@ -196,6 +221,16 @@ class App {
   frame(instant = false) {
     const st = this.state;
     this.track = null;
+    if (st.view === "wheel") {
+      // on a tall screen the wheel fills the width and the labels at its sides give way
+      const tall = innerHeight / innerWidth;
+      const d = this.view.frameDistance() * Math.max(1, tall * 0.92), c = this.view.frameTarget();
+      if (tall > 1.2) c.y -= 14;   // the title sits low on a phone, so the wheel moves up
+      this.controls.maxDistance = d * 3;
+      // from above and to one side, so the wheel, the Spire and the inner sphere all show
+      this.flyTo(c, c.clone().add(new THREE.Vector3(0.12, 0.5, 0.86).normalize().multiplyScalar(d)), instant);
+      return;
+    }
     if (st.view === "sphere") {
       const d = this.view.frameDistance();
       this.controls.maxDistance = this.view.R * 2.6;
@@ -267,6 +302,15 @@ class App {
       if (it) this.flyTo(it.world, it.world.clone().addScaledVector(dir, Math.max(it.r * 7, 4)), opts.instant);
       else if (g) this.flyTo(g.center, g.center.clone().addScaledVector(dir, g.R * 2.9), opts.instant);
     }
+    if (sel && st.view === "wheel") {
+      if (sel.type === "plane" && sel.id === "prime" && opts.enter) { location.hash = "#/"; return; }
+      const it = this.view.items.find((i) => i.type === sel.type && i.id === sel.id);
+      if (it && opts.fly !== false) {
+        const dir = this.camera.position.clone().sub(this.controls.target).normalize();
+        const at = it.frameAt || it.world;
+        this.flyTo(at, at.clone().addScaledVector(dir, it.frameD || Math.max(it.r * 4.5, 14)), opts.instant);
+      }
+    }
     if (sel && !opts.noPanel) this.openPanel("info");
     this.renderPanel();
     if (!opts.noHash) this.writeHash();
@@ -295,6 +339,8 @@ class App {
   renderPanel() {
     const st = this.state, body = $("#panelbody");
     for (const t of document.querySelectorAll("#ptabs a[data-tab]")) t.classList.toggle("on", t.dataset.tab === st.panel);
+    const bt = document.querySelector('#ptabs a[data-tab="bodies"]');
+    if (bt) bt.lastChild.textContent = st.view === "wheel" ? "Planes" : "Bodies";
     if (!st.panel) return;
     if (st.panel === "edit") return;
     body.innerHTML = st.panel === "bodies" ? bodiesHTML(this) : st.panel === "layers" ? layersHTML(this) : infoHTML(this, st.selected);
@@ -304,15 +350,22 @@ class App {
   renderChrome() {
     const st = this.state, a = st.atlas, ed = st.edition;
     const betweenName = a.data.between?.name?.[ed] || "Between the spheres";
-    const crumbs = [`<a data-act="go-between">${esc(betweenName)}</a>`];
-    if (st.view === "sphere") {
+    const wheelName = a.data.wheel?.name || "The Great Wheel";
+    const crumbs = [`<a data-act="go-wheel">${esc(wheelName)}</a>`, `<a data-act="go-between">${esc(betweenName)}</a>`];
+    if (st.view === "wheel") {
+      crumbs.length = 1;
+      if (st.selected) {
+        const it = st.selected.type === "link" ? a.data.wheel?.links?.find((l) => l.id === st.selected.id) : a.data.wheel?.planes?.find((x) => x.id === st.selected.id);
+        crumbs.push(`<span class="cur">${esc(it ? resolve(it, ed).name : "")}</span>`);
+      } else crumbs[0] = `<span class="cur">${esc(wheelName)}</span>`;
+    } else if (st.view === "sphere") {
       const s = a.sphere(st.sphereId);
       crumbs.push(`<a data-act="frame" class="${st.selected ? "" : "cur"}">${esc(s?.name)}</a>`);
       if (st.selected?.type === "body") crumbs.push(`<span class="cur">${esc(a.body(st.sphereId, st.selected.id)?.name)}</span>`);
     } else if (st.selected) {
       const name = st.selected.type === "sphere" ? a.sphere(st.selected.id)?.name : st.selected.type === "flow" ? "Current" : st.selected.type === "region" ? a.region(st.selected.id)?.name : a.body(null, st.selected.id)?.name;
       crumbs.push(`<span class="cur">${esc(name)}</span>`);
-    } else crumbs[0] = `<span class="cur">${esc(betweenName)}</span>`;
+    } else crumbs[1] = `<span class="cur">${esc(betweenName)}</span>`;
     $("#crumbs").innerHTML = crumbs.map((c) => `<i>chevron_right</i>${c}`).join("");
     $("#brand").textContent = a.data.title || "The Great Wheel";
     document.title = `${a.data.title || "The Great Wheel"}`;
@@ -320,12 +373,16 @@ class App {
     for (const s of document.querySelectorAll("[data-edition]")) s.classList.toggle("on", s.dataset.edition === ed);
     for (const t of document.querySelectorAll("#tiles a")) {
       const v = t.dataset.v;
-      t.classList.toggle("on", v === "world" ? st.view === "sphere" && st.selected?.type === "body" : v === "sphere" ? st.view === "sphere" && st.selected?.type !== "body" : st.view === "between");
+      t.classList.toggle("on", v === "world" ? st.view === "sphere" && st.selected?.type === "body" : v === "sphere" ? st.view === "sphere" && st.selected?.type !== "body" : v === "wheel" ? st.view === "wheel" : st.view === "between");
     }
     $("#tiles a[data-v=between] span").textContent = ed === "5e" ? "Astral Sea" : "Phlogiston";
 
     const hero = $("#hero");
-    if (st.view === "sphere") {
+    if (st.view === "wheel") {
+      const pl = (a.data.wheel?.planes || []).filter((x) => !x.editions || x.editions.includes(ed));
+      hero.querySelector("h1").textContent = wheelName;
+      hero.querySelector("p").textContent = `The planes of existence · ${pl.filter((x) => x.group === "outer").length} Outer Planes · ${pl.filter((x) => x.group === "inner").length} Inner Planes`;
+    } else if (st.view === "sphere") {
       const s = a.spheres(ed, st.edit).find((x) => x.id === st.sphereId);
       const n = a.bodies(st.sphereId, ed, st.edit).filter((b) => b.kind === "planet").length;
       hero.querySelector("h1").textContent = s?.name || "";
@@ -345,6 +402,7 @@ class App {
     }
     document.body.classList.toggle("view-sphere", st.view === "sphere");
     document.body.classList.toggle("view-between", st.view === "between");
+    document.body.classList.toggle("view-wheel", st.view === "wheel");
     document.body.classList.toggle("editing", st.edit);
     if (st.edit) this.editor.renderBar();
     renderTime(this);
@@ -362,7 +420,9 @@ class App {
       if (!el) return;
       const [act, arg] = el.dataset.act.split(/:(.*)/s);
       if (act === "go-between") { location.hash = "#/"; }
+      else if (act === "go-wheel") { location.hash = "#/wheel"; }
       else if (act === "frame") { st.selected = null; this.writeHash(); this.frame(); this.renderPanel(); this.renderChrome(); }
+      else if (act === "select" && /^(plane|link):/.test(arg)) this.select({ type: arg.split(":")[0], id: arg.split(":")[1] });
       else if (act === "select") this.select(st.view === "sphere" ? { type: "body", id: arg, sphere: st.sphereId } : { type: "body", id: arg });
       else if (act === "select-sphere") this.select({ type: "sphere", id: arg });
       else if (act === "select-flow") this.select({ type: "flow", id: arg });
@@ -390,6 +450,7 @@ class App {
       if (!t) return;
       const v = t.dataset.v;
       if (v === "between") location.hash = "#/";
+      else if (v === "wheel") location.hash = "#/wheel";
       else if (v === "sphere") {
         const id = st.view === "sphere" ? st.sphereId : (st.selected?.type === "sphere" ? st.selected.id : (st.atlas.data.campaign?.home || "realmspace").split("/")[0]);
         if (st.view === "sphere" && st.sphereId === id) { st.selected = null; this.writeHash(); this.frame(); this.renderPanel(); this.renderChrome(); }
@@ -444,9 +505,26 @@ class App {
       down = null;
       this.click(e.clientX, e.clientY);
     });
+    // on the wheel, the plane or path under the pointer lights up, with the paths that touch it
+    let hoverAt = null;
+    cv.addEventListener("pointermove", (e) => {
+      if (st.view !== "wheel" || e.pointerType === "touch") return;
+      if (!hoverAt) requestAnimationFrame(() => {
+        const { x, y } = hoverAt;
+        hoverAt = null;
+        if (st.view !== "wheel" || !this.view?.pick) return;
+        const it = this.labels.hit(x, y);
+        const h = it?.key ? { type: it.key.startsWith("link:") ? "link" : "plane", id: it.key.split(":")[1] } : this.view.pick(x, y, this.camera);
+        this.view.hover = h;
+        cv.style.cursor = h ? "pointer" : "";
+      });
+      hoverAt = { x: e.clientX, y: e.clientY };
+    });
+    cv.addEventListener("pointerleave", () => { if (this.view?.kind === "wheel") { this.view.hover = null; cv.style.cursor = ""; } });
     cv.addEventListener("dblclick", (e) => {
       const it = this.labels.hit(e.clientX, e.clientY);
       if (st.view === "between" && it?.key && st.atlas.sphere(it.key)) this.enterSphere(it.key);
+      if (st.view === "wheel" && it?.key === "plane:prime") location.hash = "#/";
     });
     addEventListener("keydown", (e) => {
       if (e.target.closest("input, textarea, select")) return;
@@ -468,6 +546,12 @@ class App {
       return;
     }
     const it = this.labels.hit(x, y);
+    if (st.view === "wheel") {
+      // a label first, then the paths, the glass and the orbs under the pointer
+      const hit = it?.key ? { type: it.key.startsWith("link:") ? "link" : "plane", id: it.key.split(":")[1] } : this.view.pick(x, y, this.camera);
+      if (hit) this.select(hit);
+      return;
+    }
     if (st.view === "sphere") {
       if (it && !it.pin) this.select({ type: "body", id: it.key, sphere: st.sphereId });
       return;
@@ -508,7 +592,7 @@ class App {
     await this.rebuild();
     if (sel) this.select(sel, { fly: false });
     this.writeHash();
-    toast(e === "5e" ? "5e: wildspace systems in the Astral Sea" : "2e: crystal spheres in the phlogiston");
+    toast(this.state.view === "wheel" ? (e === "5e" ? "5e: the planes in the Fifth Edition" : "2e: the planes of Planescape") : e === "5e" ? "5e: wildspace systems in the Astral Sea" : "2e: crystal spheres in the phlogiston");
   }
 
   async setEdit(on) {
@@ -538,6 +622,9 @@ class App {
         for (const b of st.atlas.bodies(s.id, st.edition, st.edit)) out.push({ name: b.name, sub: `${KINDS[b.kind]?.label || b.kind} · ${s.name}`, go: () => this.goBody(s.id, b.id) });
       }
       for (const b of st.atlas.betweenBodies(st.edition, st.edit)) out.push({ name: b.name, sub: "Between the spheres", go: async () => { location.hash = `#/@body/${encodeURIComponent(b.id)}`; } });
+      const W = st.atlas.data.wheel || {}, inEd = (x) => !x.editions || x.editions.includes(st.edition);
+      for (const p of (W.planes || []).filter(inEd).map((x) => resolve(x, st.edition))) out.push({ name: p.name, sub: "Plane", go: async () => { location.hash = `#/wheel/${encodeURIComponent(p.id)}`; } });
+      for (const l of (W.links || []).filter(inEd).map((x) => resolve(x, st.edition))) out.push({ name: l.name, sub: "Path between planes", go: async () => { location.hash = `#/wheel/link:${encodeURIComponent(l.id)}`; } });
       return out;
     };
     const show = () => {
@@ -570,6 +657,7 @@ class App {
     document.body.classList.toggle("shadows-off", !L.shadows);
     if (this.state.view === "sphere") this.view.setShadows?.(L.shadows);
     document.body.classList.toggle("no-labels", !L.labels);
+    if (this.state.view === "wheel") this.view.setStars?.(L.stars);
     if (this.state.view === "sphere") {
       for (const n of this.view.order) if (n.orbit) n.orbit.holder.visible = L.orbits;
       this.view.scene.traverse((o) => {
@@ -593,6 +681,7 @@ class App {
     this.camera.aspect = innerWidth / innerHeight;
     this.layoutCamera();
     this.view?.scene.traverse((o) => { if (o.material?.resolution) o.material.resolution.set(innerWidth, innerHeight); });
+    this.wheelView?.resize(innerWidth, innerHeight);
   }
 
   // ---------- frame loop ----------

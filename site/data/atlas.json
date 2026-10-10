@@ -25270,5 +25270,1101 @@
       ],
       "wiki": "Phlogiston#Stable Configurations in the Flow"
     }
-  ]
+  ],
+  "wheel": {
+    "name": "The Great Wheel",
+    "planes": [
+      {
+        "id": "mount-celestia",
+        "name": "Mount Celestia",
+        "group": "outer",
+        "order": 0,
+        "alignment": "lawful good",
+        "color": "#9fc0ff",
+        "emblem": "mount-celestia",
+        "layers": [
+          {
+            "name": "Lunia"
+          },
+          {
+            "name": "Mercuria"
+          },
+          {
+            "name": "Venya"
+          },
+          {
+            "name": "Solania"
+          },
+          {
+            "name": "Mertion"
+          },
+          {
+            "name": "Jovar"
+          },
+          {
+            "name": "Chronias"
+          }
+        ],
+        "wiki": "Mount Celestia",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "The Seven Heavens"
+        ],
+        "gate_town": "Excelsior"
+      },
+      {
+        "id": "bytopia",
+        "name": "Bytopia",
+        "group": "outer",
+        "order": 1,
+        "alignment": "lawful good and neutral good",
+        "color": "#5fcbff",
+        "emblem": "bytopia",
+        "layers": [
+          {
+            "name": "Dothion"
+          },
+          {
+            "name": "Shurrock"
+          }
+        ],
+        "wiki": "Bytopia",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "The Twin Paradises"
+        ],
+        "gate_town": "Tradegate"
+      },
+      {
+        "id": "elysium",
+        "name": "Elysium",
+        "group": "outer",
+        "order": 2,
+        "alignment": "neutral good",
+        "color": "#36e0c4",
+        "emblem": "elysium",
+        "layers": [
+          {
+            "name": "Amoria"
+          },
+          {
+            "name": "Eronia"
+          },
+          {
+            "name": "Belierin"
+          },
+          {
+            "name": "Thalasia"
+          }
+        ],
+        "wiki": "Elysium",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "gate_town": "Ecstasy"
+      },
+      {
+        "id": "beastlands",
+        "name": "The Beastlands",
+        "group": "outer",
+        "order": 3,
+        "alignment": "neutral good and chaotic good",
+        "color": "#62e06e",
+        "emblem": "beastlands",
+        "layers": [
+          {
+            "name": "Krigala"
+          },
+          {
+            "name": "Brux"
+          },
+          {
+            "name": "Karasuthra"
+          }
+        ],
+        "wiki": "Beastlands",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "The Happy Hunting Grounds"
+        ],
+        "gate_town": "Faunel"
+      },
+      {
+        "id": "arborea",
+        "name": "Arborea",
+        "group": "outer",
+        "order": 4,
+        "alignment": "chaotic good",
+        "color": "#24c46a",
+        "emblem": "arborea",
+        "layers": [
+          {
+            "name": "Olympus"
+          },
+          {
+            "name": "Ossa"
+          },
+          {
+            "name": "Pelion"
+          }
+        ],
+        "wiki": "Arborea",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "Olympus",
+          "Arvandor"
+        ],
+        "gate_town": "Sylvania"
+      },
+      {
+        "id": "ysgard",
+        "name": "Ysgard",
+        "group": "outer",
+        "order": 5,
+        "alignment": "chaotic good and chaotic neutral",
+        "color": "#ff9a3c",
+        "emblem": "ysgard",
+        "layers": [
+          {
+            "name": "Ysgard"
+          },
+          {
+            "name": "Muspelheim"
+          },
+          {
+            "name": "Nidavellir"
+          }
+        ],
+        "wiki": "Ysgard",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "Gladsheim"
+        ],
+        "gate_town": "Glorium"
+      },
+      {
+        "id": "limbo",
+        "name": "Limbo",
+        "group": "outer",
+        "order": 6,
+        "alignment": "chaotic neutral",
+        "color": "#c070ff",
+        "emblem": "limbo",
+        "layers": [],
+        "wiki": "Limbo",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "layers_count": 1,
+        "gate_town": "Xaos"
+      },
+      {
+        "id": "pandemonium",
+        "name": "Pandemonium",
+        "group": "outer",
+        "order": 7,
+        "alignment": "chaotic neutral and chaotic evil",
+        "color": "#6a5cff",
+        "emblem": "pandemonium",
+        "layers": [
+          {
+            "name": "Pandesmos"
+          },
+          {
+            "name": "Cocytus"
+          },
+          {
+            "name": "Phlegethon"
+          },
+          {
+            "name": "Agathion"
+          }
+        ],
+        "wiki": "Pandemonium",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "gate_town": "Bedlam"
+      },
+      {
+        "id": "abyss",
+        "name": "The Abyss",
+        "group": "outer",
+        "order": 8,
+        "alignment": "chaotic evil",
+        "color": "#ff2e6e",
+        "emblem": "abyss",
+        "layers": [],
+        "wiki": "Abyss",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "layers_count": 99,
+        "layers_note": "An endless number of layers",
+        "gate_town": "Plague-Mort"
+      },
+      {
+        "id": "carceri",
+        "name": "Carceri",
+        "group": "outer",
+        "order": 9,
+        "alignment": "chaotic evil and neutral evil",
+        "color": "#c42a62",
+        "emblem": "carceri",
+        "layers": [
+          {
+            "name": "Othrys"
+          },
+          {
+            "name": "Cathrys"
+          },
+          {
+            "name": "Minethys"
+          },
+          {
+            "name": "Colothys"
+          },
+          {
+            "name": "Porphatys"
+          },
+          {
+            "name": "Agathys"
+          }
+        ],
+        "wiki": "Carceri",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "Tarterus"
+        ],
+        "gate_town": "Curst"
+      },
+      {
+        "id": "gray-waste",
+        "name": "The Gray Waste",
+        "group": "outer",
+        "order": 10,
+        "alignment": "neutral evil",
+        "color": "#8f8bb0",
+        "emblem": "gray-waste",
+        "layers": [
+          {
+            "name": "Oinos"
+          },
+          {
+            "name": "Niflheim"
+          },
+          {
+            "name": "Pluton"
+          }
+        ],
+        "wiki": "Hades",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "Hades"
+        ],
+        "by_edition": {
+          "5e": {
+            "name": "Hades"
+          }
+        },
+        "gate_town": "Hopeless"
+      },
+      {
+        "id": "gehenna",
+        "name": "Gehenna",
+        "group": "outer",
+        "order": 11,
+        "alignment": "neutral evil and lawful evil",
+        "color": "#ff5a2a",
+        "emblem": "gehenna",
+        "layers": [
+          {
+            "name": "Khalas"
+          },
+          {
+            "name": "Chamada"
+          },
+          {
+            "name": "Mungoth"
+          },
+          {
+            "name": "Krangath"
+          }
+        ],
+        "wiki": "Gehenna",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "gate_town": "Torch"
+      },
+      {
+        "id": "nine-hells",
+        "name": "The Nine Hells",
+        "group": "outer",
+        "order": 12,
+        "alignment": "lawful evil",
+        "color": "#ff2a2a",
+        "emblem": "nine-hells",
+        "layers": [
+          {
+            "name": "Avernus"
+          },
+          {
+            "name": "Dis"
+          },
+          {
+            "name": "Minauros"
+          },
+          {
+            "name": "Phlegethos"
+          },
+          {
+            "name": "Stygia"
+          },
+          {
+            "name": "Malbolge"
+          },
+          {
+            "name": "Maladomini"
+          },
+          {
+            "name": "Cania"
+          },
+          {
+            "name": "Nessus"
+          }
+        ],
+        "wiki": "Nine Hells",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "aka": [
+          "Baator"
+        ],
+        "by_edition": {
+          "2e": {
+            "name": "Baator"
+          }
+        },
+        "gate_town": "Ribcage"
+      },
+      {
+        "id": "acheron",
+        "name": "Acheron",
+        "group": "outer",
+        "order": 13,
+        "alignment": "lawful evil and lawful neutral",
+        "color": "#6f93c0",
+        "emblem": "acheron",
+        "layers": [
+          {
+            "name": "Avalas"
+          },
+          {
+            "name": "Thuldanin"
+          },
+          {
+            "name": "Tintibulus"
+          },
+          {
+            "name": "Ocanthus"
+          }
+        ],
+        "wiki": "Acheron",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "gate_town": "Rigus"
+      },
+      {
+        "id": "mechanus",
+        "name": "Mechanus",
+        "group": "outer",
+        "order": 14,
+        "alignment": "lawful neutral",
+        "color": "#2fb0ff",
+        "emblem": "mechanus",
+        "layers": [],
+        "wiki": "Mechanus",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "layers_count": 1,
+        "aka": [
+          "Nirvana"
+        ],
+        "gate_town": "Automata"
+      },
+      {
+        "id": "arcadia",
+        "name": "Arcadia",
+        "group": "outer",
+        "order": 15,
+        "alignment": "lawful neutral and lawful good",
+        "color": "#b3a6ff",
+        "emblem": "arcadia",
+        "layers": [
+          {
+            "name": "Abellio"
+          },
+          {
+            "name": "Buxenus"
+          },
+          {
+            "name": "Menausus"
+          }
+        ],
+        "wiki": "Arcadia",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "gate_town": "Fortitude"
+      },
+      {
+        "id": "outlands",
+        "name": "The Outlands",
+        "group": "hub",
+        "alignment": "neutral",
+        "color": "#d6cfbd",
+        "emblem": "outlands",
+        "aka": [
+          "The Concordant Domain of the Outlands"
+        ],
+        "wiki": "Outlands",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "layers_note": "Nine rings around the Spire"
+      },
+      {
+        "id": "sigil",
+        "name": "Sigil",
+        "group": "city",
+        "color": "#c8c3e6",
+        "emblem": "sigil",
+        "aka": [
+          "The City of Doors",
+          "The Cage"
+        ],
+        "wiki": "Sigil",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "prime",
+        "name": "The Prime Material Plane",
+        "group": "prime",
+        "color": "#e8b8ff",
+        "emblem": "prime",
+        "wiki": "Prime Material Plane",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "astral",
+        "name": "The Astral Plane",
+        "group": "transitive",
+        "color": "#cdd6ea",
+        "emblem": "astral",
+        "wiki": "Astral Plane",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "by_edition": {
+          "5e": {
+            "name": "The Astral Sea"
+          }
+        }
+      },
+      {
+        "id": "ethereal",
+        "name": "The Ethereal Plane",
+        "group": "transitive",
+        "color": "#9fb6d6",
+        "emblem": "ethereal",
+        "wiki": "Ethereal Plane",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "shadow",
+        "name": "The Plane of Shadow",
+        "group": "transitive",
+        "color": "#5a5f78",
+        "emblem": "shadow",
+        "wiki": "Plane of Shadow",
+        "editions": [
+          "2e"
+        ]
+      },
+      {
+        "id": "air",
+        "name": "The Elemental Plane of Air",
+        "group": "inner",
+        "slot": "air",
+        "color": "#dcecff",
+        "emblem": "air",
+        "wiki": "Elemental Plane of Air",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "fire",
+        "name": "The Elemental Plane of Fire",
+        "group": "inner",
+        "slot": "fire",
+        "color": "#ff6a2a",
+        "emblem": "fire",
+        "wiki": "Elemental Plane of Fire",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "earth",
+        "name": "The Elemental Plane of Earth",
+        "group": "inner",
+        "slot": "earth",
+        "color": "#b08a5a",
+        "emblem": "earth",
+        "wiki": "Elemental Plane of Earth",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "water",
+        "name": "The Elemental Plane of Water",
+        "group": "inner",
+        "slot": "water",
+        "color": "#3f9cff",
+        "emblem": "water",
+        "wiki": "Elemental Plane of Water",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "positive",
+        "name": "The Positive Energy Plane",
+        "group": "inner",
+        "slot": "positive",
+        "color": "#fff3dc",
+        "emblem": "positive",
+        "wiki": "Positive Energy Plane",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "negative",
+        "name": "The Negative Energy Plane",
+        "group": "inner",
+        "slot": "negative",
+        "color": "#7a5ab8",
+        "emblem": "negative",
+        "wiki": "Negative Energy Plane",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "smoke",
+        "name": "The Para-elemental Plane of Smoke",
+        "group": "inner",
+        "slot": "smoke",
+        "color": "#a6a6b4",
+        "wiki": "Para-elemental Plane of Smoke",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "magma",
+        "name": "The Para-elemental Plane of Magma",
+        "group": "inner",
+        "slot": "magma",
+        "color": "#ff4a2a",
+        "wiki": "Para-elemental Plane of Magma",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "ooze",
+        "name": "The Para-elemental Plane of Ooze",
+        "group": "inner",
+        "slot": "ooze",
+        "color": "#7a9a52",
+        "wiki": "Para-elemental Plane of Ooze",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "ice",
+        "name": "The Para-elemental Plane of Ice",
+        "group": "inner",
+        "slot": "ice",
+        "color": "#bfe8ff",
+        "wiki": "Para-elemental Plane of Ice",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "lightning",
+        "name": "The Quasi-elemental Plane of Lightning",
+        "group": "inner",
+        "slot": "lightning",
+        "color": "#d8e0ff",
+        "wiki": "Quasi-elemental Plane of Lightning",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "radiance",
+        "name": "The Quasi-elemental Plane of Radiance",
+        "group": "inner",
+        "slot": "radiance",
+        "color": "#fff0d0",
+        "wiki": "Quasi-elemental Plane of Radiance",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "minerals",
+        "name": "The Quasi-elemental Plane of Minerals",
+        "group": "inner",
+        "slot": "minerals",
+        "color": "#c8b8ff",
+        "wiki": "Quasi-elemental Plane of Minerals",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "steam",
+        "name": "The Quasi-elemental Plane of Steam",
+        "group": "inner",
+        "slot": "steam",
+        "color": "#cfe8ee",
+        "wiki": "Quasi-elemental Plane of Steam",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "vacuum",
+        "name": "The Quasi-elemental Plane of Vacuum",
+        "group": "inner",
+        "slot": "vacuum",
+        "color": "#4a4a66",
+        "wiki": "Quasi-elemental Plane of Vacuum",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "ash",
+        "name": "The Quasi-elemental Plane of Ash",
+        "group": "inner",
+        "slot": "ash",
+        "color": "#7a7070",
+        "wiki": "Quasi-elemental Plane of Ash",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "dust",
+        "name": "The Quasi-elemental Plane of Dust",
+        "group": "inner",
+        "slot": "dust",
+        "color": "#9a8a78",
+        "wiki": "Quasi-elemental Plane of Dust",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      },
+      {
+        "id": "salt",
+        "name": "The Quasi-elemental Plane of Salt",
+        "group": "inner",
+        "slot": "salt",
+        "color": "#e8e8f0",
+        "wiki": "Quasi-elemental Plane of Salt",
+        "editions": [
+          "2e",
+          "5e"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "id": "great-road",
+        "name": "The Great Road",
+        "kind": "road",
+        "color": "#f2e2b8",
+        "editions": [
+          "2e"
+        ],
+        "wiki": "Great Road",
+        "summary": "The Great Road is a string of permanent portals. Each portal is an arch that links an Outer Plane to the plane next to it on the wheel. A traveler can see the destination through the arch and needs no key to pass. Towns, forts and camps stand around the portals. On the Lower Planes, these places are staging points for the Blood War.",
+        "facts": [
+          [
+            "Portals",
+            "One between each pair of neighboring Outer Planes"
+          ],
+          [
+            "Gate key",
+            "Not needed"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "22-23"
+          }
+        ]
+      },
+      {
+        "id": "gate-towns",
+        "name": "The gate-towns",
+        "kind": "gates",
+        "color": "#f2e2b8",
+        "editions": [
+          "2e"
+        ],
+        "wiki": "Gate-town",
+        "summary": "Each Outer Plane has a permanent portal to the Outlands. A town stands around the Outlands end of each portal. Each gate-town takes on the character of the plane that it watches. Ribcage, at the portal to Baator, is full of disease and horror. Glorium, near Ysgard, is full of noble virtue.",
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "23"
+          },
+          {
+            "title": "Planescape Campaign Setting: the key to the poster map",
+            "pages": "The Outlands"
+          }
+        ]
+      },
+      {
+        "id": "river-oceanus",
+        "name": "The River Oceanus",
+        "kind": "river",
+        "color": "#5fb4ff",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "wiki": "Oceanus",
+        "through": [
+          "elysium",
+          "beastlands",
+          "arborea"
+        ],
+        "summary": "A broad, calm river with sweet water. It rises in Thalasia, on Elysium, and flows through all of Elysium's layers. Then it crosses the top layer of the Beastlands, enters Arborea and disappears in Ossa, the second layer of Arborea. Trade ships sail on it, and towns line its banks.",
+        "facts": [
+          [
+            "Rises",
+            "Thalasia, Elysium"
+          ],
+          [
+            "Ends",
+            "Ossa, Arborea"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "43-44"
+          }
+        ]
+      },
+      {
+        "id": "river-styx",
+        "name": "The River Styx",
+        "kind": "river",
+        "style": "dark",
+        "color": "#38c28a",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "wiki": "Styx",
+        "through": [
+          "pandemonium",
+          "abyss",
+          "carceri",
+          "gray-waste",
+          "gehenna",
+          "nine-hells",
+          "acheron"
+        ],
+        "summary": "A black, foul river that flows through the top layers of the seven Lower Planes. Side channels reach other layers, for example the fifth layer of Baator. Its course changes from one trip to the next. One taste or touch of its water can take away all memory.",
+        "facts": [
+          [
+            "Water",
+            "Causes total amnesia"
+          ],
+          [
+            "Boatmen",
+            "Marraenoloths, who carry passengers for a price"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "43-45"
+          }
+        ]
+      },
+      {
+        "id": "yggdrasil",
+        "name": "Yggdrasil, the World Ash",
+        "kind": "tree",
+        "color": "#b6e07a",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "wiki": "Yggdrasil",
+        "home": "ysgard",
+        "reaches": [
+          {
+            "id": "gray-waste",
+            "by": "root",
+            "layer": "Niflheim"
+          },
+          {
+            "id": "pandemonium",
+            "by": "root"
+          },
+          {
+            "id": "elysium",
+            "by": "branch"
+          },
+          {
+            "id": "beastlands",
+            "by": "branch"
+          },
+          {
+            "id": "limbo",
+            "by": "branch"
+          },
+          {
+            "id": "prime",
+            "by": "branch"
+          }
+        ],
+        "summary": "The World Ash rises on the first layer of Ysgard. Its roots reach Niflheim on the Gray Waste, and Pandemonium. Its branches reach Elysium, the Beastlands and Limbo, and cross the Astral Plane to the Prime Material. At each crossing, the tree passes through a portal of shimmering color.",
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "43, 45"
+          }
+        ]
+      },
+      {
+        "id": "mount-olympus",
+        "name": "Mount Olympus",
+        "kind": "mountain",
+        "color": "#f0c46a",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "wiki": "Mount Olympus",
+        "home": "arborea",
+        "reaches": [
+          {
+            "id": "gehenna",
+            "by": "cavern"
+          },
+          {
+            "id": "gray-waste",
+            "by": "cavern"
+          },
+          {
+            "id": "carceri",
+            "by": "cavern"
+          },
+          {
+            "id": "prime",
+            "by": "slope"
+          }
+        ],
+        "summary": "Mount Olympus rises from Arborea. Caverns in its stone reach Gehenna, the Gray Waste and Carceri. On its slopes, a traveler can climb through the Astral Plane to Prime Material worlds that remember the Olympian gods. It has no links to the other Upper Planes.",
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "43, 45"
+          }
+        ]
+      },
+      {
+        "id": "infinite-staircase",
+        "name": "The Infinite Staircase",
+        "kind": "stair",
+        "color": "#dfe6f5",
+        "editions": [
+          "2e",
+          "5e"
+        ],
+        "wiki": "Infinite Staircase",
+        "home": "ysgard",
+        "site": "Gates of the Moon",
+        "summary": "A staircase between the planes. The poster key of the Planescape Campaign Setting puts it in the Gates of the Moon, the realm of Selûne on the first layer of Ysgard.",
+        "facts": [
+          [
+            "Site",
+            "Gates of the Moon, Ysgard"
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: the key to the poster map",
+            "pages": "Ysgard"
+          }
+        ]
+      },
+      {
+        "id": "elemental-vortices",
+        "name": "The elemental vortices",
+        "kind": "vortices",
+        "color": "#ffd6a0",
+        "editions": [
+          "2e"
+        ],
+        "wiki": "Elemental vortex",
+        "home": "prime",
+        "reaches": [
+          {
+            "id": "fire",
+            "by": "vortex"
+          },
+          {
+            "id": "water",
+            "by": "vortex"
+          },
+          {
+            "id": "air",
+            "by": "vortex"
+          },
+          {
+            "id": "earth",
+            "by": "vortex"
+          }
+        ],
+        "summary": "Vortices are direct openings between the Prime Material Plane and one of the four Elemental Planes. They open at the heart of a great mass of an element, for example a volcanic caldera, an ocean trench, a high mountain peak or a deep mine. They seldom move.",
+        "facts": [
+          [
+            "Para- and Quasielemental",
+            "None mapped. Any that exist are temporary."
+          ]
+        ],
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "20"
+          }
+        ]
+      },
+      {
+        "id": "color-pools",
+        "name": "The color pools",
+        "kind": "pools",
+        "color": "#d8e4ff",
+        "editions": [
+          "2e"
+        ],
+        "wiki": "Color pool",
+        "summary": "Color pools hang in the Astral Plane and shimmer like the surface of a pond. Each pool is a gateway to the top layer of one Outer Plane. A pool has one side only. A traveler can look through it like a window to see where it goes.",
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "25"
+          }
+        ]
+      },
+      {
+        "id": "sigil-portals",
+        "name": "The portals of Sigil",
+        "kind": "portals",
+        "color": "#ffe2b0",
+        "editions": [
+          "2e"
+        ],
+        "wiki": "Portal",
+        "home": "sigil",
+        "summary": "Portals are doorways to and from Sigil. One end of each portal is always in Sigil, and the other end can be on any layer of any plane. Each portal needs its own gate key, for example a word, an act or an object. Out on the planes, a portal always ends in an arch of some kind.",
+        "sources": [
+          {
+            "title": "Planescape Campaign Setting: A DM Guide to the Planes",
+            "pages": "22"
+          }
+        ]
+      }
+    ],
+    "draft": true
+  }
 }
