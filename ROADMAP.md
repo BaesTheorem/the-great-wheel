@@ -20,6 +20,11 @@ The plane list below follows the [Great Wheel cosmology](https://forgottenrealms
 
 ## 1. Fill in the Prime Material Plane
 
+- [x] Published maps on the worlds that have one: Toril, Krynn (coastlines), Mystara, Oerth, Matera and Patera (coastlines)
+- [x] The structures that the books describe, built after their descriptions: the Habitat, Armon, the constellations of Clusterspace, Skyport, Oloth Kulggen, Darkwatch, Gamaro Base, Port Kazdeyn, the pirate base, Vocath's base and the Imperial Citadel
+- [ ] A map of Athas: the Athasian Cartographers' Guild overview (CC BY-NC-SA 4.0) is in an oval projection, probably Mollweide, so it needs a new projection first
+- [ ] The Hollow World inside Mystara, from the Hollow World Set map
+
 - [ ] Spheres that the books name but do not describe: Darnannonspace, Golotspace, Kofuspace, Vergonspace, Zalanispace, the Glowrings sphere, Primespace, Chronos, Homespace, Theiaspace and Tuhgri. They have facts and sources but no bodies. Chart them when a source with detail turns up
 - [ ] Real positions: most orbits outside Realmspace, Greyspace and Krynnspace are estimates, marked in the data. Replace them where a source gives numbers (for example the poster map of *The Astromundi Cluster*, which the scan does not include)
 - [ ] Spheres from sources not read yet: other *Dragon*, *Dungeon* and *Polyhedron* articles, and the 3e to 5e era books
@@ -84,6 +89,6 @@ The sixteen planes of the wheel, arranged by alignment around the Outlands. The 
 ## 4. Tools and quality
 
 - [ ] Edit the groups of spheres in the editor (now only in the JSON file)
-- [ ] Run the headless browser test (`tools/smoke.py`) on GitHub Actions
+- [x] Run the headless browser test (`tools/smoke.py`) on GitHub Actions
 - [ ] A list view of the map for keyboards and screen readers
 - [ ] Lower texture sizes and fewer labels on slow phones

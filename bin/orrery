@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import webbrowser
@@ -364,7 +365,9 @@ class Handler(SimpleHTTPRequestHandler):
 
 def sync_from_github() -> None:
     """Fast-forward both repos to GitHub, so edits made on GitHub show in the editor. A repo with
-    changes that are not published yet stays as it is."""
+    changes that are not published yet stays as it is. ORRERY_NO_PULL=1 skips this (the CI test)."""
+    if os.environ.get("ORRERY_NO_PULL"):
+        return
     for repo in (ROOT, PRIVATE_DIR):
         if not (repo / ".git").exists() or not git(repo, "remote").stdout.strip():
             continue

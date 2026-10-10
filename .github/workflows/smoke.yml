@@ -1,0 +1,35 @@
+name: Open every view in a browser
+
+on:
+  push:
+    paths: ["site/**", "tools/smoke.py", "bin/orrery", ".github/workflows/smoke.yml"]
+  pull_request:
+    paths: ["site/**", "tools/smoke.py", "bin/orrery", ".github/workflows/smoke.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright and Chromium
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Open each view and fail on a page error
+        env:
+          ORRERY_NO_PULL: "1"
+        run: python3 tools/smoke.py --shots shots
+      - name: Keep the screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-shots
+          path: shots
+          retention-days: 7

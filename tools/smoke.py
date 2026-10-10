@@ -70,7 +70,11 @@ def main() -> int:
     a = ap.parse_args()
     port = free_port()
     srv = subprocess.Popen([sys.executable, str(ROOT / "bin" / "orrery"), "serve", "--port", str(port)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    time.sleep(1.0)
+    for _ in range(60):   # wait until the server takes connections (it can pull from GitHub first)
+        with socket.socket() as s:
+            if s.connect_ex(("127.0.0.1", port)) == 0:
+                break
+        time.sleep(0.5)
     failures = 0
     try:
         with sync_playwright() as p:
