@@ -293,14 +293,15 @@ function wheelInfo(app, sel) {
   if (!p) return emptyInfo(app);
   const facts = [...(p.facts || [])];
   if (p.alignment && !facts.some((f) => /alignment/i.test(f[0]))) facts.unshift(["Alignment", p.alignment]);
-  const layers = p.layers?.length ? p.layers.map((l) => l.name).join(" · ") : p.layers_note || "";
+  const described = (p.layers || []).some((l) => l.summary);
+  const layers = p.layers?.length && !described ? p.layers.map((l) => l.name).join(" · ") : p.layers_note || "";
   if (layers && !facts.some((f) => /layers/i.test(f[0]))) facts.push([p.layers?.length > 1 ? `Layers (${p.layers.length})` : "Layers", layers]);
   if (p.gate_town) facts.push(["Gate-town", `${p.gate_town}, on the Outlands`]);
   if (p.pool?.name) facts.push(["Color pool", `${p.pool.name}, in the Astral Plane`]);
   const mine = links.filter((l) => linkPlanes(l, outer.map((x) => x.id)).has(p.id));
   const emblem = p.emblem ? `<div class="emblem" style="--c:${esc(p.color || "#9db4ff")}"><img src="assets/emblems/${esc(p.emblem)}.svg" alt=""></div>` : "";
   return emblem + block({
-    kind: GROUP_LABEL[p.group] || "Plane", dot: p.color || "#9db4ff", title: p.name, aka: p.aka, summary: p.summary, facts,
+    kind: GROUP_LABEL[p.group] || "Plane", dot: p.color || "#9db4ff", title: p.name, aka: p.aka, summary: p.summary, facts, layers: described ? p.layers : null,
     sources: p.sources, wiki: wikiURL(p.wiki, p.name), wikiExact: !!p.wiki,
     related: mine.map((l) => ({ id: `link:${l.id}`, name: l.name, icon: (LINK_KIND[l.kind] || [0, "route"])[1] })),
     actions: [p.id === "prime" ? ["go-between", "bubble_chart", edition === "5e" ? "Open the Astral Sea" : "Open the phlogiston"] : null],
@@ -315,6 +316,7 @@ function block(o) {
     ${o.wiki ? `<a class="wiki" href="${esc(o.wiki)}" target="_blank" rel="noopener"><i>menu_book</i><span>${!o.wikiExact ? "Search the Forgotten Realms Wiki" : o.wiki.includes("spelljammer.fandom.com") ? "Spelljammer Wiki" : "Forgotten Realms Wiki"}</span><i class="ext">open_in_new</i></a>` : ""}</div>
   ${o.summary ? `<div class="blk"><h3>Description</h3><p>${esc(o.summary)}</p></div>` : ""}
   ${facts.length ? `<div class="blk"><h3>Facts</h3><dl class="facts">${facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></div>` : ""}
+  ${o.layers?.length ? `<div class="blk"><h3>Layers</h3><ol class="layers">${o.layers.map((l) => `<li><b>${esc(l.name)}</b>${l.summary ? `<span>${esc(l.summary)}</span>` : ""}</li>`).join("")}</ol></div>` : ""}
   ${o.dm || o.dmLinks?.length ? `<div class="blk dm"><h3><i>visibility_off</i>DM notes</h3>${o.dm ? `<p>${esc(o.dm)}</p>` : ""}${o.dmLinks?.length ? `<div class="chips" style="margin-top:10px">${o.dmLinks.map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener"><i>lock</i><span>${esc(l.label)}</span></a>`).join("")}</div>` : ""}</div>` : ""}
   ${o.related?.length ? `<div class="blk"><h3>${o.kind?.startsWith("Group") ? "Spheres" : "Related"}</h3><div class="chips">${o.related.map((r) => `<a data-act="${r.id.startsWith("sphere:") ? "select-sphere:" + esc(r.id.slice(7)) : r.id.startsWith("region:") ? "select-region:" + esc(r.id.slice(7)) : "select:" + esc(r.id)}"><i>${r.icon}</i><span>${esc(r.name)}</span></a>`).join("")}</div></div>` : ""}
   ${o.sources?.length ? `<div class="blk"><h3>Sources</h3><ul class="src">${o.sources.map((s) => `<li>${sourceText(s)}</li>`).join("")}</ul></div>` : ""}

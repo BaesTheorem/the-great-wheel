@@ -275,6 +275,10 @@ body.embed #editbtn { display: none !important; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 /* ---------- the Great Wheel ---------- */
+.panel ol.layers { margin: 0; padding: 0 0 0 20px; display: grid; gap: 8px; }
+.panel ol.layers li { color: var(--t2); font-size: 13px; line-height: 1.45; }
+.panel ol.layers li b { display: block; color: var(--t1); font-weight: 600; }
+.panel ol.layers li::marker { color: var(--t3); font-size: 12px; }
 .panel .emblem { display: flex; justify-content: center; padding: 22px 0 0; }
 .panel .emblem img { width: 112px; height: 112px; filter: drop-shadow(0 0 10px var(--c)) drop-shadow(0 0 2px var(--c)); opacity: .95; }
 .tiles a[data-v="wheel"] i { transform: rotate(-90deg); }

@@ -1044,6 +1044,8 @@ export class WheelView {
   }
 
   setupComposer() {
+    // a slow phone draws the wheel without the glow pass
+    if (innerWidth < 760 && ((navigator.deviceMemory ?? 8) <= 4 || (navigator.hardwareConcurrency ?? 8) <= 4)) { this.composer = null; return; }
     const r = this.app.renderer, size = r.getSize(new THREE.Vector2());
     this.composer = new EffectComposer(r);
     this.composer.addPass(new RenderPass(this.scene, this.app.camera));
