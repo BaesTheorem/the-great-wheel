@@ -27,6 +27,10 @@
 
 `tools/maps/mask.py` makes a land mask from a map image.
 
+## Built structures
+
+The bases, towers, towns and citadels in `site/js/structures.js` (the Habitat, Armon, the constellations of Clusterspace, Skyport, Oloth Kulggen, Darkwatch, Gamaro Base, Port Kazdeyn, the pirate base, Vocath's base and the Imperial Citadel) are made in code from simple solids, after the descriptions in their books. The asteroids under some of them are the Poly Haven rocks above.
+
 ## Painted worlds
 
 Worlds with no texture file are painted on the GPU from 3D simplex noise (`site/js/planets.js`). The noise is webgl-noise by Ian McEwan and Stefan Gustavson (Ashima Arts, https://github.com/ashima/webgl-noise), MIT license.

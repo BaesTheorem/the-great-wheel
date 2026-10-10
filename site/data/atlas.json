@@ -2792,7 +2792,8 @@
               1.4,
               0.7,
               0.7
-            ]
+            ],
+            "build": "habitat"
           },
           "summary": "A dark blue-grey ellipsoid about 1 mile long and half a mile wide. Yellow light streams from its circular windows, and strange creatures look out of them. Nobody knows who built it.",
           "facts": [
@@ -6840,7 +6841,8 @@
             "approx": true
           },
           "look": {
-            "color": "#e8d9a0"
+            "color": "#e8d9a0",
+            "build": "mushroom-city"
           },
           "summary": "The capital of Faeriespace, at the point where the trunk of the tree splits in three. It is the only community that is not on a planet. About 30,000 creatures of many races live there in peace, and Aelivere lives in a palace of giant mushrooms.",
           "facts": [
@@ -11634,7 +11636,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Pyrax. Chief god of the Antilans. The Antilans also use his name for Firefall.",
           "facts": [
@@ -11689,7 +11692,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Munigur. A god of the Calidians who wants peace kept.",
           "facts": [
@@ -11744,7 +11748,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Gelanicus. An Antilan goddess of death, honored by Antilan women.",
           "facts": [
@@ -11799,7 +11804,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Seltaine. A god of evil that the Varan once worshiped. Worshipers are leaving him.",
           "facts": [
@@ -11854,7 +11860,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Hordent. The god of the Thoric.",
           "facts": [
@@ -11909,7 +11916,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Tradifos. A Calidian god of wildspace who protects travelers.",
           "facts": [
@@ -11964,7 +11972,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Yul. A Thoric god of death and wealth.",
           "facts": [
@@ -12019,7 +12028,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Fiira. A new sun god that Antilan slaves honor.",
           "facts": [
@@ -12074,7 +12084,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Chodak. The dwarven god of battle and mining.",
           "facts": [
@@ -12129,7 +12140,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Regis. The male half of the elven god. He is the god of battle.",
           "facts": [
@@ -12184,7 +12196,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Wajek. The female half of the elven god. She is the goddess of hunting.",
           "facts": [
@@ -12239,7 +12252,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Sstasa. The god of the lizard men, who call him the god of everything.",
           "facts": [
@@ -12294,7 +12308,8 @@
             "approx": true
           },
           "look": {
-            "color": "#bcd4ff"
+            "color": "#bcd4ff",
+            "build": "flame-tower"
           },
           "summary": "One of 13 constellations, a tower topped by pillars of magical flame. It honors Lugribossk. The dread god of the illithids. His constellation dates from soon after the Second Cataclysm.",
           "facts": [
@@ -13032,7 +13047,8 @@
           },
           "diameter_mi": 0.28,
           "look": {
-            "color": "#9a9a96"
+            "color": "#9a9a96",
+            "build": "disc-town"
           },
           "summary": "A gray stone disk, 500 yards across, that orbits Archin at a height of hundreds of miles. It holds a small walled town and a 300-foot tower. The Ice Mage built it as his stronghold.",
           "facts": [
@@ -13156,7 +13172,8 @@
             "approx": true
           },
           "look": {
-            "color": "#8c8a86"
+            "color": "#8c8a86",
+            "build": "rock-castle"
           },
           "summary": "A ruined castle on an asteroid in Guinmir's Band. The drow mage Tanthalyn repaired it with walls of stone and named it. A small drow garrison holds it.",
           "facts": [
@@ -13288,7 +13305,8 @@
             "approx": true
           },
           "look": {
-            "color": "#6f6a64"
+            "color": "#6f6a64",
+            "build": "rock-ruin"
           },
           "summary": "A ruined elven military outpost on a small asteroid that orbits Century above the dark side. The elves built it to hold the stranded drow on the planet. The radiant dragon Blacklight destroyed its patrol and supply ships.",
           "facts": [
@@ -18111,7 +18129,8 @@
             "approx": true
           },
           "look": {
-            "color": "#8f9a7a"
+            "color": "#8f9a7a",
+            "build": "shell-base"
           },
           "summary": "A scro base made from the shell and skeleton of a dead gamaroid, a giant turtle-like monster. A feud among its factions and a deadly fungus later left it in ruins.",
           "facts": [
@@ -20201,7 +20220,8 @@
             "approx": true
           },
           "look": {
-            "color": "#9fb4d8"
+            "color": "#9fb4d8",
+            "build": "rock-port"
           },
           "summary": "An Imperial Navy outpost in Kleggra's Bones. A commodore commands it. Ships dock here, and navy clerics treat the wounded.",
           "facts": [
@@ -20248,7 +20268,8 @@
             "approx": true
           },
           "look": {
-            "color": "#c06a5a"
+            "color": "#c06a5a",
+            "build": "rock-hideout"
           },
           "summary": "A hideout dug into an asteroid in Kleggra's Bones. The mind flayer pirate Willbender, called Willy the Squid, runs it. It has a landing pit, a repair shop, and a greenhouse dome.",
           "facts": [
@@ -23593,7 +23614,8 @@
             "approx": true
           },
           "look": {
-            "color": "#7d7f88"
+            "color": "#7d7f88",
+            "build": "floating-base"
           },
           "summary": "A base of gray and black stone that floats above the green clouds of the moon Vocath. Crystal formations stick out from its underside. The mercane Vocath runs a gladiator arena here.",
           "facts": [
@@ -24123,7 +24145,8 @@
             "approx": true
           },
           "look": {
-            "color": "#d8d2c0"
+            "color": "#d8d2c0",
+            "build": "moth-citadel"
           },
           "summary": "A city in space on a floating platform of hewn stone, shaped like a moth. It is the seat of the imperial family and it orbits Xaryxis. A beam of light joins its temple crystal to the star.",
           "facts": [

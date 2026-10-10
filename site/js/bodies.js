@@ -7,6 +7,7 @@ import { bodyTexture, radialTex, sprite, points, rng, gauss, hashStr, TAU, canva
 import { modelClone, meshParts, ROCKS, ROCKS_LO, studioEnv } from "./models.js";
 import { BlackHole } from "./blackhole.js";
 import { bakeWorld, loadMask } from "./planets.js";
+import { buildStructure } from "./structures.js";
 
 const glow = (stops) => radialTex(stops, 256);
 const ringTexCache = new Map();
@@ -145,6 +146,8 @@ export async function buildBody(b, r, renderer, opts = {}) {
       isSkull ? { material: new THREE.MeshStandardMaterial({ vertexColors: true, color: tintOf(b, "#efe6d2"), roughness: 0.85 }) } : {});
     if (isSkull) node.faceCenter = true;
     if (shape === "castle") node.slowTurn = 0.04;
+  } else if (look.build && await buildStructure(node, b, r, renderer)) {
+    // a structure drawn from its book (structures.js)
   } else if (shape === "tree") {
     node.tree = true;   // the sphere view grows the tree (growTree), when it knows where its branches end
     node.noSpin = true;
