@@ -379,6 +379,7 @@ export function layersHTML(app) {
       </div>
       <div class="blk credits"><h3>Credits</h3>
         <p>Facts: the <em>Planescape Campaign Setting</em> (TSR, 1994) and the other books named on each item. The emblems are drawings made for this map. Planescape and the planes belong to Wizards of the Coast.</p>
+        <p>The Great Wheel is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.</p>
         <p>Made with three.js, Beer CSS, Inter and Material Symbols. Source code and roadmap: <a href="https://github.com/BaesTheorem/the-great-wheel" target="_blank" rel="noopener">github.com/BaesTheorem/the-great-wheel</a>.</p>
       </div>`;
   }
@@ -394,9 +395,11 @@ export function layersHTML(app) {
     </div>
     <div class="blk credits"><h3>Credits</h3>
       <p>Maps of Toril: World Map of Toril by Adam Whitehead, <a href="https://atlasoficeandfireblog.wordpress.com/" target="_blank" rel="noopener">Atlas of Ice and Fire</a>. Faerûn from the Wizards of the Coast 3E map.</p>
+      <p>Maps of other worlds: Mystara by Thorfinn Tait (<a href="https://www.thorfmaps.com/" target="_blank" rel="noopener">thorfmaps.com</a>, CC BY-SA). Oerth by <a href="https://www.annabmeyer.com/" target="_blank" rel="noopener">Anna B. Meyer</a>. Matera by Michele Carpita and the coastlines of Patera by Emma Rome (<a href="https://atlasofmystara.com/" target="_blank" rel="noopener">Atlas of Mystara</a>). The coastlines of Krynn by Adam Whitehead.</p>
       <p>Planet surfaces and the Sun: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>, CC BY 4.0, recolored.</p>
       <p>Rocks, cliffs, the fort and the bark: <a href="https://polyhaven.com" target="_blank" rel="noopener">Poly Haven</a>, CC0. The skull: "High quality skull" by Mariano Coretti, <a href="https://commons.wikimedia.org/wiki/File:High_quality_skull.stl" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 4.0. The galleon outline: Lorc, <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a>, CC BY 3.0.</p>
       <p>Facts: <em>Realmspace</em> (TSR, 1991) and the other books named on each item. Spelljammer and the Forgotten Realms belong to Wizards of the Coast.</p>
+      <p>The Great Wheel is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.</p>
       <p>Made with three.js, Beer CSS, Inter and Material Symbols. Source code and roadmap: <a href="https://github.com/BaesTheorem/the-great-wheel" target="_blank" rel="noopener">github.com/BaesTheorem/the-great-wheel</a>.</p>
     </div>`;
 }

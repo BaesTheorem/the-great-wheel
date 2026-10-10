@@ -3,7 +3,10 @@
 // (the same layout as a texture file), so a world costs no more per frame than a photo map.
 // Styles: terran (seas, land, ice caps), ocean, jungle, desert, ice, lava, gas (a banded giant),
 // cloud (an air world), rock, crystal and living. Each style has default colors; look.proc.palette
-// changes them. Worlds can also have a cloud layer (look.proc.clouds, 0 to 1).
+// changes them. Worlds can also have a cloud layer (look.proc.clouds, 0 to 1). A terran world can
+// take its coastlines from a published map: look.proc.mask is an equirectangular image, red for
+// land and green for lava (tools/maps/mask.py makes one), and the noise adds the coast's detail and
+// the terrain inside it.
 //
 // The simplex noise is by Ian McEwan and Stefan Gustavson (Ashima Arts, webgl-noise, MIT license):
 // https://github.com/ashima/webgl-noise
@@ -61,7 +64,8 @@ const VERT = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(posit
 const FRAG = `
 precision highp float;
 varying vec2 vUv;
-uniform float style, sea, ice, warp, bands, scale, mode, octaves, clouds, isFlat;
+uniform float style, sea, ice, warp, bands, scale, mode, octaves, clouds, isFlat, hasMask;
+uniform sampler2D mask;
 uniform vec3 seed;
 uniform vec3 pal[6];
 ${NOISE}
@@ -103,10 +107,16 @@ void main() {
   vec3 p = d * scale + seed;
   vec3 q = p + warp * vec3(fbm(p + 3.1), fbm(p + 7.7), fbm(p + 13.3));
   vec3 col = pal[0];
-  float glow = 0.0, rough = 0.92;
+  float glow = 0.0, rough = 0.92, burn = 0.0;
   if (style < 0.5) {
     // terran: seas, coasts, lowland and dry land by moisture, highlands and snow, polar ice
     float e = fbm(q) * 0.5 + 0.5;
+    if (hasMask > 0.5) {
+      // the map gives land and sea; the noise gives the coast its detail and the land its relief
+      vec3 m = texture2D(mask, vUv).rgb;
+      e = sea + (m.r - 0.5) * 0.62 + (e - 0.5) * 0.24;
+      burn = m.g;
+    }
     float wet = fbm(q * 0.6 + 40.0) * 0.5 + 0.5;
     if (e < sea) {
       col = mix(pal[0], pal[1], smoothstep(sea - 0.2, sea, e));
@@ -117,6 +127,14 @@ void main() {
       col = mix(land, pal[4], smoothstep(0.35, 0.9, h));
       col = mix(col, mix(pal[1], pal[3], 0.6), (1.0 - smoothstep(0.0, 0.04, h)) * 0.45);
       col = mix(col, pal[5], smoothstep(0.82, 0.95, h) * 0.85);
+    }
+    if (burn > 0.02) {
+      // a sea of fire (Krynn's Great Burning Sea): dark crust, glowing cracks
+      float r = ridged(q * 3.0);
+      vec3 fire = mix(vec3(0.22, 0.04, 0.02), vec3(1.0, 0.42, 0.08), smoothstep(0.55, 0.9, r));
+      col = mix(col, fire, smoothstep(0.1, 0.6, burn));
+      glow = smoothstep(0.1, 0.6, burn) * smoothstep(0.6, 0.92, r);
+      rough = mix(rough, 0.8, burn);
     }
     float cap = smoothstep(1.0 - ice - 0.05, 1.0 - ice + 0.05, lat + fbm(q * 2.3 + 9.0) * 0.07);
     if (ice > 0.001) { col = mix(col, pal[5], cap); rough = mix(rough, 0.55, cap); }
@@ -194,7 +212,7 @@ void main() {
   }
   if (isFlat > 0.5) col *= smoothstep(1.02, 0.97, lat);
   if (mode < 0.5) gl_FragColor = vec4(col, 1.0);
-  else if (mode < 1.5) gl_FragColor = vec4(pal[2] * glow, 1.0);
+  else if (mode < 1.5) gl_FragColor = vec4((burn > 0.02 ? vec3(1.0, 0.45, 0.12) : pal[2]) * glow, 1.0);
   else if (mode < 2.5) gl_FragColor = vec4(vec3(rough), 1.0);
   else {
     float c = fbm(p * 1.6 + vec3(31.0) + warp * 0.6 * vec3(fbm(p * 2.0 + 5.0), fbm(p * 2.0 + 9.0), 0.0)) * 0.5 + 0.5;
@@ -243,6 +261,7 @@ function setup() {
     uniforms: {
       style: { value: 0 }, sea: { value: 0.5 }, ice: { value: 0 }, warp: { value: 0.5 }, bands: { value: 7 }, scale: { value: 1.5 },
       mode: { value: 0 }, octaves: { value: 7 }, clouds: { value: 0 }, isFlat: { value: 0 }, seed: { value: new THREE.Vector3() },
+      hasMask: { value: 0 }, mask: { value: null },
       pal: { value: Array.from({ length: 6 }, () => new THREE.Color()) },
     },
   });
@@ -271,8 +290,22 @@ export function procSettings(look, id) {
     style: name === "ocean" || name === "jungle" ? 0 : Math.max(0, STYLES.indexOf(name)),
     sea: seaLevel(pr.sea ?? base.sea ?? 0.5), ice: pr.ice ?? base.ice ?? 0, warp: pr.warp ?? base.warp ?? 0.5,
     bands: pr.bands ?? base.bands ?? 7, scale: pr.scale ?? base.scale ?? 1.5, clouds: pr.clouds ?? 0,
-    seed: new THREE.Vector3(R() * 100, R() * 100, R() * 100), pal,
+    seed: new THREE.Vector3(R() * 100, R() * 100, R() * 100), pal, mask: maskCache.get(pr.mask) || null,
   };
+}
+
+// The land masks of worlds with look.proc.mask, loaded before the world is painted.
+const maskCache = new Map();
+export async function loadMask(url) {
+  if (!url || maskCache.has(url)) return maskCache.get(url) || null;
+  const im = await new Promise((res) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = url; });
+  if (!im) { maskCache.set(url, null); return null; }
+  const t = new THREE.Texture(im);
+  t.wrapS = THREE.RepeatWrapping;
+  t.colorSpace = THREE.NoColorSpace;
+  t.needsUpdate = true;
+  maskCache.set(url, t);
+  return t;
 }
 
 function bake(renderer, s, mode, w, h, flat = false) {
@@ -280,6 +313,7 @@ function bake(renderer, s, mode, w, h, flat = false) {
   const u = bakeMat.uniforms;
   u.style.value = s.style; u.sea.value = s.sea; u.ice.value = s.ice; u.warp.value = s.warp; u.bands.value = s.bands;
   u.scale.value = s.scale; u.clouds.value = s.clouds; u.mode.value = mode; u.isFlat.value = flat ? 1 : 0; u.seed.value.copy(s.seed);
+  u.hasMask.value = s.mask && !flat ? 1 : 0; u.mask.value = s.mask || null;
   u.octaves.value = innerWidth < 760 ? 6 : 7;
   s.pal.forEach((c, i) => u.pal.value[i].set(c));
   const rt = new THREE.WebGLRenderTarget(w, h, { colorSpace: mode === 0 || mode === 1 ? THREE.SRGBColorSpace : THREE.NoColorSpace, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter, magFilter: THREE.LinearFilter, wrapS: THREE.RepeatWrapping });
@@ -309,7 +343,7 @@ export function bakeWorld(renderer, look, id, { big = false, flat = false } = {}
   const w = flat ? (big && !phone ? 1536 : 1024) : big ? (phone ? 1024 : 2048) : phone ? 512 : 1024, h = flat ? w : w / 2;
   const out = { map: bake(renderer, s, 0, w, h, flat) };
   const name = look.proc?.style || "terran";
-  if (["lava", "crystal", "living"].includes(name)) out.emissiveMap = bake(renderer, s, 1, w, h, flat);
+  if (["lava", "crystal", "living"].includes(name) || (s.mask && look.proc?.lava)) out.emissiveMap = bake(renderer, s, 1, w, h, flat);
   if (["terran", "ocean", "jungle", "ice", "crystal"].includes(name)) out.roughnessMap = bake(renderer, s, 2, w / 2, h / 2, flat);
   if (s.clouds > 0 && !flat) out.cloudMap = bake(renderer, s, 3, w, h);
   return out;

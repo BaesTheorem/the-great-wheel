@@ -71,6 +71,7 @@ Sphere positions on the phlogiston map come from `tools/layout.py`, a 3D force l
 | `tools/columns.py BOOK.pdf OUT.txt [--cols N]` | Writes the text of a sourcebook PDF in reading order, column by column |
 | `tools/chart_check.py CHART.json ...` | Checks chart files: the atlas check plus the house rules |
 | `tools/chart_merge.py CHART.json ...` | Merges chart files into the atlas |
+| `tools/maps/mask.py MAP OUT.png --sea R,G,B ...` | Makes a land mask from a world map, so a painted world (`look.proc.mask`) takes its coastlines from the map |
 | `tools/layout.py [--new] [--seed N]` | Lays the spheres out in 3D from their currents and groups; `--new` places only new spheres |
 | `tools/make-app.sh` | Builds a macOS app that starts the local editor with a double-click |
 | `tools/assets/fetch_models.py`, `tools/assets/build_models.py` | Downloads the source models, then makes the web models with headless Blender |
@@ -88,6 +89,7 @@ See [CREDITS.md](CREDITS.md) for every asset and its license. In short:
 - The skull: "High quality skull" by Mariano Coretti on [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:High_quality_skull.stl), CC BY-SA 4.0.
 - The galleon outline: Lorc, [game-icons.net](https://game-icons.net), CC BY 3.0.
 - Maps of Toril: World Map of Toril by Adam Whitehead ([Atlas of Ice and Fire](https://atlasoficeandfireblog.wordpress.com/)), with Faerûn from the Wizards of the Coast 3E map.
+- Maps of other worlds: Mystara by Thorfinn Tait ([thorfmaps.com](https://www.thorfmaps.com/), CC BY-SA), Oerth by [Anna B. Meyer](https://www.annabmeyer.com/), Matera by Michele Carpita and the coastlines of Patera by Emma Rome ([Atlas of Mystara](https://atlasofmystara.com/)), and the coastlines of Krynn by Adam Whitehead.
 - Code: [three.js](https://threejs.org/), [Beer CSS](https://www.beercss.com/), [Inter](https://rsms.me/inter/), [Material Symbols](https://fonts.google.com/icons).
 
-The code is under the MIT license (see [LICENSE](LICENSE)). Spelljammer, the Forgotten Realms and the other settings belong to Wizards of the Coast. This is a fan project and is not affiliated with Wizards of the Coast.
+The code is under the MIT license (see [LICENSE](LICENSE)). Spelljammer, Planescape, the Forgotten Realms and the other settings belong to Wizards of the Coast. The Great Wheel is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.

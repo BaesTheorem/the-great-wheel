@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { bodyTexture, radialTex, sprite, points, rng, gauss, hashStr, TAU, canvasTex, loadImage, srgb, recolor } from "./gfx.js";
 import { modelClone, meshParts, ROCKS, ROCKS_LO, studioEnv } from "./models.js";
 import { BlackHole } from "./blackhole.js";
-import { bakeWorld } from "./planets.js";
+import { bakeWorld, loadMask } from "./planets.js";
 
 const glow = (stops) => radialTex(stops, 256);
 const ringTexCache = new Map();
@@ -253,6 +253,7 @@ function starCluster(node, b, r, color) {
 // The surface of a world: painted on the GPU (look.proc), a texture file, or a plain painted globe.
 async function worldMaterial(b, look, renderer, color) {
   if (look.proc?.style) {
+    if (look.proc.mask) await loadMask(look.proc.mask);
     const maps = bakeWorld(renderer, look, b.id, { big: "GHIJ".includes(b.size_class || "") });
     const mat = new THREE.MeshStandardMaterial({ map: maps.map, roughness: maps.roughnessMap ? 1 : 0.92, roughnessMap: maps.roughnessMap || null, metalness: 0 });
     if (maps.emissiveMap) Object.assign(mat, { emissiveMap: maps.emissiveMap, emissive: new THREE.Color(0xffffff), emissiveIntensity: look.proc.glow ?? 1.6 });
