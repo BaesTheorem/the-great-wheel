@@ -253,7 +253,7 @@ function emptyInfo(app) {
 }
 
 // ---------- the Great Wheel: a plane or a link between planes ----------
-const GROUP_LABEL = { outer: "Outer Plane", inner: "Inner Plane", transitive: "Transitive Plane", hub: "Outer Plane at the center of the wheel", city: "City at the top of the Spire", prime: "The material world" };
+const GROUP_LABEL = { outer: "Outer Plane", inner: "Inner Plane", transitive: "Transitive Plane", echo: "Echo of the Material Plane", hub: "Outer Plane at the center of the wheel", city: "City at the top of the Spire", prime: "The material world" };
 const LINK_KIND = {
   road: ["Portals between neighboring planes", "door_front"], gates: ["Portals to the Outlands", "location_city"], pools: ["Gateways in the Astral Plane", "radio_button_checked"],
   portals: ["Doors of Sigil", "door_open"], vortices: ["Openings to the Elemental Planes", "cyclone"], river: ["A river between planes", "water"],
@@ -295,6 +295,7 @@ function wheelInfo(app, sel) {
   const layers = p.layers?.length ? p.layers.map((l) => l.name).join(" · ") : p.layers_note || "";
   if (layers && !facts.some((f) => /layers/i.test(f[0]))) facts.push([p.layers?.length > 1 ? `Layers (${p.layers.length})` : "Layers", layers]);
   if (p.gate_town) facts.push(["Gate-town", `${p.gate_town}, on the Outlands`]);
+  if (p.pool?.name) facts.push(["Color pool", `${p.pool.name}, in the Astral Plane`]);
   const mine = links.filter((l) => linkPlanes(l, outer.map((x) => x.id)).has(p.id));
   const emblem = p.emblem ? `<div class="emblem" style="--c:${esc(p.color || "#9db4ff")}"><img src="assets/emblems/${esc(p.emblem)}.svg" alt=""></div>` : "";
   return emblem + block({
@@ -361,6 +362,7 @@ function wheelIndexHTML(app, isSel) {
     ${sec("The Outer Planes", planes.filter((x) => x.group === "outer").sort((a, b) => a.order - b.order).map((x) => row("plane", x, x.alignment ? x.alignment[0].toUpperCase() + x.alignment.slice(1) : "")))}
     ${sec("The center", planes.filter((x) => x.group === "hub" || x.group === "city").map((x) => row("plane", x, x.group === "city" ? "On the Spire" : "Around the Spire")))}
     ${sec("Between the planes", planes.filter((x) => x.group === "transitive").map((x) => row("plane", x, "Transitive")))}
+    ${sec("Echoes of the Material Plane", planes.filter((x) => x.group === "echo").map((x) => row("plane", x, "")))}
     ${sec("The Prime Material", planes.filter((x) => x.group === "prime").map((x) => row("plane", x, "")))}
     ${sec("The Inner Planes", planes.filter((x) => x.group === "inner").map((x) => row("plane", x, "")))}
     ${sec("Paths between planes", links.map((l) => row("link", l, (LINK_KIND[l.kind] || [""])[0])))}

@@ -387,7 +387,7 @@ export class WheelView {
     this.buildHub(planes);
     this.buildBezel(planes);
     for (const p of this.outer) this.buildPane(p);
-    this.buildInner(planes.filter((p) => ["inner", "prime", "transitive"].includes(p.group)));
+    this.buildInner(planes.filter((p) => ["inner", "prime", "transitive", "echo"].includes(p.group)));
     for (const l of links) this.buildLink(l);
     this.R = 140;
     this.setupComposer();
@@ -589,6 +589,38 @@ export class WheelView {
         }
         continue;
       }
+      if (p.group === "echo") {
+        // the echoes of the Material Plane (5e): two veiled orbs in the mist on either side of the Prime
+        const fey = p.id === "feywild", at = V(fey ? 4.1 : -4.1, fey ? 1.2 : -1.2, fey ? -2.2 : 2.2);
+        const orb = this.innerOrb({ ...p, slot: fey ? "fey" : "negative" }, 1.05);
+        orb.position.copy(at);
+        orb.userData.pick = { type: "plane", id: p.id };
+        this.pickables.push(orb);
+        g.add(orb);
+        this.items.push({ type: "plane", id: p.id, p, world: c.clone().add(at), r: 1.05, inner: true, major: true });
+        continue;
+      }
+      if ((p.slot || p.id) === "chaos") {
+        // the Elemental Chaos (5e): a churning band of every color around the ring of the four elements
+        const band = new THREE.Mesh(new THREE.TorusGeometry(INNER_R, 2.0, 32, 160).rotateX(Math.PI / 2), new THREE.ShaderMaterial({
+          transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide, uniforms: { time: { value: 0 } },
+          vertexShader: `varying vec3 vP; varying vec3 vN; varying vec3 vV; void main() { vP = position; vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
+          fragmentShader: `uniform float time; varying vec3 vP; varying vec3 vN; varying vec3 vV; ${NOISE}
+            void main() {
+              float a = atan(vP.z, vP.x);
+              float n = fbm(vec2(a * 4.0 + time * 0.12, vP.y * 0.6 - time * 0.05));
+              vec3 c = 0.5 + 0.5 * cos(6.2832 * (vec3(0.0, 0.33, 0.67) + n * 1.4 + a * 0.32));
+              float f = pow(1.0 - abs(dot(normalize(vN), normalize(vV))), 1.5);
+              gl_FragColor = vec4(c * (0.02 + 0.15 * smoothstep(0.5, 0.85, n)) * (0.35 + f), 1.0);
+            }`,
+        }));
+        band.userData.pick = { type: "plane", id: p.id };
+        this.pickables.push(band);
+        g.add(band);
+        this.anim.push((t) => { band.material.uniforms.time.value = t; });
+        this.items.push({ type: "plane", id: p.id, p, world: c.clone().add(V(-INNER_R - 2.6, 0, 0)), r: 1.2, inner: true, major: true, frameAt: c.clone(), frameD: 46 });
+        continue;
+      }
       const spot = place[p.slot || p.id];
       if (!spot) continue;
       const [lon, lat] = spot.map((x) => x * Math.PI / 180);
@@ -613,7 +645,7 @@ export class WheelView {
     const kind = p.slot || p.id;
     const neg = kind === "negative" || ["vacuum", "ash", "dust", "salt"].includes(kind);
     const m = new THREE.ShaderMaterial({
-      uniforms: { color: { value: col }, time: { value: 0 }, neg: { value: neg ? 1 : 0 }, seed: { value: (hashStr(kind) % 100) / 10 } },
+      uniforms: { color: { value: col }, time: { value: 0 }, neg: { value: kind === "fey" ? 2 : neg ? 1 : 0 }, seed: { value: (hashStr(kind) % 100) / 10 } },
       vertexShader: `varying vec3 vN; varying vec3 vV; varying vec3 vP; void main() { vP = position; vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
       fragmentShader: `uniform vec3 color; uniform float time, neg, seed; varying vec3 vN; varying vec3 vV; varying vec3 vP; ${NOISE}
         void main() {
@@ -621,12 +653,13 @@ export class WheelView {
           float n = fbm(vec2(atan(d.z, d.x) * 2.0 + seed, d.y * 3.0) + time * 0.08);
           float f = pow(1.0 - abs(dot(normalize(vN), normalize(vV))), 2.0);
           vec3 c = neg > 0.5 ? color * 0.12 + color * f * 1.2 : color * (0.55 + 0.7 * n) + vec3(1.0) * f * 0.35;
+          if (neg > 1.5) c = color * (0.25 + 0.5 * n) + mix(color, vec3(1.0), 0.5) * f * 1.4;
           gl_FragColor = vec4(c, 1.0);
         }`,
     });
     const orb = new THREE.Mesh(new THREE.SphereGeometry(size, 32, 24), m);
     this.anim.push((t) => { m.uniforms.time.value = t; });
-    if (!neg) orb.add(sprite(radialTex([[0, `rgba(${col.r * 255 | 0},${col.g * 255 | 0},${col.b * 255 | 0},.5)`], [1, "rgba(0,0,0,0)"]]), size * 5));
+    if (!neg || kind === "fey") orb.add(sprite(radialTex([[0, `rgba(${col.r * 255 | 0},${col.g * 255 | 0},${col.b * 255 | 0},.5)`], [1, "rgba(0,0,0,0)"]]), size * 5));
     return orb;
   }
 
@@ -687,11 +720,17 @@ export class WheelView {
     if (l.kind === "pools") {
       // a color pool for each Outer Plane, adrift in the Astral under the gap between hub and glass
       const samples = [];
-      for (const p of this.outer) {
-        const a = ringAngle(p.order), c = at(a, POOL_R, -4.5);
+      const extra = ["outlands", "ethereal", "prime"].map((id) => this.planes.get(id)).filter((p) => p?.pool);
+      const spots = [...this.outer.map((p) => ({ p, c: at(ringAngle(p.order), POOL_R, -4.5), to: at(ringAngle(p.order), RING_IN - 1.2, 0.02) })),
+        ...extra.map((p) => {
+          const c = p.id === "outlands" ? V(0, -6.5, HUB * 0.62) : this.innerCenter.clone().add(V(p.id === "prime" ? 3.4 : -3.4, INNER_R + 5, 1.5));
+          return { p, c, to: p.id === "outlands" ? V(0, -0.2, HUB * 0.62) : this.innerCenter.clone().add(V(0, p.id === "prime" ? 3.2 : ETHER_R, 0)) };
+        })];
+      for (const { p, c, to } of spots) {
+        const tint = p.pool?.hex || p.color;
         const disc = new THREE.Mesh(new THREE.CircleGeometry(1.45, 48).rotateX(-Math.PI / 2), new THREE.ShaderMaterial({
           transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide,
-          uniforms: { color: { value: new THREE.Color(p.color) }, time: { value: 0 }, level: { value: 1 }, seed: { value: (hashStr(p.id) % 100) / 10 } },
+          uniforms: { color: { value: new THREE.Color(tint) }, time: { value: 0 }, level: { value: 1 }, seed: { value: (hashStr(p.id) % 100) / 10 } },
           vertexShader: `varying vec2 vXZ; void main() { vXZ = position.xz; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
           fragmentShader: `uniform vec3 color; uniform float time, level, seed; varying vec2 vXZ; ${NOISE}
             void main() {
@@ -709,7 +748,7 @@ export class WheelView {
         this.anim.push((t) => { disc.material.uniforms.time.value = t; });
         const g = new THREE.Group();
         g.add(disc);
-        g.add(flowLines([{ pts: [c.clone().add(V(0, 0.2, 0)), at(a, RING_IN - 1.2, 0.02)], color: p.color, width: 1, gain: 0.35 }], { dash: 0.5, pulse: 0 }));
+        g.add(flowLines([{ pts: [c.clone().add(V(0, 0.2, 0)), to], color: tint, width: 1, gain: 0.35 }], { dash: 0.5, pulse: 0 }));
         this.part(g, l.id, [p.id, "astral"]);
         samples.push(c);
       }
