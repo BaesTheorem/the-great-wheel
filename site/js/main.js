@@ -233,7 +233,10 @@ class App {
     }
     if (st.view === "sphere") {
       const d = this.view.frameDistance();
-      this.controls.maxDistance = this.view.R * 2.6;
+      // far enough out that the whole shell fits the screen, with room to spare
+      const half = THREE.MathUtils.degToRad(this.camera.fov / 2);
+      const halfMin = Math.min(half, Math.atan(Math.tan(half) * this.camera.aspect));
+      this.controls.maxDistance = Math.max(this.view.R * 2.6, (this.view.R / Math.sin(halfMin)) * 1.6);
       this.setLayer("shadows", true, true);   // the whole sphere: worlds lit by their suns
       this.flyTo(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, d * Math.sin(0.36), d * Math.cos(0.36)), instant);
     } else {
