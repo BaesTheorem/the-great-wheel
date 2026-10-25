@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { bodyTexture, radialTex, sprite, points, rng, gauss, hashStr, TAU, canvasTex, loadImage, srgb, recolor } from "./gfx.js";
 import { modelClone, meshParts, ROCKS, ROCKS_LO, studioEnv } from "./models.js";
 import { BlackHole } from "./blackhole.js";
+import { computronium } from "./computronium.js";
 import { bakeWorld, loadMask } from "./planets.js";
 import { buildStructure } from "./structures.js";
 
@@ -112,6 +113,9 @@ export async function buildBody(b, r, renderer, opts = {}) {
     node.update = ({ world, camera, view, t }) => bh.update(camera, view.scene, view.app.renderer, world, view.R, t, view.app.state.playing);
     return node;
   }
+
+  // a mass of thinking matter that fills its sphere (look.computronium)
+  if (b.look?.computronium) return computronium(node, b);
 
   if (b.kind === "nebula") {
     const cl = b.cloud || {};

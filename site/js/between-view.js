@@ -81,6 +81,7 @@ export class BetweenView {
     const halo = radialTex([[0, "rgba(0,0,0,0)"], [0.5, "rgba(0,0,0,0)"], [0.56, "rgba(205,218,255,.30)"], [0.66, "rgba(170,190,255,.08)"], [1, "rgba(0,0,0,0)"]], 512);
     const spheres = atlas.spheres(edition, edit);
     this.spheres = new Map();
+    this.seals = [];
     // one unit sphere for every bead (50 spheres would otherwise mean 50 dense meshes)
     const beadGeo = new THREE.SphereGeometry(1, 72, 48);
     const mats = { bead: astral ? hazeMaterial() : beadMaterial(), dim: astral ? hazeMaterial() : beadMaterial([0.02, 0.022, 0.035]) };
@@ -100,6 +101,7 @@ export class BetweenView {
         star.position.copy(pos);
         this.scene.add(star);
       }
+      if (s.sealed) this.seal(s, pos, r);
       this.spheres.set(s.id, { s, pos, r, mesh });
       this.items.push({ type: "sphere", id: s.id, world: pos, r, s });
     }
@@ -182,6 +184,32 @@ export class BetweenView {
     for (const m of this.flowMats) m.uniforms.t.value = this.app.reducedMotion ? 0 : tSec;
     const cam = this.app.camera;
     for (const { node } of this.free) { if (node.billboard) node.group.quaternion.copy(cam.quaternion); }
+    const ts = this.app.reducedMotion ? 0 : tSec;
+    for (const sl of this.seals) {
+      sl.rings.forEach((m, i) => { m.rotation.z = ts * (0.05 + 0.03 * i) * (i % 2 ? -1 : 1); });
+      // the light of the mass inside leaks round the rim, in a slow, uneven beat
+      sl.glow.material.opacity = 0.55 + 0.3 * Math.sin(ts * 1.3) * Math.sin(ts * 0.47 + 1);
+    }
+  }
+
+  // A sealed sphere (s.sealed): three gold ward rings around the bead, and a cold light that
+  // leaks round its rim from what the seal holds in.
+  seal(s, pos, r) {
+    const rings = [];
+    const ringMat = new THREE.MeshBasicMaterial({ color: "#ffcf73", transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+    [[0.3, 0, 0.2], [1.25, 0.6, 0], [0.7, 2.1, 1.1]].forEach(([x, y, z], i) => {
+      const holder = new THREE.Group();
+      holder.position.copy(pos);
+      holder.rotation.set(x, y, z);
+      const m = new THREE.Mesh(new THREE.TorusGeometry(r * (1.12 + 0.05 * i), r * 0.008, 6, 160), ringMat);
+      holder.add(m);
+      this.scene.add(holder);
+      rings.push(m);
+    });
+    const glow = sprite(radialTex([[0, "rgba(95,240,255,0)"], [0.46, "rgba(95,240,255,0)"], [0.52, "rgba(95,240,255,.45)"], [0.7, "rgba(150,110,255,.12)"], [1, "rgba(0,0,0,0)"]], 512), r * 2 / 0.52);
+    glow.position.copy(pos);
+    this.scene.add(glow);
+    this.seals.push({ rings, glow });
   }
 
   render(renderer, camera) {

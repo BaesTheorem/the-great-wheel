@@ -28,7 +28,7 @@ One JSON file per sphere, in the format below. Every body has a source page and 
 }
 ```
 
-`sphere` holds only the sphere fields to change: `summary` (2 to 3 sentences), `facts`, `sources`, and when the book gives them `shell_radius_mi` (half the diameter), `aka` (other names, a list), `stars` (the number of star points to draw on the shell; default 6500; a dark sphere gets fewer). Do not change the sphere's id, name, wiki, editions, region or map.
+`sphere` holds only the sphere fields to change: `summary` (2 to 3 sentences), `facts`, `sources`, and when the book gives them `shell_radius_mi` (half the diameter), `aka` (other names, a list), `stars` (the number of star points to draw on the shell; default 6500; a dark sphere gets fewer), `sealed` (true for a sphere that is closed from outside: the phlogiston map draws ward rings around it). Do not change the sphere's id, name, wiki, editions, region or map.
 
 ### Bodies
 
@@ -83,6 +83,7 @@ Fields, in this order:
 3. Stars: `look.color` (yellow-white `#fff3e0`, white `#f4f6ff`, red `#ff8a5c`, orange `#ffb070`, blue `#bcd4ff`). A minor star that lights nothing: `"light": false`. A group of small stars that count as one body: `"cluster": 9`. A star that swells and shrinks: `"pulse_hours": 6`. A sphere keeps the light of its first four suns.
 4. Asteroids and irregular rocks: only `look.color` (a photoscanned rock is drawn and tinted).
 5. Floating islands around a world: `"islands": {"count": 40, "color": "#9fb08a"}`. Small moons that circle a body: `"moonlets": 12`.
+6. A mass of thinking matter that fills its sphere and presses against the shell: `"computronium": {"trace": "#5ff0ff", "hot": "#d27bff", "ward": "#ffcf73"}` (the circuit light, the light at the end of a tendril, and the light of the wards on the shell). Use it on the primary of a sphere that has no other bodies.
 
 Match the look to the book: an air body with floating islands = `cloud` style plus `islands`; a fire body that is not a sun = `lava`; a water body = `ocean` (with `sea` near 0.95 for a world of water); a living world = `living`.
 

@@ -213,7 +213,7 @@ export class Atlas {
 
 const ORDER = {
   "": ["format", "title", "campaign", "between", "regions", "spheres", "flows"],
-  sphere: ["id", "name", "aka", "charted", "secret", "region", "map", "shell_radius_mi", "boundary", "stars", "inner", "calendar", "summary", "facts", "sources", "links", "wiki", "dm", "dm_links", "editions", "by_edition", "bodies"],
+  sphere: ["id", "name", "aka", "charted", "secret", "sealed", "region", "map", "shell_radius_mi", "boundary", "stars", "inner", "calendar", "summary", "facts", "sources", "links", "wiki", "dm", "dm_links", "editions", "by_edition", "bodies"],
   body: ["id", "name", "kind", "parent", "secret", "element", "shape", "size_class", "diameter_mi", "orbit", "fixed", "map", "field", "ring", "cloud", "day_hours", "look", "pins", "summary", "facts", "sources", "links", "wiki", "dm", "dm_links", "editions", "by_edition"],
   flow: ["id", "from", "to", "direction", "days", "secret", "summary", "sources", "dm", "editions", "by_edition"],
 };

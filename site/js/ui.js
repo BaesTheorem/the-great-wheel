@@ -314,7 +314,7 @@ function block(o) {
   return `
   <div class="blk head"><div class="kind"><span class="dot" style="background:${esc(o.dot)}"></span>${esc(o.kind)}</div>
     <h2>${esc(o.title)}</h2>${o.aka?.length ? `<div class="aka">Also: ${o.aka.map(esc).join(", ")}</div>` : ""}
-    ${o.wiki ? `<a class="wiki" href="${esc(o.wiki)}" target="_blank" rel="noopener"><i>menu_book</i><span>${!o.wikiExact ? "Search the Forgotten Realms Wiki" : o.wiki.includes("spelljammer.fandom.com") ? "Spelljammer Wiki" : "Forgotten Realms Wiki"}</span><i class="ext">open_in_new</i></a>` : ""}</div>
+    ${o.wiki ? `<a class="wiki" href="${esc(o.wiki)}" target="_blank" rel="noopener"><i>menu_book</i><span>${!o.wikiExact ? "Search the Forgotten Realms Wiki" : o.wiki.includes("spelljammer.fandom.com") ? "Spelljammer Wiki" : o.wiki.includes("wikipedia.org") ? "Wikipedia" : "Forgotten Realms Wiki"}</span><i class="ext">open_in_new</i></a>` : ""}</div>
   ${o.summary ? `<div class="blk"><h3>Description</h3><p>${esc(o.summary)}</p></div>` : ""}
   ${facts.length ? `<div class="blk"><h3>Facts</h3><dl class="facts">${facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></div>` : ""}
   ${o.layers?.length ? `<div class="blk"><h3>${o.layersPartial ? "Best-known layers" : "Layers"}</h3><${o.layersPartial ? "ul" : "ol"} class="layers">${o.layers.map((l) => `<li><b>${esc(l.name)}</b>${l.summary ? `<span>${esc(l.summary)}</span>` : ""}</li>`).join("")}</${o.layersPartial ? "ul" : "ol"}></div>` : ""}
