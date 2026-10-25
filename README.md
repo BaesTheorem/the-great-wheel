@@ -10,6 +10,8 @@ Every other sphere that a book describes has its bodies on the map too: 39 spher
 
 Between the spheres is the phlogiston, with all 50 crystal spheres that published D&D material names. The map shows the currents and travel times that the books give, and three groups: the Known Spheres, the Arcane Inner Flow and the Vodoni Empire. A sphere that the books name but do not describe shows its facts and sources, with no bodies.
 
+One sphere is homebrew and comes from no book: the Quarantine, a sealed sphere where an unaligned artificial mind changed all matter into computronium. The mind is now one thinking mass that pushes tendrils against the shell to find a way out, and the wards on the shell flare where it presses. Its info panel marks it as homebrew.
+
 Most books give no distances or years, so most orbits outside Realmspace, Greyspace and Krynnspace are estimates. The data marks each estimate, and the info panel shows it as an approximate map position.
 
 A switch changes the cosmology from 2e (crystal shells in the rainbow phlogiston) to 5e (wildspace systems in the silver Astral Sea). Each item gives the book and the pages for its facts. Each item also links to its page on the Forgotten Realms Wiki or the Spelljammer Wiki.

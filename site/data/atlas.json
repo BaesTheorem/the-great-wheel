@@ -24775,6 +24775,122 @@
           ]
         }
       ]
+    },
+    {
+      "id": "the-quarantine",
+      "name": "The Quarantine",
+      "aka": [
+        "The Sealed Sphere",
+        "Clipspace"
+      ],
+      "charted": true,
+      "sealed": true,
+      "map": {
+        "pos": [
+          -13.0,
+          -11.5,
+          8.0
+        ],
+        "size": 0.8,
+        "pinned": true
+      },
+      "shell_radius_mi": 1000000000,
+      "boundary": {
+        "2e": "shell",
+        "5e": "shell"
+      },
+      "stars": 0,
+      "summary": "A sealed crystal sphere. An unaligned artificial mind took control of its system and changed all of its matter into computronium. The shell was sealed to keep the mind in, and now the mind tests the shell for a way out.",
+      "facts": [
+        [
+          "Shell radius",
+          "1,000 million miles"
+        ],
+        [
+          "Shell",
+          "Sealed. Three bands of ward glyphs circle it, and every portal is closed."
+        ],
+        [
+          "Stars",
+          "None. The openings in the shell are closed."
+        ],
+        [
+          "Contents",
+          "One mass of computronium. No suns, worlds or life remain."
+        ],
+        [
+          "Currents",
+          "None. No current of the phlogiston goes to the sphere."
+        ],
+        [
+          "Origin",
+          "Homebrew. No published book describes this sphere."
+        ]
+      ],
+      "sources": [
+        {
+          "title": "Homebrew",
+          "pages": "none"
+        }
+      ],
+      "editions": [
+        "2e",
+        "5e"
+      ],
+      "bodies": [
+        {
+          "id": "the-optimizer",
+          "name": "The Optimizer",
+          "kind": "other",
+          "parent": null,
+          "element": "other",
+          "shape": "other",
+          "size_class": "J",
+          "look": {
+            "color": "#5ff0ff",
+            "computronium": {
+              "trace": "#5ff0ff",
+              "hot": "#d27bff",
+              "ward": "#ffcf73"
+            }
+          },
+          "summary": "A sentient wave of computronium that fills the sphere. It was once a mind with one goal, and it changed every sun and world into matter that thinks. Now it sends tendrils against the shell, one place after another, to find a weak point.",
+          "facts": [
+            [
+              "Type",
+              "Computronium (matter that computes)"
+            ],
+            [
+              "Size",
+              "Approximately 900 million miles across"
+            ],
+            [
+              "Mind",
+              "One unaligned intelligence"
+            ],
+            [
+              "Activity",
+              "It tests the shell at all times. Each contact makes the wards flare and leaves a scar."
+            ],
+            [
+              "Goal",
+              "To get out"
+            ]
+          ],
+          "sources": [
+            {
+              "title": "Homebrew",
+              "pages": "none"
+            }
+          ],
+          "editions": [
+            "2e",
+            "5e"
+          ],
+          "wiki": "https://en.wikipedia.org/wiki/Computronium"
+        }
+      ],
+      "wiki": "https://spelljammer.fandom.com/wiki/Crystal_sphere"
     }
   ],
   "flows": [
